@@ -32,8 +32,8 @@ namespace BernieApp.Common.ViewModels
 
         private async Task Test()
         {
-            var newsClient = new NewsClient();
-            var result = await newsClient.GetAsync();
+            var bernieClient = new BernieHttpClient();
+            var result = await bernieClient.GetNewsAsync();
         }
     }
 }

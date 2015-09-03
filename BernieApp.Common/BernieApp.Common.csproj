@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Http\BernieHttpClient.cs" />
     <Compile Include="Http\ES4BSClient.cs" />
     <Compile Include="Http\IssuesClient.cs" />
     <Compile Include="Http\NewsClient.cs" />
