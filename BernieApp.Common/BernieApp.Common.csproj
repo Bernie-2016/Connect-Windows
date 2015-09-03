@@ -37,6 +37,15 @@
     <Compile Include="DependencyInjection\AutofacDIService.cs" />
     <Compile Include="DependencyInjection\IOC.cs" />
     <Compile Include="DependencyInjection\IDependencyInjectionService.cs" />
+    <Compile Include="Models\ES4BSResponse.cs" />
+    <Compile Include="Models\HitData.cs" />
+    <Compile Include="Models\HitDataItem.cs" />
+    <Compile Include="Models\ArticleData.cs" />
+    <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\IssuesQueryResponse.cs" />
+    <Compile Include="Models\NewsArticle.cs" />
+    <Compile Include="Models\NewsQueryResponse.cs" />
+    <Compile Include="Models\ShardInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -76,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Business\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
