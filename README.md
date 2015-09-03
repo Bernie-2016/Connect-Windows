@@ -15,6 +15,7 @@ We welcome all contributions.  If you see a bug please report it in using the Is
 * For every change create an issue in Github under this repository if one doesn't already exist.
 * When making the changes create a **feature** branch by branching off the most recent version of **master**.
 * Name your **feature** branches with the pattern User#IssueNumber optionally followed by brief description. E.g. "fyndor#1 Tesing out issue linking".
+* Try and prefix your commits messages with #IssueNumber like "#123 This is my commit message" so the commit will be referenced in the Issue
 * When your change is ready, first merge it in to the **develop** branch and make sure the change plays nicely with the current work in progress.
 * Assuming nothing went boom, create a pull request to merge your feature branch in to **master**.
 * Once your branch gets successfully merged to **master** through the pull request you can delete your **feature** branch.
