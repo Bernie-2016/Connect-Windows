@@ -1,0 +1,11 @@
+packages/*
+!packages/build/
+!packages/repositories.config
+BernieApp/BernieApp.WindowsPhone/obj/
+BernieApp/BernieApp.WindowsPhone/bin/
+BernieApp/BernieApp.Windows/obj/
+BernieApp/BernieApp.Windows/bin/
+BernieApp.Wpf/obj/
+BernieApp.Wpf/bin/
+BernieApp.Common/obj/
+BernieApp.Common/bin/

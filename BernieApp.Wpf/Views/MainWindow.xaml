@@ -1,0 +1,19 @@
+﻿<Window x:Class="BernieApp.Wpf.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BernieApp.Wpf.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{Binding Path=Main, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="287*"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Text="{Binding HelloWorld, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="1" Text="{Binding HelloWorld}"  />
+
+    </Grid>
+</Window>
