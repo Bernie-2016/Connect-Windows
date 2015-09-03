@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Http\ES4BSClient.cs" />
+    <Compile Include="Http\IssuesClient.cs" />
+    <Compile Include="Http\NewsClient.cs" />
     <Compile Include="DependencyInjection\AutofacDIService.cs" />
     <Compile Include="DependencyInjection\IOC.cs" />
     <Compile Include="DependencyInjection\IDependencyInjectionService.cs" />

@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using BernieApp.Common.Http;
+using GalaSoft.MvvmLight;
+using System.Threading.Tasks;
 
 namespace BernieApp.Common.ViewModels
 {
@@ -26,6 +28,12 @@ namespace BernieApp.Common.ViewModels
                     RaisePropertyChanged(() => HelloWorld);
                 }
             }
+        }
+
+        private async Task Test()
+        {
+            var newsClient = new NewsClient();
+            var result = await newsClient.GetAsync();
         }
     }
 }
