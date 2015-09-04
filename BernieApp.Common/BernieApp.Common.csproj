@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Http\BernieHttpClient.cs" />
+    <Compile Include="Http\Endpoints.cs" />
     <Compile Include="Http\ES4BSClient.cs" />
     <Compile Include="Http\IssuesClient.cs" />
     <Compile Include="Http\NewsClient.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Models\NewsArticle.cs" />
     <Compile Include="Models\NewsQueryResponse.cs" />
     <Compile Include="Models\ShardInfo.cs" />
+    <Compile Include="Models\UrlQueryParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
