@@ -1,15 +1,20 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
 
 namespace BernieApp.Common.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public MainViewModel()
-        {
-            _helloWorld = "Hello Wpf World";
-        }
-
         private string _helloWorld;
+        private INavigationService _navSvc;
+
+        public MainViewModel(INavigationService navSvc)
+        {
+            _navSvc = navSvc;
+            _helloWorld = "Hello Wpf World";
+
+            _navSvc.NavigateTo("Bernie", 2016);
+        }
 
         public string HelloWorld
         {

@@ -9,3 +9,4 @@ BernieApp.Wpf/obj/
 BernieApp.Wpf/bin/
 BernieApp.Common/obj/
 BernieApp.Common/bin/
+.vs/config/applicationhost.config

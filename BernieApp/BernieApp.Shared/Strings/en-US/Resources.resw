@@ -251,16 +251,16 @@
     <value>Quisque in porta lorem dolor amet sed consectetuer ising elit, sed diam non my nibh uis mod wisi quip.</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
-    <value>application name</value>
+    <value>Bernie Sanders 2016</value>
   </data>
   <data name="Hub.Header" xml:space="preserve">
-    <value>application name</value>
+    <value>Bernie Sanders 2016</value>
   </data>
-  <data name="HubSection1" xml:space="preserve">
-    <value>SECTION 1</value>
+  <data name="MenuHubSection.Header" xml:space="preserve">
+    <value>TESTMENU</value>
   </data>
-  <data name="HubSection2" xml:space="preserve">
-    <value>SECTION 2</value>
+  <data name="NewsHubSection.Header" xml:space="preserve">
+    <value>TEST</value>
   </data>
   <data name="HubSection3" xml:space="preserve">
     <value>SECTION 3</value>

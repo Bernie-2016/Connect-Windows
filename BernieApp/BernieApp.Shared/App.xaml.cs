@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using BernieApp.Common;
+using BernieApp.Common.DependencyInjection;
+using BernieApp.Common.Models;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 
@@ -37,6 +29,9 @@ namespace BernieApp
         public App()
         {
             this.InitializeComponent();
+
+            ConfigureNavigationSerivce();
+
             this.Suspending += this.OnSuspending;
         }
 
@@ -105,10 +100,18 @@ namespace BernieApp
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
 #endif
 
+                Type hubType;
+
+#if WINDOWS_PHONE_APP
+                hubType = typeof(MainHub);
+#else
+                hubType = typeof(HubPage);
+#endif
+
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(HubPage), e.Arguments))
+                if (!rootFrame.Navigate(hubType, e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
@@ -143,5 +146,35 @@ namespace BernieApp
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
+#if WINDOWS_PHONE_APP
+        private void ConfigureNavigationSerivce()
+        {
+            IOC.Default.ConfigureNavigationService(() =>
+            {
+                var navSvc = new NavigationService();
+                navSvc.NavigateDelegate = MainHubNavigateTo;
+                navSvc.Configure("Bernie", typeof(ItemPage));
+                return navSvc;
+            });
+        }
+
+        private bool MainHubNavigateTo(Type pageType, object data)
+        {
+            Frame currentFrame = Window.Current.Content as Frame;
+            return currentFrame.Navigate(pageType, data);
+        }
+
+
+#else
+        private void ConfigureNavigationSerivce()
+        {
+            IOC.Default.ConfigureNavigationService(() => {
+                var navSvc = new NavigationService();
+                navSvc.Configure("Bernie", typeof(ItemPage));
+                return navSvc;
+            });
+        }        
+#endif
     }
 }

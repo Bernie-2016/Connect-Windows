@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DependencyInjection\NavigationService.cs" />
     <Compile Include="Http\BernieHttpClient.cs" />
     <Compile Include="Http\Endpoints.cs" />
     <Compile Include="Http\ES4BSClient.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="Models\HitData.cs" />
     <Compile Include="Models\HitDataItem.cs" />
     <Compile Include="Models\ArticleData.cs" />
+    <Compile Include="DependencyInjection\IConfigurableNavigationService.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\IssuesQueryResponse.cs" />
     <Compile Include="Models\NewsArticle.cs" />
