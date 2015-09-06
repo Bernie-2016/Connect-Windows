@@ -1,6 +1,9 @@
 ﻿using Autofac;
+using BernieApp.Common.Design;
+using BernieApp.Common.Http;
 using BernieApp.Common.Models;
 using BernieApp.Common.ViewModels;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using System;
 
@@ -19,7 +22,21 @@ namespace BernieApp.Common.DependencyInjection
             var builder = new ContainerBuilder();
 
             RegisterViewModels(builder);
-            builder.RegisterInstance(CreateNavigationService());
+
+            if (ViewModelBase.IsInDesignModeStatic)
+            {
+                builder.RegisterInstance(new DesignBernieHttpClient()).As<IBernieHttpClient>();
+                builder.RegisterInstance(new DesignNavigationService()).As<INavigationService>();
+            }
+            else
+            {
+                builder.RegisterInstance(new BernieHttpClient()).As<IBernieHttpClient>();
+                var navSvc = CreateNavigationService();
+                if (navSvc != null)
+                {
+                    builder.RegisterInstance(CreateNavigationService()).As<INavigationService>();
+                }
+            }
 
             _container = builder.Build();
         }
@@ -28,11 +45,10 @@ namespace BernieApp.Common.DependencyInjection
         {
             if (_navConfigDelegate == null)
             {
-                throw new Exception("Call IOC.Default.ConfigureNavigationService to the configure the NavigationService");
+                return null;
             }
-            var navService = _navConfigDelegate();
 
-            return navService;
+            return _navConfigDelegate();
         }
 
         private static void RegisterViewModels(ContainerBuilder builder)

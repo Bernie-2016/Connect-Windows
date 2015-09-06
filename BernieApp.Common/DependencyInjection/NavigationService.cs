@@ -31,7 +31,7 @@ namespace BernieApp.Common.DependencyInjection
 
         public void NavigateTo(string pageKey)
         {
-            throw new NotImplementedException();
+            NavigateTo(pageKey, null);
         }
 
         public void NavigateTo(string pageKey, object parameter)
@@ -51,7 +51,7 @@ namespace BernieApp.Common.DependencyInjection
             {
                 // todo : Implement WS/WP way of getting navigation vaild exception message
 
-                //throw new Exception(string.Format("Navigation Failed: Key={0}, Type={1}", pageKey, pageType.Name));
+                throw new Exception(string.Format("Navigation Failed: Key={0}, Type={1}", pageKey, pageType.Name));
             }
         }     
 

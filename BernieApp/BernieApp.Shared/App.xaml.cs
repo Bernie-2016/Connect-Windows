@@ -154,7 +154,7 @@ namespace BernieApp
             {
                 var navSvc = new NavigationService();
                 navSvc.NavigateDelegate = MainHubNavigateTo;
-                navSvc.Configure("Bernie", typeof(ItemPage));
+                navSvc.Configure("News", typeof(ItemPage));
                 return navSvc;
             });
         }
@@ -164,8 +164,6 @@ namespace BernieApp
             Frame currentFrame = Window.Current.Content as Frame;
             return currentFrame.Navigate(pageType, data);
         }
-
-
 #else
         private void ConfigureNavigationSerivce()
         {

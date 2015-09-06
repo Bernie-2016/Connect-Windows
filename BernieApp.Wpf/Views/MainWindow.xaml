@@ -12,8 +12,5 @@
             <RowDefinition Height="32*"/>
             <RowDefinition Height="287*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="{Binding HelloWorld, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Grid.Row="1" Text="{Binding HelloWorld}"  />
-
     </Grid>
 </Window>

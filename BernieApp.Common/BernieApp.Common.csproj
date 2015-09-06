@@ -35,6 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DependencyInjection\NavigationService.cs" />
+    <Compile Include="Design\DesignBernieHttpClient.cs" />
+    <Compile Include="Design\DesignNavigationService.cs" />
     <Compile Include="Http\BernieHttpClient.cs" />
     <Compile Include="Http\Endpoints.cs" />
     <Compile Include="Http\ES4BSClient.cs" />
@@ -48,14 +50,20 @@
     <Compile Include="Models\HitDataItem.cs" />
     <Compile Include="Models\ArticleData.cs" />
     <Compile Include="DependencyInjection\IConfigurableNavigationService.cs" />
+    <Compile Include="Models\IBernieHttpClient.cs" />
+    <Compile Include="Models\INewsItem.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\IssuesQueryResponse.cs" />
+    <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Models\NewsArticle.cs" />
+    <Compile Include="Models\NewsItem.cs" />
+    <Compile Include="Models\NewsListItem.cs" />
     <Compile Include="Models\NewsQueryResponse.cs" />
     <Compile Include="Models\ShardInfo.cs" />
     <Compile Include="Models\UrlQueryParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>

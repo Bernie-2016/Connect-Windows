@@ -5,6 +5,8 @@
     xmlns:local="using:BernieApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     DataContext="{Binding Path=Main, Source={StaticResource Locator}}"    
     d:DataContext="{Binding Source={d:DesignData Source=../BernieApp.Shared/DataModel/SampleData.json, Type=data:SampleDataSource}}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -72,6 +74,7 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
+
         <Hub x:Name="Hub" x:Uid="Hub" Header="Bernie Sanders 2016" Background="{ThemeResource HubBackgroundImageBrush}">
             <HubSection x:Uid="MenuHubSection" Header="MENU" DataContext="{Binding Groups}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
@@ -93,7 +96,7 @@
             </HubSection>
             
             <HubSection x:Uid="NewsHubSection" Header="NEWS"
-                        DataContext="{Binding Groups[0]}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
+                        DataContext="{Binding News}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
                     <ListView 
                         AutomationProperties.AutomationId="ItemListViewSection3"
@@ -106,7 +109,7 @@
                         ContinuumNavigationTransitionInfo.ExitElementContainer="True">
                     </ListView>
                 </DataTemplate>
-            </HubSection>           
+            </HubSection>
         </Hub>
     </Grid>
 </Page>

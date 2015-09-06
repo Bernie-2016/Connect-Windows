@@ -1,36 +1,54 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
+using System.Collections.Generic;
+using BernieApp.Common.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace BernieApp.Common.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private string _helloWorld;
         private INavigationService _navSvc;
+        private IBernieHttpClient _httpClient;
 
-        public MainViewModel(INavigationService navSvc)
+        public MainViewModel(INavigationService navSvc, IBernieHttpClient httpClient)
         {
             _navSvc = navSvc;
-            _helloWorld = "Hello Wpf World";
+            _httpClient = httpClient;
 
-            _navSvc.NavigateTo("Bernie", 2016);
+            InitCommands();
+            InitGroups();
         }
 
-        public string HelloWorld
+        public async Task InitNewsAsync()
         {
-            get
-            {
-                return _helloWorld;
-            }
-
-            set
-            {
-                if (_helloWorld != value)
-                {
-                    _helloWorld = value;
-                    RaisePropertyChanged(() => HelloWorld);
-                }
-            }
+            News = await NewsViewModel.CreateAsync(_navSvc, _httpClient);
         }
+
+        private void InitGroups()
+        {
+            Groups = new List<MenuItem>();
+            Groups.Add(new MenuItem
+            {
+                Title = "Feel"
+            });
+            Groups.Add(new MenuItem
+            {
+                Title = "The"
+            });
+            Groups.Add(new MenuItem
+            {
+                Title = "Bern"
+            });
+        }
+
+        private void InitCommands()
+        {
+        }
+
+        public List<MenuItem> Groups { get; set; }
+
+        public NewsViewModel News { get; set; }
     }
 }

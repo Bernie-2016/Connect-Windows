@@ -1,4 +1,5 @@
 ﻿using BernieApp.Common;
+using BernieApp.Common.ViewModels;
 using BernieApp.Data;
 using System;
 using Windows.ApplicationModel.Resources;
@@ -63,6 +64,8 @@ namespace BernieApp
         /// session.  The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
+            var vm = (MainViewModel)this.DataContext;
+            await vm.InitNewsAsync();
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
             this.DefaultViewModel["Groups"] = sampleDataGroups;
@@ -88,11 +91,11 @@ namespace BernieApp
         /// <param name="e">Details about the click event.</param>
         private void GroupSection_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
-            if (!Frame.Navigate(typeof(SectionPage), groupId))
-            {
-                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
-            }
+            //var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
+            //if (!Frame.Navigate(typeof(SectionPage), groupId))
+            //{
+            //    throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
+            //}
         }
 
         /// <summary>
@@ -102,11 +105,13 @@ namespace BernieApp
         /// <param name="e">Defaults about the click event.</param>
         private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
-            if (!Frame.Navigate(typeof(ItemPage), itemId))
-            {
-                throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
-            }
+            //var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
+            //if (!Frame.Navigate(typeof(ItemPage), itemId))
+            //{
+            //    throw new Exception(this.resourceLoader.GetString("NavigationFailedExceptionMessage"));
+            //}
+
+            (DataContext as MainViewModel).News.OpenNewsCmd.Execute(e.ClickedItem);
         }
 
         #region NavigationHelper registration
