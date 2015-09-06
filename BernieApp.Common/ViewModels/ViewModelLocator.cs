@@ -35,5 +35,6 @@ namespace BernieApp.Common.ViewModels
         public static void Cleanup()
         {
         }
+
     }
 }

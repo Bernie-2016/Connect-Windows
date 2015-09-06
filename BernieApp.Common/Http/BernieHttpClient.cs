@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BernieApp.Common.Http
 {
-    public class BernieHttpClient
+    public class BernieHttpClient : IBernieHttpClient
     {
         private IssuesClient _issuesClient;
         private NewsClient _newsClient;

@@ -13,7 +13,7 @@ namespace BernieApp.Common.Models
 
         public int ContentLength { get; set; }
 
-        public string Descriptiong { get; set; }
+        public string Description { get; set; }
 
         [JsonProperty(PropertyName = "img_url")]
         public string ImgUrl { get; set; }

@@ -33,7 +33,8 @@ namespace BernieApp.Common.Http
 
                 if (result != null)
                 {
-                    return JsonConvert.DeserializeObject<TResponseType>(result);
+                    var data = JsonConvert.DeserializeObject<TResponseType>(result);
+                    return data;
                 }
                 else
                 {
