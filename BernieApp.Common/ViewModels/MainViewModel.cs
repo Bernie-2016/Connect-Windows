@@ -24,6 +24,7 @@ namespace BernieApp.Common.ViewModels
         public async Task InitNewsAsync()
         {
             News = await NewsViewModel.CreateAsync(_navSvc, _httpClient);
+            RaisePropertyChanged(() => News);
         }
 
         private void InitGroups()

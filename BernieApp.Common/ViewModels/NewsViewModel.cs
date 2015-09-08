@@ -2,12 +2,12 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System.Collections.ObjectModel;
-using System;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 
 namespace BernieApp.Common.ViewModels
 {
-    public class NewsViewModel
+    public class NewsViewModel : ViewModelBase
     {
         private INavigationService _navSvc;
         private IBernieHttpClient _httpClient;
@@ -40,19 +40,29 @@ namespace BernieApp.Common.ViewModels
         private async Task LoadDataAsync()
         {
             Items.Clear();
-            var newsArticles = await _httpClient.GetNewsAsync();
-            foreach(var article in newsArticles)
+            var hitNewsData = await _httpClient.GetNewsAsync();
+            foreach(var hit in hitNewsData)
             {
+                var source = hit.Source;
                 var newsItem = new NewsItem
                 {
-                    Body = article.Body,
-                    BodyHtml = article.BodyHtml,
-                    Charset = article.Charset,
-                    ContentLength = article.ContentLength,
-                    Description = article.Description
+                    Body = source.Body,
+                    BodyHtml = source.BodyHtml,
+                    Charset = source.Charset,
+                    ContentLength = source.ContentLength,
+                    Description = source.Description,
+                    Id = hit.Id,
+                    ImgUrl = source.ImgUrl,
+                    Locale = source.Locale,
+                    MimeType = source.MimeType,
+                    PublishedTime = source.PublishedTime,
+                    Title = source.Title,
+                    Url = source.Url
                 };
                 Items.Add(newsItem);
             }
+
+            RaisePropertyChanged(() => Items);
         }
 
         #region Commands

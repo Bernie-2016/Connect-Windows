@@ -7,12 +7,12 @@ namespace BernieApp.Common.Design
 {
     public class DesignBernieHttpClient : IBernieHttpClient
     {
-        public Task<IEnumerable<Issue>> GetIssuesAsync()
+        public Task<IEnumerable<HitDataItem<Issue>>> GetIssuesAsync()
         {
             return null;
-        }
+        }        
 
-        public Task<IEnumerable<NewsArticle>> GetNewsAsync()
+        public Task<IEnumerable<HitDataItem<NewsArticle>>> GetNewsAsync()
         {
             return null;
         }
