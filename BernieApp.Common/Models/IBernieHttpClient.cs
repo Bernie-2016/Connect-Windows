@@ -5,8 +5,8 @@ namespace BernieApp.Common.Models
 {
     public interface IBernieHttpClient
     {
-        Task<IEnumerable<NewsArticle>> GetNewsAsync();
+        Task<IEnumerable<HitDataItem<NewsArticle>>> GetNewsAsync();
 
-        Task<IEnumerable<Issue>> GetIssuesAsync();
+        Task<IEnumerable<HitDataItem<Issue>>> GetIssuesAsync();
     }
 }

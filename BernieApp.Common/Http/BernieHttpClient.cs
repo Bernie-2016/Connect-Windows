@@ -15,12 +15,12 @@ namespace BernieApp.Common.Http
             _issuesClient = new IssuesClient();
         }
 
-        public async Task<IEnumerable<NewsArticle>> GetNewsAsync()
+        public async Task<IEnumerable<HitDataItem<NewsArticle>>> GetNewsAsync()
         {
             return await _newsClient.GetAsync();
         }
 
-        public async Task<IEnumerable<Issue>> GetIssuesAsync()
+        public async Task<IEnumerable<HitDataItem<Issue>>> GetIssuesAsync()
         {
             return await _issuesClient.GetAsync();
         }

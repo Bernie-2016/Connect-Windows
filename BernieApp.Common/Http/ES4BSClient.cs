@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace BernieApp.Common.Http
 {
-    public class ES4BSClient<TResponseType, TDataType> where TResponseType : ES4BSResponse<TDataType> where TDataType : ArticleData
+    public class ES4BSClient<TResponseType, TDataType> 
+        where TResponseType : ES4BSResponse<TDataType> 
+        where TDataType : ArticleData        
     {
         private string _endpoint;
         private IEnumerable<UrlQueryParam> _requiredQueryParams;
@@ -18,6 +20,19 @@ namespace BernieApp.Common.Http
         {
             _endpoint = endpoint;
             _requiredQueryParams = requiredQueryParams;
+        }
+
+        public async Task<IEnumerable<HitDataItem<TDataType>>> GetAsync(IEnumerable<UrlQueryParam> queryParams = null)
+        {
+            var resp = await GetAsyncRaw(queryParams);
+
+            var result = new List<HitDataItem<TDataType>>();
+            foreach (var item in resp.Hits.Items)
+            {
+                result.Add(item);
+            }
+
+            return result;
         }
 
         private async Task<TResponseType> GetAsyncRaw(IEnumerable<UrlQueryParam> queryParams)
@@ -57,25 +72,12 @@ namespace BernieApp.Common.Http
         {
             if (queryParams != null)
             {
-                var queryParamPairs =
-                    from param in queryParams
-                    select string.Format("{0}={1}", WebUtility.UrlEncode(param.Field), WebUtility.UrlEncode(param.Value));
-                combinedParamPairs.Concat(queryParamPairs);
+                foreach(var param in queryParams)
+                {
+                    var pair = string.Format("{0}={1}", WebUtility.UrlEncode(param.Field), WebUtility.UrlEncode(param.Value));
+                    combinedParamPairs.Add(pair);
+                }
             }
-        }
-
-        public async Task<IEnumerable<TDataType>> GetAsync(IEnumerable<UrlQueryParam> queryParams = null)
-        {
-            var resp = await GetAsyncRaw(queryParams);
-
-            var result = new List<TDataType>();
-            foreach (var item in resp.Hits.Items)
-            {
-                var source = item.Source;
-                result.Add(source);
-            }
-
-            return result;
         }
     }
 }
