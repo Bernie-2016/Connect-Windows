@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 
 namespace BernieApp.Common.Models
 {
-    public class NewsArticle : ArticleData, INewsItem
+    public class NewsItem : INewsItem
     {
+        public string Id { get; set; }
+
         public string Body { get; set; }
 
-        [JsonProperty(PropertyName = "body_html")]
         public string BodyHtml { get; set; }
 
         public string Charset { get; set; }
@@ -16,14 +16,12 @@ namespace BernieApp.Common.Models
 
         public string Description { get; set; }
 
-        [JsonProperty(PropertyName = "img_url")]
         public string ImgUrl { get; set; }
 
         public string Locale { get; set; }
 
         public string MimeType { get; set; }
 
-        [JsonProperty(PropertyName = "published_time")]
         public DateTime PublishedTime { get; set; }
 
         public string Title { get; set; }
