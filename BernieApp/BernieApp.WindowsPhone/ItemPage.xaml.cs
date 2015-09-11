@@ -1,4 +1,5 @@
 ﻿using BernieApp.Common;
+using BernieApp.Common.ViewModels;
 using BernieApp.Data;
 
 using System;
@@ -66,12 +67,15 @@ namespace BernieApp
         /// <see cref="Frame.Navigate(Type, object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
-        private /*async */void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             //var item = await SampleDataSource.GetItemAsync((string)e.NavigationParameter);
-
-            this.DefaultViewModel["Item"] = e.NavigationParameter;
+            var vm = (NewsItemViewModel)DataContext;
+            var id = (string)e.NavigationParameter;
+            // Test id = "AU-05JDrgmeu9QhmtWRa"
+            await vm.LoadDataAsync(id);
+            //this.DefaultViewModel["Item"] = e.NavigationParameter;
         }
 
         /// <summary>

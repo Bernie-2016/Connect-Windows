@@ -1,6 +1,7 @@
 ﻿using BernieApp.Common.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace BernieApp.Common.Http
 {
@@ -22,7 +23,19 @@ namespace BernieApp.Common.Http
 
         public async Task<IEnumerable<HitDataItem<Issue>>> GetIssuesAsync()
         {
-            return await _issuesClient.GetAsync();
+            return await _issuesClient.GetAsync( );
+        }
+
+        public async Task<HitDataItem<NewsArticle>> GetNewsArticleAsync(string id)
+        {
+            return await _newsClient.GetByIdAsync(new List<UrlQueryParam>
+            {
+                new UrlQueryParam
+                {
+                    Field = "q",
+                    Value = "_id:" + id
+                }
+            });
         }
     }
 }

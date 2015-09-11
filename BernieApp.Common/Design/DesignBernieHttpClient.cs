@@ -10,7 +10,12 @@ namespace BernieApp.Common.Design
         public Task<IEnumerable<HitDataItem<Issue>>> GetIssuesAsync()
         {
             return null;
-        }        
+        }
+
+        public Task<HitDataItem<NewsArticle>> GetNewsArticleAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
 
         public Task<IEnumerable<HitDataItem<NewsArticle>>> GetNewsAsync()
         {
