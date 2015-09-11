@@ -29,6 +29,14 @@ namespace BernieApp.Common.ViewModels
             }
         }
 
+        public static NewsItemViewModel NewsItem
+        {
+            get
+            {
+                return IOC.Default.Resolve<NewsItemViewModel>();
+            }
+        }
+
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>
