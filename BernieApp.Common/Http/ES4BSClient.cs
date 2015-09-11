@@ -14,12 +14,12 @@ namespace BernieApp.Common.Http
         where TDataType : ArticleData        
     {
         private string _endpoint;
-        private IEnumerable<UrlQueryParam> _requiredQueryParams;
+        private string _defaultQueryFilter;
 
-        public ES4BSClient(string endpoint, IEnumerable<UrlQueryParam> requiredQueryParams = null)
+        public ES4BSClient(string endpoint, string defaultQueryFilter = null)
         {
             _endpoint = endpoint;
-            _requiredQueryParams = requiredQueryParams;
+            _defaultQueryFilter = defaultQueryFilter;
         }
 
         public async Task<IEnumerable<HitDataItem<TDataType>>> GetAsync(IEnumerable<UrlQueryParam> queryParams = null)
@@ -35,49 +35,71 @@ namespace BernieApp.Common.Http
             return result;
         }
 
+        public async Task<HitDataItem<TDataType>> GetByIdAsync(IEnumerable<UrlQueryParam> queryParams = null)
+        {
+            var resp = await GetAsyncRaw(queryParams);
+
+            var result = new List<HitDataItem<TDataType>>();
+            var item = resp.Hits.Items.FirstOrDefault();
+
+            return item;
+        }
+
         private async Task<TResponseType> GetAsyncRaw(IEnumerable<UrlQueryParam> queryParams)
         {
-            var queryStr = GetQueryString(queryParams);
+            var queryStr = ComputeQueryString(queryParams);
             var uri = new Uri(_endpoint + queryStr);
 
             using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(uri))
-            using (HttpContent content = response.Content)
             {
-                string result = await content.ReadAsStringAsync();
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                if (result != null)
+                using (HttpResponseMessage response = await client.GetAsync(uri))
+                using (HttpContent content = response.Content)
                 {
-                    var data = JsonConvert.DeserializeObject<TResponseType>(result);
-                    return data;
-                }
-                else
-                {
-                    return default(TResponseType);
+                    string result = await content.ReadAsStringAsync();
+
+                    if (result != null)
+                    {
+                        var data = JsonConvert.DeserializeObject<TResponseType>(result);
+                        return data;
+                    }
+                    else
+                    {
+                        return default(TResponseType);
+                    }
                 }
             }
         }
 
-        private string GetQueryString(IEnumerable<UrlQueryParam> queryParams)
+        private string ComputeQueryString(IEnumerable<UrlQueryParam> queryParams)
         {
             var combinedParamPairs = new List<string>();
 
-            CombineQueryParams(_requiredQueryParams, combinedParamPairs);
-            CombineQueryParams(queryParams, combinedParamPairs);
+            var addedQueryField = false;
 
-            return combinedParamPairs.Count > 0 ? "?" + string.Join("&", combinedParamPairs) : "";
-        }
-
-        private static void CombineQueryParams(IEnumerable<UrlQueryParam> queryParams, List<string> combinedParamPairs)
-        {
             if (queryParams != null)
             {
                 foreach(var param in queryParams)
                 {
-                    var pair = string.Format("{0}={1}", WebUtility.UrlEncode(param.Field), WebUtility.UrlEncode(param.Value));
+                    var value = param.Value;
+                    if (param.Field == "q" && _defaultQueryFilter != null)
+                    {
+                        value = "(" + _defaultQueryFilter + ") AND (" + value + ")";
+                        addedQueryField = true;
+                    }
+                    var pair = string.Format("{0}={1}", WebUtility.UrlEncode(param.Field), WebUtility.UrlEncode(value));
                     combinedParamPairs.Add(pair);
                 }
             }
+
+            if (!addedQueryField && _defaultQueryFilter != null)
+            {
+                var pair = string.Format("{0}={1}", WebUtility.UrlEncode("q"), WebUtility.UrlEncode(_defaultQueryFilter));
+                combinedParamPairs.Add(pair);
+            }
+
+            return combinedParamPairs.Count > 0 ? "?" + string.Join("&", combinedParamPairs) : "";
         }
     }
 }

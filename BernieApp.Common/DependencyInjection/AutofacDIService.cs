@@ -54,6 +54,7 @@ namespace BernieApp.Common.DependencyInjection
         private static void RegisterViewModels(ContainerBuilder builder)
         {
             builder.RegisterType(typeof(MainViewModel));
+            builder.RegisterType(typeof(NewsItemViewModel));
         } 
 
         public T Resolve<T>()
