@@ -22,3 +22,7 @@ We will be tracking development progress in our [Pivotal project](https://www.pi
 * We will NEVER merge **develop** to **master**.  **develop** should be able to be deleted at any time and be recreated by branching off of **master**.  It is your **feature** branches that will be merged in to master.  So if you find a bug after you merge to **develop** remember to fix it in your **feature**, not **develop** or your fix won't be seen in the pull request.
 
 I am not trying to be super strict and if that seems too rigid come talk to me in Slack.  That is just how I like to work with my team at my job and I figured it would work well in this project as well. (@fyndor on Slack)
+
+## Live Coding
+
+The lead developer (Greg Cobb, aka fyndor, aka me!) has decided to live stream all development he does on this project in hopes to better raise awareness about Bernie Sanders and the project itself.  Most of the development is done late at night so if you live in the US you likely are sleeping when the [stream](http://bit.ly/1UwjDhQ) is live, but if you are interested in watching you can find the recordings on [YouTube](https://www.youtube.com/playlist?list=PLCLh_cSqKZTrJ5uxmDRvTzGXsA0cZ9m3x).  It is nothing too glamorous and I don't claim to be a C# guru, but if you are interested in seeing how a modern Windows application is developed feel free to check it out!
