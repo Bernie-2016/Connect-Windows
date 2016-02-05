@@ -1,16 +1,23 @@
-# Bernie App for Windows
+# Movement for Windows
 
-Welcome to the repository for the Bernie App for Windows.  This repository is consists of a .Net solution that contains projects for the [Windows Store 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.Windows), [Windows Phone 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.WindowsPhone), and [Wpf](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Wpf) platforms.  All of these projects depend on the [BernieApp.Common](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Common) Portable Class Libarary which contains the business logic for the solution.
+Welcome to the repository for the Movement app for Windows (formerly known as BernieApp).  This repository consists of a .Net solution that contains projects for [Windows 10 (UWP)] (https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.UWP) and [Windows Phone 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.WindowsPhone).  All of these projects depend on the [BernieApp.Common](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Common) Portable Class Libarary which contains the business logic for the solution.
 
 ## Setting up your build environment
 
-First you will need to install Visual Studio 2015 Community edition or better (VS 2013 may work as well).  Then clone the repository.  Once the repository is cloned on your local machine you should be able to open up the solution in Visual Studio and a Rebuild of the solution will download all the necessary packages from nuget.
+First you will need to install Visual Studio 2015 Community edition. Clone the repository. Once the repository is cloned on your local machine, open it up in Visual Studio and Rebuild the solution. This will download all necessary Nuget packages.
 
 ## Contributing
 
-We welcome all contributions.  If you see a bug please report it in using the Issues feature.  If you would like to help develop the Bernie App for Windows applications you can contact the CodersForSanders group using our Slack channel (you can request access [here](https://docs.google.com/forms/d/1pmxGTX17qPkZV49iuLh3rN-Mj_Z6w6M_XtUJMZCMIP4/viewform)): https://codersforsanders.slack.com/messages/bernie-app/details/
+We welcome all contributions.  If you see a bug please report it in using the Issues feature.  If you would like to help develop the Movement app for Windows applications you can contact the CodersForSanders group using our Slack channel (you can request access [here](https://docs.google.com/forms/d/1pmxGTX17qPkZV49iuLh3rN-Mj_Z6w6M_XtUJMZCMIP4/viewform)): https://codersforsanders.slack.com/messages/bernie-app/details/
 
 We will be tracking development progress in our [Pivotal project](https://www.pivotaltracker.com/n/projects/1422062)
+
+## What we use
+
+* C#/XAML
+* Mvvmlight (an MVVM framework)
+* Json.NET (for interacting with json documents)
+* Template10 (UWP only)
 
 ### Rules of the road for software changes
 
@@ -21,8 +28,6 @@ We will be tracking development progress in our [Pivotal project](https://www.pi
 * Don't resurrect old branches if a bug is found, create a new issue for the bug and thus a new branch to fix it.
 * We will NEVER merge **develop** to **master**.  **develop** should be able to be deleted at any time and be recreated by branching off of **master**.  It is your **feature** branches that will be merged in to master.  So if you find a bug after you merge to **develop** remember to fix it in your **feature**, not **develop** or your fix won't be seen in the pull request.
 
-I am not trying to be super strict and if that seems too rigid come talk to me in Slack.  That is just how I like to work with my team at my job and I figured it would work well in this project as well. (@fyndor on Slack)
+Feel free to reach out to the team on Slack under the @Movement-windows-app channel!
 
-## Live Coding
 
-The lead developer (Greg Cobb, aka fyndor, aka me!) has decided to live stream all development he does on this project in hopes to better raise awareness about Bernie Sanders and the project itself.  Most of the development is done late at night so if you live in the US you likely are sleeping when the [stream](http://bit.ly/1UwjDhQ) is live, but if you are interested in watching you can find the recordings on [YouTube](https://www.youtube.com/playlist?list=PLCLh_cSqKZTrJ5uxmDRvTzGXsA0cZ9m3x).  It is nothing too glamorous and I don't claim to be a C# guru, but if you are interested in seeing how a modern Windows application is developed feel free to check it out!
