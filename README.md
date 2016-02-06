@@ -1,10 +1,11 @@
 # Movement for Windows
 
-Welcome to the repository for the Movement app for Windows (formerly known as BernieApp).  This repository consists of a .Net solution that contains projects for [Windows 10 (UWP)] (https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.UWP) and [Windows Phone 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.WindowsPhone).  All of these projects depend on the [BernieApp.Common](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Common) Portable Class Libarary which contains the business logic for the solution.
+Welcome to the repository for the Movement app for Windows (formerly known as BernieApp).  This repository consists of a .Net solution that contains projects for 
+[Windows 10 (UWP)](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.UWP) and [Windows Phone 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.WindowsPhone).  All of these projects depend on the [BernieApp.Common](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Common) Portable Class Libarary which contains the business logic for the solution.
 
 ## Setting up your build environment
 
-First you will need to install Visual Studio 2015 Community edition. Clone the repository. Once the repository is cloned on your local machine, open it up in Visual Studio and Rebuild the solution. This will download all necessary Nuget packages.
+First you will need to install Visual Studio 2015 Community edition. Clone the repository. Once the repository is cloned on your local machine, open it up in Visual Studio and Rebuild the solution. This will download all necessary Nuget packages. To work on the Windows 10 UWP version, you will need to be on Windows 10 with all of the latest updates, as well as have the latests Windows 10 SDK. Likewise, for the Windows Phone 8.1 app, you will need to be on atleast Windows 8.1 (10 works just fine, of course!) with the WinRT SDK installed. Missing an SDK? Run the Visual Studio Installer and select 'Modify', then check the necessary components. Visual Studio should notify you of any of the above items missing when you attempt to open the projects.
 
 ## Contributing
 
