@@ -1,2 +1,0 @@
-C:\Users\riley\Documents\GitHub\BernieAppWindows\BernieApp.Common\BernieApp.Common.csproj;neutral
-C:\Users\riley\Documents\GitHub\BernieAppWindows\BernieApp.WindowsPhone\BernieApp.WindowsPhone.csproj;neutral
