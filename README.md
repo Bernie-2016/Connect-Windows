@@ -11,7 +11,7 @@ First you will need to install Visual Studio 2015 Community edition. Clone the r
 
 We welcome all contributions.  If you see a bug please report it in using the Issues feature.  If you would like to help develop the Movement app for Windows applications you can contact the CodersForSanders group using our Slack channel (you can request access [here](https://docs.google.com/forms/d/1pmxGTX17qPkZV49iuLh3rN-Mj_Z6w6M_XtUJMZCMIP4/viewform)): https://codersforsanders.slack.com/messages/bernie-app/details/
 
-We will be tracking development progress in our [Pivotal project](https://www.pivotaltracker.com/n/projects/1422062)
+We will be tracking development progress in our [Pivotal project](https://www.pivotaltracker.com/n/projects/1530927)
 
 ## What we use
 
