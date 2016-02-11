@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BernieApp.View"
+    xmlns:map="using:Windows.UI.Xaml.Controls.Maps"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -22,14 +23,34 @@
         </Grid.RowDefinitions>
 
         <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        <StackPanel Grid.Row="0" Margin="19,0,0,10">
+            <TextBlock Text="NEARBY" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+        <Grid Grid.Row="1" x:Name="ContentRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <map:MapControl Grid.Row="0"/>
+
+            <ScrollViewer Grid.Row="1">
+                <!-- List of nearby groups/events/etc. here --> 
+            </ScrollViewer>
 
         </Grid>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Find" Label="Search"/>
+            <AppBarButton Icon="MapPin" Label="Location"/>
+            <AppBarButton Icon="Add" Label="New"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Share"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
