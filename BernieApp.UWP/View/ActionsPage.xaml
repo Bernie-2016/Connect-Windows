@@ -23,7 +23,34 @@
         </t10:PageHeader>
 
         <Grid Grid.Row="1">
+            <Pivot>
+                <PivotItem Margin="10,0,10,0">
+                    <PivotItem.Header>
+                        <TextBlock Text="Actions" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+                    </PivotItem.Header>
+                    <PivotItem.Content>
+                        <ListView/>
+                    </PivotItem.Content>
+                </PivotItem>
+                <PivotItem Margin="10,0,10,0">
+                    <PivotItem.Header>
+                        <TextBlock Text="Fundraise" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+                    </PivotItem.Header>
+                    <PivotItem.Content>
+                        <StackPanel>
 
+                        </StackPanel>
+                    </PivotItem.Content>
+                </PivotItem>
+                <PivotItem Margin="10,0,10,0">
+                    <PivotItem.Header>
+                        <TextBlock Text="Organize" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+                    </PivotItem.Header>
+                    <PivotItem.Content>
+                        <ListView/>
+                    </PivotItem.Content>
+                </PivotItem>
+            </Pivot>
         </Grid>
 
     </Grid>
