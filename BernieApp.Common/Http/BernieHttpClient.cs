@@ -7,13 +7,13 @@ namespace BernieApp.Common.Http
 {
     public class BernieHttpClient : IBernieHttpClient
     {
-        private IssuesClient _issuesClient;
-        private NewsClient _newsClient;
+        private readonly IssuesClient _issuesClient;
+        private readonly NewsClient _newsClient;
 
-        public BernieHttpClient()
+        public BernieHttpClient(IssuesClient issuesClient, NewsClient newsClient)
         {
-            _newsClient = new NewsClient();
-            _issuesClient = new IssuesClient();
+            _issuesClient = issuesClient;
+            _newsClient = newsClient;
         }
 
         public async Task<IEnumerable<HitDataItem<NewsArticle>>> GetNewsAsync()

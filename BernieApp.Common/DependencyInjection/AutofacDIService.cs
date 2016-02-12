@@ -30,7 +30,9 @@ namespace BernieApp.Common.DependencyInjection
             }
             else
             {
-                builder.RegisterInstance(new BernieHttpClient()).As<IBernieHttpClient>();
+                builder.RegisterType<IssuesClient>().AsSelf();
+                builder.RegisterType<NewsClient>().AsSelf();
+                builder.RegisterType<BernieHttpClient>().As<IBernieHttpClient>();
                 var navSvc = CreateNavigationService();
                 if (navSvc != null)
                 {
