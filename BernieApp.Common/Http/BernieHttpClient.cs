@@ -23,19 +23,12 @@ namespace BernieApp.Common.Http
 
         public async Task<IEnumerable<HitDataItem<Issue>>> GetIssuesAsync()
         {
-            return await _issuesClient.GetAsync( );
+            return await _issuesClient.GetAsync();
         }
 
         public async Task<HitDataItem<NewsArticle>> GetNewsArticleAsync(string id)
         {
-            return await _newsClient.GetByIdAsync(new List<UrlQueryParam>
-            {
-                new UrlQueryParam
-                {
-                    Field = "q",
-                    Value = "_id:" + id
-                }
-            });
+            return await _newsClient.GetByIdAsync(id);
         }
     }
 }

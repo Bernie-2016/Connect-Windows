@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BernieApp.Common.Http;
 using BernieApp.Common.Models;
 
 namespace BernieApp.Common.Design

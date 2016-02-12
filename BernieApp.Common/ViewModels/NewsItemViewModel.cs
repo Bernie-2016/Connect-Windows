@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System.Threading.Tasks;
+using BernieApp.Common.Http;
 
 namespace BernieApp.Common.ViewModels
 {
