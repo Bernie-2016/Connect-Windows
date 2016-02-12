@@ -2,9 +2,9 @@
 
 namespace BernieApp.Common.Http
 {
-    public class NewsClient : ES4BSClient<NewsQueryResponse, NewsArticle>
+    public class NewsClient : FeedClient<NewsQueryResponse, NewsArticle>
     {
-        public NewsClient() : base(Endpoints.NewsBaseUrl, "article_type:News")
+        public NewsClient() : base(Endpoints.NewsBaseUrl, new FeedFilter { Type = FeedItemType.News })
         {
 
         }

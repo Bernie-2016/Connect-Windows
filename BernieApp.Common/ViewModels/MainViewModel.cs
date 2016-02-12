@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using BernieApp.Common.Models;
 using System;
 using System.Threading.Tasks;
+using BernieApp.Common.Http;
 
 namespace BernieApp.Common.ViewModels
 {

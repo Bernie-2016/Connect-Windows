@@ -2,9 +2,9 @@
 
 namespace BernieApp.Common.Http
 {
-    public class IssuesClient :ES4BSClient<IssuesQueryResponse, Issue>
+    public class IssuesClient :FeedClient<IssuesQueryResponse, Issue>
     {
-        public IssuesClient() : base(Endpoints.IssuesBaseUrl, "article_type:Issues")
+        public IssuesClient() : base(Endpoints.IssuesBaseUrl, new FeedFilter { Type = FeedItemType.Issues })
         {
 
         }

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BernieApp.Common.Models;
 
-namespace BernieApp.Common.Models
+namespace BernieApp.Common.Http
 {
     public interface IBernieHttpClient
     {

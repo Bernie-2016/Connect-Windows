@@ -30,7 +30,7 @@ namespace BernieApp
         {
             this.InitializeComponent();
 
-            //ConfigureNavigationSerivce();
+            this.ConfigureNavigationService();
 
             this.Suspending += this.OnSuspending;
         }
@@ -141,32 +141,21 @@ namespace BernieApp
             deferral.Complete();
         }
 
-//#if WINDOWS_PHONE_APP
-        //private void ConfigureNavigationSerivce()
-        //{
-        //    IOC.Default.ConfigureNavigationService(() =>
-        //    {
-        //        var navSvc = new NavigationService();
-        //        navSvc.NavigateDelegate = MainHubNavigateTo;
-        //        navSvc.Configure("News", typeof(ItemPage));
-        //        return navSvc;
-        //    });
-        //}
+        private void ConfigureNavigationService()
+        {
+            IOC.Default.ConfigureNavigationService(() =>
+            {
+                var navSvc = new NavigationService();
+                navSvc.NavigateDelegate = MainHubNavigateTo;
+                navSvc.Configure("News", typeof(MainPage));
+                return navSvc;
+            });
+        }
 
         private bool MainHubNavigateTo(Type pageType, object data)
         {
             Frame currentFrame = Window.Current.Content as Frame;
             return currentFrame.Navigate(pageType, data);
         }
-//#else
-//        private void ConfigureNavigationSerivce()
-//        {
-//            IOC.Default.ConfigureNavigationService(() => {
-//                var navSvc = new NavigationService();
-//                navSvc.Configure("Bernie", typeof(ItemPage));
-//                return navSvc;
-//            });
-//        }        
-//#endif
     }
 }

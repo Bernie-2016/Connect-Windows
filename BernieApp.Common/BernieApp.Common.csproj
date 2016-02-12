@@ -37,9 +37,12 @@
     <Compile Include="DependencyInjection\NavigationService.cs" />
     <Compile Include="Design\DesignBernieHttpClient.cs" />
     <Compile Include="Design\DesignNavigationService.cs" />
+    <Compile Include="Helpers\AttributeHelpers.cs" />
     <Compile Include="Http\BernieHttpClient.cs" />
     <Compile Include="Http\Endpoints.cs" />
-    <Compile Include="Http\ES4BSClient.cs" />
+    <Compile Include="Http\FeedClient.cs" />
+    <Compile Include="Helpers\FriendlyStringAttribute.cs" />
+    <Compile Include="Http\FeedFilter.cs" />
     <Compile Include="Http\IssuesClient.cs" />
     <Compile Include="Http\NewsClient.cs" />
     <Compile Include="DependencyInjection\AutofacDIService.cs" />
@@ -50,7 +53,7 @@
     <Compile Include="Models\HitDataItem.cs" />
     <Compile Include="Models\ArticleData.cs" />
     <Compile Include="DependencyInjection\IConfigurableNavigationService.cs" />
-    <Compile Include="Models\IBernieHttpClient.cs" />
+    <Compile Include="Http\IBernieHttpClient.cs" />
     <Compile Include="Models\INewsItem.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\IssuesQueryResponse.cs" />
