@@ -1,11 +1,10 @@
-﻿using BernieApp.UWP.View;
-using System;
+﻿using System;
 using Windows.UI.Xaml;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Template10.Common;
-using Template10.Services.NavigationService;
-using Template10.Behaviors;
+using BernieApp.UWP.View;
+
 
 namespace BernieApp.UWP
 {
@@ -27,10 +26,6 @@ namespace BernieApp.UWP
                 Window.Current.Content = new Shell(nav);
             }
             return Task.CompletedTask;
-
-            //var nav = NavigationServiceFactory(BackButton.Attach, ExistingContent.Include);
-            //Window.Current.Content = new Shell(nav);
-            //return Task.FromResult<object>(null);
         }
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
