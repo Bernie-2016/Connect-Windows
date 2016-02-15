@@ -97,6 +97,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ActionsViewModel.cs" />
+    <Compile Include="ViewModels\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\NearbyViewModel.cs" />
+    <Compile Include="ViewModels\NewsViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="View\ActionsPage.xaml.cs">
       <DependentUpon>ActionsPage.xaml</DependentUpon>
     </Compile>
@@ -200,6 +207,10 @@
     <ProjectReference Include="..\BernieApp.Common\BernieApp.Common.csproj">
       <Project>{2d297569-e899-4a42-ba42-f618fcc375f5}</Project>
       <Name>BernieApp.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BernieApp.Portable\BernieApp.Portable.csproj">
+      <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
+      <Name>BernieApp.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
