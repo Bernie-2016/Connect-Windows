@@ -20,10 +20,10 @@ We will be tracking development progress in our [Pivotal project](https://www.pi
 
 ### How to contribute
 
-*Fork the Repository
-*Mark what you are working in inside the Pivotal project
-*Make your changes and ensure that they build and nothing breaks
-*Create a pull request on the main repository
+* Fork the Repository
+* Mark what you are working in inside the Pivotal project
+* Make your changes and ensure that they build and nothing breaks
+* Create a pull request on the main repository
 
 ## What we use
 
