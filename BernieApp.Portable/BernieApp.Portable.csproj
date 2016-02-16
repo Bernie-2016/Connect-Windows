@@ -34,6 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Client\Endpoints.cs" />
+    <Compile Include="Client\ES4BS\FeedClient.cs" />
+    <Compile Include="Client\IBernieClient.cs" />
+    <Compile Include="Client\ES4BS\DataTransferObjects\ResponseDto.cs" />
+    <Compile Include="Client\ES4BS\DataTransferObjects\HitDataDto.cs" />
+    <Compile Include="Client\ES4BS\DataTransferObjects\HitDataItemDto.cs" />
+    <Compile Include="Helpers\AttributeHelpers.cs" />
+    <Compile Include="Helpers\FriendlyStringAttribute.cs" />
     <Compile Include="Models\ActionAlert.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Issue.cs" />

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BernieApp.Portable.Client;
+using BernieApp.Portable.Client.ES4BS;
+using BernieApp.Portable.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using BernieApp.Common.Http;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -18,23 +20,27 @@ namespace BernieApp.UWP.ViewModels
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                //Create Design Time clients to use here instead of the runtime ones
-                SimpleIoc.Default.Register<NewsClient>();
-                SimpleIoc.Default.Register<IssuesClient>();
-                //Add Actions client
-                //Add Nearby client
+                SimpleIoc.Default.Register<IBernieClient, DesignTimeBernieClient>();
             }
             else
             {
-                SimpleIoc.Default.Register<NewsClient>();
-                SimpleIoc.Default.Register<IssuesClient>();
-                //Add Actions client
-                //Add Nearby client
+                SimpleIoc.Default.Register(
+                    () => new FeedClient<NewsArticle>(
+                        Endpoints.NewsBaseUrl,
+                        new FeedFilter { Type = FeedItemType.News }));
+
+                SimpleIoc.Default.Register(
+                    () => new FeedClient<Issue>(
+                        Endpoints.IssuesBaseUrl,
+                        new FeedFilter { Type = FeedItemType.Issues }));
+
+                SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
             }
             SimpleIoc.Default.Register<NewsViewModel>();
             SimpleIoc.Default.Register<IssuesViewModel>();
             SimpleIoc.Default.Register<ActionsViewModel>();
             SimpleIoc.Default.Register<NearbyViewModel>();
+            SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
         public NewsViewModel NewsViewModel => SimpleIoc.Default.GetInstance<NewsViewModel>();
