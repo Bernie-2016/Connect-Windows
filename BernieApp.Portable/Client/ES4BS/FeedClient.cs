@@ -59,7 +59,7 @@ namespace BernieApp.Portable.Client.ES4BS
             {
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                var json = await client.GetStringAsync(uri);
+                var json = await client.GetStringAsync(uri).ConfigureAwait(false);
                 var result = default(ResponseDto<TDataType>);
                 if (!string.IsNullOrWhiteSpace(json))
                 {

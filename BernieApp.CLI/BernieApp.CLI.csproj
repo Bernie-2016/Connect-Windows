@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BernieApp.Common\BernieApp.Common.csproj">
-      <Project>{2D297569-E899-4A42-BA42-F618FCC375F5}</Project>
-      <Name>BernieApp.Common</Name>
+    <ProjectReference Include="..\BernieApp.Portable\BernieApp.Portable.csproj">
+      <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
+      <Name>BernieApp.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

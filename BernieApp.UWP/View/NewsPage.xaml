@@ -67,7 +67,7 @@
         </t10:PageHeader>
 
         <Grid Grid.Row="1">
-            <ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}"/>
+            <ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" ItemsSource="{Binding Items}"/>
         </Grid>
         
     </Grid>
