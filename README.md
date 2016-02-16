@@ -1,11 +1,11 @@
 # Movement for Windows
 
 Welcome to the repository for the Movement app for Windows (formerly known as BernieApp).  This repository consists of a .Net solution that contains projects for: 
-*[Windows 10 (UWP)](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.UWP)
-*[Windows Phone 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.WindowsPhone)
-*[BernieApp.Common](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Common), a Portable Class
+* [Windows 10 Desktop and Mobile (UWP)](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.UWP)
+* [Windows Phone 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.WindowsPhone)
+* [BernieApp.Common](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Common), a Portable Class
 Libarary which contains the data access layers and models
-*A CLI project for command-line testing
+* A CLI project for command-line testing
 ViewModels and Views are located within both the UWP and Windows Phone 8.1 project directories due to the differing navigation and UI reqirements for each platform. We use Dependency Injection, IoC, and other MVVM features.
 
 ## Setting up your build environment
