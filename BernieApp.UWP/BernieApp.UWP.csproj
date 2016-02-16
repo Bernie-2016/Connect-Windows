@@ -204,10 +204,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BernieApp.Common\BernieApp.Common.csproj">
-      <Project>{2d297569-e899-4a42-ba42-f618fcc375f5}</Project>
-      <Name>BernieApp.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BernieApp.Portable\BernieApp.Portable.csproj">
       <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
       <Name>BernieApp.Portable</Name>
