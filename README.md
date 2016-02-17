@@ -1,11 +1,11 @@
-# Movement for Windows
+# Connect for Windows
 
-Welcome to the repository for the Movement app for Windows (formerly known as BernieApp).  This repository consists of a .Net solution that contains projects for: 
+Welcome to the repository for the Connect app for Windows (formerly known as Movement).  This repository consists of a .Net solution that contains projects for: 
 * [Windows 10 Desktop and Mobile (UWP)](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.UWP)
 * [Windows Phone 8.1](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp/BernieApp.WindowsPhone)
-* [BernieApp.Common](https://github.com/SandersForPresident/BernieAppWindows/tree/master/BernieApp.Common), a Portable Class
-Libarary which contains the data access layers and models
+* BernieApp.Portable, a Portable Class Libarary which contains the data access layers and models
 * A CLI project for command-line testing
+
 ViewModels and Views are located within both the UWP and Windows Phone 8.1 project directories due to the differing navigation and UI reqirements for each platform. We use Dependency Injection, IoC, and other MVVM features.
 
 ## Setting up your build environment
@@ -14,7 +14,7 @@ First you will need to install Visual Studio 2015 Community edition. Clone the r
 
 ## Contributing
 
-We welcome all contributions.  If you see a bug please report it in using the Issues feature.  If you would like to help develop the Movement app for Windows applications you can contact the CodersForSanders group using our Slack channel (you can request access [here](https://docs.google.com/forms/d/1pmxGTX17qPkZV49iuLh3rN-Mj_Z6w6M_XtUJMZCMIP4/viewform)): https://codersforsanders.slack.com/messages/bernie-app/details/
+We welcome all contributions.  If you see a bug please report it in using the Issues feature.  If you would like to help develop the Connect app for Windows applications, please join the BernieBuilders group using our Slack channel (you can request access [here](http://organize.berniesanders.com/slack/berniebuilders)). Be sure to message @rileytaylor once inside to gain access to the relevent channels.
 
 We will be tracking development progress in our [Pivotal project](https://www.pivotaltracker.com/n/projects/1530927)
 
@@ -31,7 +31,3 @@ We will be tracking development progress in our [Pivotal project](https://www.pi
 * Mvvmlight (an MVVM framework)
 * Json.NET (for interacting with json documents)
 * Template10 (UWP only, a UI framework with MVVM enhancements)
-
-Feel free to reach out to the team on Slack under the Movement-windows-app channel!
-
-
