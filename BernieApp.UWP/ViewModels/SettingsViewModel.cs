@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Template10.Utils;
 
 namespace BernieApp.UWP.ViewModels
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : MainViewModel
     {
     }
 }

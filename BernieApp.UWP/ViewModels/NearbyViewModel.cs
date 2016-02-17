@@ -1,12 +1,14 @@
 ﻿using System;
+using BernieApp.Portable.Client;
+using BernieApp.Portable.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Template10.Utils;
 
 namespace BernieApp.UWP.ViewModels
 {
-    public class NearbyViewModel
+    public class NearbyViewModel : MainViewModel
     {
     }
 }
