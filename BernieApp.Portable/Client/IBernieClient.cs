@@ -6,44 +6,44 @@ using System.Threading.Tasks;
 namespace BernieApp.Portable.Client {
     public interface IBernieClient
     {
-        Task<List<NewsArticle>> GetNewsAsync();
-        Task<NewsArticle> GetNewsArticleAsync(string id);
-        Task<List<Issue>> GetIssuesAsync();
+        Task<List<FeedEntry>> GetNewsAsync();
+        Task<FeedEntry> GetNewsArticleAsync(string id);
+        Task<List<FeedEntry>> GetIssuesAsync();
     }
 
     public class LiveBernieClient : IBernieClient
     {
-        private readonly FeedClient<NewsArticle> _newsClient;
-        private readonly FeedClient<Issue> _issuesClient;
+        private readonly FeedClient<FeedEntry> _newsClient;
+        private readonly FeedClient<FeedEntry> _issuesClient;
 
-        public LiveBernieClient(FeedClient<NewsArticle> newsClient, FeedClient<Issue> issuesClient)
+        public LiveBernieClient(FeedClient<FeedEntry> newsClient, FeedClient<FeedEntry> issuesClient)
         {
             _newsClient = newsClient;
             _issuesClient = issuesClient;
         }
 
-        public Task<List<NewsArticle>> GetNewsAsync() => _newsClient.GetAsync();
+        public Task<List<FeedEntry>> GetNewsAsync() => _newsClient.GetAsync();
 
-        public Task<NewsArticle> GetNewsArticleAsync(string id) => _newsClient.GetByIdAsync(id);
+        public Task<FeedEntry> GetNewsArticleAsync(string id) => _newsClient.GetByIdAsync(id);
 
-        public Task<List<Issue>> GetIssuesAsync() => _issuesClient.GetAsync();
+        public Task<List<FeedEntry>> GetIssuesAsync() => _issuesClient.GetAsync();
     }
 
     public class DesignTimeBernieClient : IBernieClient
     {
-        public async Task<List<NewsArticle>> GetNewsAsync()
+        public async Task<List<FeedEntry>> GetNewsAsync()
         {
-            return new List<NewsArticle>();
+            return new List<FeedEntry>();
         }
 
-        public async Task<NewsArticle> GetNewsArticleAsync(string id)
+        public async Task<FeedEntry> GetNewsArticleAsync(string id)
         {
             return new NewsArticle();
         }
 
-        public async Task<List<Issue>> GetIssuesAsync()
+        public async Task<List<FeedEntry>> GetIssuesAsync()
         {
-            return new List<Issue>();
+            return new List<FeedEntry>();
         }
     }
 }
