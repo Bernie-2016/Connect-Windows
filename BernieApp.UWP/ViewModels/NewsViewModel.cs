@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Template10.Utils;
 
 namespace BernieApp.UWP.ViewModels {
-    public class NewsViewModel
+    public class NewsViewModel : MainViewModel
     {
-        private readonly ObservableCollection<NewsArticle> _items = new ObservableCollection<NewsArticle>();
+        private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
 
         public NewsViewModel(IBernieClient client)
@@ -24,6 +24,6 @@ namespace BernieApp.UWP.ViewModels {
             _items.AddRange(news);
         }
 
-        public ObservableCollection<NewsArticle> Items => _items;
+        public ObservableCollection<FeedEntry> Items => _items;
     }
 }

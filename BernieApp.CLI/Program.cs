@@ -7,10 +7,10 @@ namespace BernieApp.CLI {
     class Program
     {
         static void Main(string[] args) {
-            FeedClient<NewsArticle> newsClient = new FeedClient<NewsArticle>(
+            FeedClient<FeedEntry> newsClient = new FeedClient<FeedEntry>(
                 Endpoints.NewsBaseUrl,
                 new FeedFilter { Type = FeedItemType.News });
-            FeedClient<Issue> issuesClient = new FeedClient<Issue>(
+            FeedClient<FeedEntry> issuesClient = new FeedClient<FeedEntry>(
                 Endpoints.IssuesBaseUrl,
                 new FeedFilter { Type = FeedItemType.Issues });
             var client = new LiveBernieClient(newsClient, issuesClient);

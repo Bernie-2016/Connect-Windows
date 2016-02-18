@@ -44,6 +44,7 @@
     <Compile Include="Helpers\FriendlyStringAttribute.cs" />
     <Compile Include="Models\ActionAlert.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\FeedEntry.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\NewsArticle.cs" />
     <Compile Include="Models\NewsFeedItem.cs" />
