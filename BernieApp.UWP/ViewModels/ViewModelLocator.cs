@@ -25,12 +25,12 @@ namespace BernieApp.UWP.ViewModels
             else
             {
                 SimpleIoc.Default.Register(
-                    () => new FeedClient<FeedEntry>(
+                    () => new FeedClient<NewsArticle>(
                         Endpoints.NewsBaseUrl,
                         new FeedFilter { Type = FeedItemType.News }));
 
                 SimpleIoc.Default.Register(
-                    () => new FeedClient<FeedEntry>(
+                    () => new FeedClient<Issue>(
                         Endpoints.IssuesBaseUrl,
                         new FeedFilter { Type = FeedItemType.Issues }));
 
