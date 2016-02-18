@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BernieApp.UWP.ViewModels
 {
-    public class NearbyViewModel
+    public class NearbyViewModel : MainViewModel
     {
     }
 }

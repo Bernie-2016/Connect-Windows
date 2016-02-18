@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BernieApp.UWP.ViewModels
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : MainViewModel
     {
     }
 }
