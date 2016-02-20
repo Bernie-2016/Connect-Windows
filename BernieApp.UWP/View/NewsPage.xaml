@@ -62,7 +62,7 @@
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
             <t10:PageHeader.SecondaryCommands>
-                <AppBarButton Icon="Refresh"  Label="Refresh" Click="Refresh_Click"/>
+                <AppBarButton Icon="Refresh"  Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </t10:PageHeader.SecondaryCommands>
         </t10:PageHeader>
 
