@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <Binding Path="NewsViewModel" Source="{StaticResource Locator}" />
+        <Binding Path="NewsViewModel" Source="{StaticResource Locator}"/>
     </Page.DataContext>
     
     <Page.Resources>

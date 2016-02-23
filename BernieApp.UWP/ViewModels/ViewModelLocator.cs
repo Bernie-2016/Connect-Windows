@@ -38,6 +38,7 @@ namespace BernieApp.UWP.ViewModels
                 SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
             }
             SimpleIoc.Default.Register<NewsViewModel>();
+            SimpleIoc.Default.Register<NewsDetailViewModel>();
             SimpleIoc.Default.Register<IssuesViewModel>();
             SimpleIoc.Default.Register<ActionsViewModel>();
             SimpleIoc.Default.Register<NearbyViewModel>();
@@ -45,6 +46,7 @@ namespace BernieApp.UWP.ViewModels
         }
 
         public NewsViewModel NewsViewModel => SimpleIoc.Default.GetInstance<NewsViewModel>();
+        public NewsDetailViewModel NewsDetailViewModel => SimpleIoc.Default.GetInstance<NewsDetailViewModel>();
         public IssuesViewModel IssuesViewModel => SimpleIoc.Default.GetInstance<IssuesViewModel>();
         public ActionsViewModel ActionsViewModel => SimpleIoc.Default.GetInstance<ActionsViewModel>();
         public NearbyViewModel NearbyViewModel => SimpleIoc.Default.GetInstance<NearbyViewModel>();

@@ -14,6 +14,7 @@ namespace BernieApp.UWP.ViewModels {
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
         private RelayCommand _loadCommand;
+        private RelayCommand _itemClicked;
 
         public NewsViewModel(IBernieClient client)
         {
@@ -29,7 +30,7 @@ namespace BernieApp.UWP.ViewModels {
 
         public ObservableCollection<FeedEntry> Items => _items;
 
-        //RelayCommand to allow for refresh of listview
+        //Refresh the news feed
         public RelayCommand LoadCommand
         {
             get
@@ -46,6 +47,22 @@ namespace BernieApp.UWP.ViewModels {
                 }
                 return _loadCommand;
             }
+        }
+
+        //Send selected news item to the detail page
+        public RelayCommand ItemClicked
+        {
+            get
+            {
+                if (_itemClicked == null)
+                {
+                    _itemClicked = new RelayCommand(async () =>
+                    {
+                        //Do something here.
+                    });
+                }
+            }
+            
         }
 
     }

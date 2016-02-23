@@ -100,6 +100,7 @@
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\IssuesViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />
+    <Compile Include="ViewModels\NewsDetailViewModel.cs" />
     <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

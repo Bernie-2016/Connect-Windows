@@ -12,19 +12,17 @@ namespace BernieApp.UWP.ViewModels
 {
     public class MainViewModel : GalaSoft.MvvmLight.ViewModelBase, Template10.Services.NavigationService.INavigable
     {
-        public Task OnNavigatedToAsync(object parameter, NavigationMode mode,
-        IDictionary<string, object> state)
+        public virtual Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             return Task.CompletedTask;
         }
 
-        public Task OnNavigatedFromAsync(IDictionary<string, object> state,
-            bool suspending)
+        public virtual Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
             return Task.CompletedTask;
         }
 
-        public Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        public virtual Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
             return Task.CompletedTask;
         }
