@@ -29,17 +29,10 @@ namespace BernieApp.UWP.ViewModels
                         Endpoints.NewsBaseUrl,
                         new FeedFilter { Type = FeedItemType.News }));
 
-                // ERROR: Can't register two FeedClients
-                //SimpleIoc.Default.Register(
-                //    () => new FeedClient<FeedEntry>(
-                //        Endpoints.IssuesBaseUrl,
-                //        new FeedFilter { Type = FeedItemType.Issues }));
-
                 SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
             }
             SimpleIoc.Default.Register<NewsViewModel>();
             SimpleIoc.Default.Register<NewsDetailViewModel>();
-            SimpleIoc.Default.Register<IssuesViewModel>();
             SimpleIoc.Default.Register<ActionsViewModel>();
             SimpleIoc.Default.Register<NearbyViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
@@ -47,7 +40,6 @@ namespace BernieApp.UWP.ViewModels
 
         public NewsViewModel NewsViewModel => SimpleIoc.Default.GetInstance<NewsViewModel>();
         public NewsDetailViewModel NewsDetailViewModel => SimpleIoc.Default.GetInstance<NewsDetailViewModel>();
-        public IssuesViewModel IssuesViewModel => SimpleIoc.Default.GetInstance<IssuesViewModel>();
         public ActionsViewModel ActionsViewModel => SimpleIoc.Default.GetInstance<ActionsViewModel>();
         public NearbyViewModel NearbyViewModel => SimpleIoc.Default.GetInstance<NearbyViewModel>();
         public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();

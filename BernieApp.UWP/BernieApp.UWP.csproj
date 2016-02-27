@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -98,7 +98,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ActionsViewModel.cs" />
-    <Compile Include="ViewModels\IssuesViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />
     <Compile Include="ViewModels\NewsDetailViewModel.cs" />
     <Compile Include="ViewModels\NewsViewModel.cs" />
@@ -107,12 +106,6 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="View\ActionsPage.xaml.cs">
       <DependentUpon>ActionsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\IssuesDetail.xaml.cs">
-      <DependentUpon>IssuesDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\IssuesPage.xaml.cs">
-      <DependentUpon>IssuesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\NearbyPage.xaml.cs">
@@ -168,14 +161,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="View\ActionsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\IssuesDetail.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\IssuesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

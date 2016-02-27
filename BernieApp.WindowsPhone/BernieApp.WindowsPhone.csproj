@@ -101,7 +101,6 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
-    <Compile Include="ViewModels\IssuesViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />
     <Compile Include="ViewModels\NewsViewModel.cs" />
@@ -109,9 +108,6 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="View\ActionsPage.xaml.cs">
       <DependentUpon>ActionsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\IssuesDetail.xaml.cs">
-      <DependentUpon>IssuesDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -162,10 +158,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="View\ActionsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\IssuesDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
