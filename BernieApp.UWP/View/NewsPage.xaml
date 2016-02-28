@@ -6,6 +6,7 @@
     xmlns:t10="using:Template10.Controls"
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -67,7 +68,18 @@
         </t10:PageHeader>
 
         <Grid Grid.Row="1">
-            <ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" ItemsSource="{Binding Items}"/>
+            <ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" ItemsSource="{Binding Items}"
+                      >
+              
+            </ListView>
+            <!--<ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" ItemsSource="{Binding Items}"
+                      SelectionChanged="{Binding Path=SelectedItem, Mode=TwoWay}">
+                --><!--<Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:InvokeCommandAction Command="{Binding Path=ItemSelectedCommand}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>--><!--
+            </ListView>-->
         </Grid>
         
     </Grid>

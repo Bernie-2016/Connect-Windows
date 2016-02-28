@@ -7,14 +7,17 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Template10.Utils;
 using GalaSoft.MvvmLight.Command;
+using System.Diagnostics;
 
 namespace BernieApp.UWP.ViewModels {
     public class NewsViewModel : MainViewModel
     {
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
+        private FeedEntry _selectedItem;
         private RelayCommand _loadCommand;
-        private RelayCommand _itemClicked;
+        private RelayCommand<FeedEntry> _itemClicked;
+        private RelayCommand _itemSelectedCommand;
 
         public NewsViewModel(IBernieClient client)
         {
@@ -29,6 +32,12 @@ namespace BernieApp.UWP.ViewModels {
         }
 
         public ObservableCollection<FeedEntry> Items => _items;
+
+        public FeedEntry SelectedItem
+        {
+            get { return _selectedItem; }
+            set { Set(ref _selectedItem, value); }
+        }
 
         //Refresh the news feed
         public RelayCommand LoadCommand
@@ -48,6 +57,34 @@ namespace BernieApp.UWP.ViewModels {
                 return _loadCommand;
             }
             
+        }
+
+        //Send selected news item to the detail page
+        public RelayCommand<FeedEntry> ItemClicked
+        {
+            get
+            {
+                return _itemClicked ?? (_itemClicked = new RelayCommand<FeedEntry>(entry =>
+                {
+                    string selection = SelectedItem.Id;
+                    NavigationService.Navigate(typeof(NewsDetail), selection);
+                }));
+            }
+        }
+
+        public RelayCommand ItemSelectedCommand
+        {
+            get
+            {
+                if (_itemSelectedCommand == null)
+                {
+                    _itemSelectedCommand = new RelayCommand(() =>
+                    {
+                        Debug.WriteLine(SelectedItem.Id);
+                    });
+                }
+                return _itemSelectedCommand;
+            }
         }
 
     }
