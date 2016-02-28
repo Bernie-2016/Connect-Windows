@@ -47,21 +47,6 @@ namespace BernieApp.UWP.ViewModels {
                 }
                 return _loadCommand;
             }
-        }
-
-        //Send selected news item to the detail page
-        public RelayCommand ItemClicked
-        {
-            get
-            {
-                if (_itemClicked == null)
-                {
-                    _itemClicked = new RelayCommand(async () =>
-                    {
-                        //Do something here.
-                    });
-                }
-            }
             
         }
 

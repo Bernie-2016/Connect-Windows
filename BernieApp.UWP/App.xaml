@@ -6,9 +6,8 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <vm:ViewModelLocator x:Key="Locator"/>
+            <vm:ViewModelLocator x:Name="Locator"/>
         </ResourceDictionary>
     </Application.Resources>
-
 </common:BootStrapper>
 
