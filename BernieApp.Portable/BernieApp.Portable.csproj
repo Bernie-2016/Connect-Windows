@@ -45,8 +45,6 @@
     <Compile Include="Models\ActionAlert.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\FeedEntry.cs" />
-    <Compile Include="Models\Issue.cs" />
-    <Compile Include="Models\NewsArticle.cs" />
     <Compile Include="Models\NewsFeedItem.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

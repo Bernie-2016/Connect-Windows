@@ -29,12 +29,6 @@ namespace BernieApp.UWP.ViewModels
                         Endpoints.NewsBaseUrl,
                         new FeedFilter { Type = FeedItemType.News }));
 
-                // ERROR: Can't register two FeedClients
-                //SimpleIoc.Default.Register(
-                //    () => new FeedClient<FeedEntry>(
-                //        Endpoints.IssuesBaseUrl,
-                //        new FeedFilter { Type = FeedItemType.Issues }));
-
                 SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
             }
             SimpleIoc.Default.Register<NewsViewModel>();

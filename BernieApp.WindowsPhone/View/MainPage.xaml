@@ -49,21 +49,16 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Button x:Name="newsButton" Grid.Row="0" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="Silver">
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                            Text="News" Style="{ThemeResource MessageDialogTitleStyle}"/>
                             </Button>
-                            <Button x:Name="IssuesButton" Grid.Row="1" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="Silver">
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
-                                           Text="Issues" Style="{ThemeResource MessageDialogTitleStyle}"/>
-                            </Button>
-                            <Button x:Name="NearbyButton" Grid.Row="2" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="Silver">
+                            <Button x:Name="NearbyButton" Grid.Row="1" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="Silver">
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                            Text="Nearby" Style="{ThemeResource MessageDialogTitleStyle}"/>
                             </Button>
-                            <Button x:Name="actionButton" Grid.Row="3" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="#FFEA504E">
+                            <Button x:Name="actionButton" Grid.Row="2" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="#FFEA504E">
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                            Text="Take Action" Style="{ThemeResource MessageDialogTitleStyle}"/>
                             </Button>
@@ -81,16 +76,7 @@
                     <ListView ItemTemplate="{StaticResource NewsTemplate}"/>
                 </DataTemplate>
             </HubSection>
-
-            <HubSection x:Uid="IssuesSection" MinWidth="100" MaxWidth="390">
-                <HubSection.Header>
-                    <TextBlock Text="ISSUES" Style="{ThemeResource TitleTextBlockStyle}"
-                               Margin="0,10,0,0"/>
-                </HubSection.Header>
-                <DataTemplate>
-                    <ListView ItemTemplate="{StaticResource IssuesTemplate}"/>
-                </DataTemplate>
-            </HubSection>
+            
         </Hub>
     </Grid>
 
