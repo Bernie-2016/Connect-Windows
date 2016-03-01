@@ -17,7 +17,7 @@ namespace BernieApp.UWP.ViewModels {
         private FeedEntry _selectedItem;
         private RelayCommand _loadCommand;
         private RelayCommand<FeedEntry> _itemClicked;
-        private RelayCommand _itemSelectedCommand;
+        //private RelayCommand _itemSelectedCommand;
 
         public NewsViewModel(IBernieClient client)
         {
@@ -58,34 +58,12 @@ namespace BernieApp.UWP.ViewModels {
             }
             
         }
+        
+        //Navigate to the NewsDetails page to view full article
+        public void GoToDetailsPage() =>
+            NavigationService.Navigate(typeof(View.NewsDetail), SelectedItem);
 
-        //Send selected news item to the detail page
-        public RelayCommand<FeedEntry> ItemClicked
-        {
-            get
-            {
-                return _itemClicked ?? (_itemClicked = new RelayCommand<FeedEntry>(entry =>
-                {
-                    string selection = SelectedItem.Id;
-                    NavigationService.Navigate(typeof(NewsDetail), selection);
-                }));
-            }
-        }
 
-        public RelayCommand ItemSelectedCommand
-        {
-            get
-            {
-                if (_itemSelectedCommand == null)
-                {
-                    _itemSelectedCommand = new RelayCommand(() =>
-                    {
-                        Debug.WriteLine(SelectedItem.Id);
-                    });
-                }
-                return _itemSelectedCommand;
-            }
-        }
 
     }
 }

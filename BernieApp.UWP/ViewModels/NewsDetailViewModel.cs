@@ -40,7 +40,6 @@ namespace BernieApp.UWP.ViewModels
                 FeedEntry Item = new FeedEntry();
                 GetArticleAsync(id);
             }
-
             return Task.CompletedTask;
         }
 

@@ -27,9 +27,5 @@ namespace BernieApp.UWP.View
             this.InitializeComponent();
         }
 
-        private void Refresh_Click(object sender, RoutedEventArgs e)
-        {
-            //Refresh the newsfeed
-        }
     }
 }
