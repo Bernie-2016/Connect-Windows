@@ -22,6 +22,7 @@ namespace BernieApp.CLI {
             }
             var n = int.Parse(Console.ReadLine());
             Console.Clear();
+            Console.WriteLine(news[n].Id);
             Console.WriteLine(news[n].Title);
             Console.WriteLine(news[n].Body);
         }
