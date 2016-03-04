@@ -10,13 +10,24 @@ namespace BernieApp.Portable.Models
 
         public string Title { get; set; }
 
+        [JsonProperty(PropertyName = "article_type")]
+        public string ArticleType { get; set; }
+
         [JsonProperty(PropertyName = "timestamp_publish")]
         public DateTime Date { get; set; }
 
         public string Body { get; set; }
+
         public string Excerpt { get; set; }
+
+        [JsonProperty(PropertyName = "img_url")]
         public string ImageUrl { get; set; }
+
         public string Url { get; set; }
-        public string Description { get; set; }
+
+        public string Excerpt { get; set; }
+
+        [JsonProperty(PropertyName ="lang")]
+        public string Language { get; set; }
     }
 }

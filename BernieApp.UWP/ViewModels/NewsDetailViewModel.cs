@@ -33,6 +33,7 @@ namespace BernieApp.UWP.ViewModels
             //hide the hamburger button, navigation should only go back to the NewsPage via the hardware back button or back button in page header
             var h = Shell.HamburgerMenu;
             h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Collapsed;
+            h.IsOpen = false;
 
             if (parameter != null)
             {
@@ -40,6 +41,15 @@ namespace BernieApp.UWP.ViewModels
                 FeedEntry Item = new FeedEntry();
                 GetArticleAsync(id);
             }
+            return Task.CompletedTask;
+        }
+
+        public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
+        {
+            var h = Shell.HamburgerMenu;
+            h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;
+            h.IsOpen = true;
+
             return Task.CompletedTask;
         }
 

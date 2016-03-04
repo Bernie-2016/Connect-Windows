@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Template10.Common;
 using BernieApp.UWP.View;
-
+using System.Linq;
 
 namespace BernieApp.UWP
 {
@@ -25,6 +25,15 @@ namespace BernieApp.UWP
                 var nav = NavigationServiceFactory(BackButton.Attach, ExistingContent.Include);
                 Window.Current.Content = new Shell(nav);
             }
+
+            //// setup custom titlebar
+            //foreach (var resource in Application.Current.Resources
+            //    .Where(x => x.Key.Equals(typeof(Template10.Controls.CustomTitleBar))))
+            //{
+            //    var control = new Template10.Controls.CustomTitleBar() ;
+            //    control.Style = resource.Value as Style;
+            //}
+
             return Task.CompletedTask;
         }
 

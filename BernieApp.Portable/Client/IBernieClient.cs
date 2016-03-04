@@ -8,25 +8,22 @@ namespace BernieApp.Portable.Client {
     {
         Task<List<FeedEntry>> GetNewsAsync();
         Task<FeedEntry> GetNewsArticleAsync(string id);
-        Task<List<FeedEntry>> GetIssuesAsync();
     }
 
     public class LiveBernieClient : IBernieClient
     {
         private readonly FeedClient<FeedEntry> _newsClient;
-        private readonly FeedClient<FeedEntry> _issuesClient;
 
-        public LiveBernieClient(FeedClient<FeedEntry> newsClient, FeedClient<FeedEntry> issuesClient)
+        public LiveBernieClient(FeedClient<FeedEntry> newsClient)
         {
             _newsClient = newsClient;
-            _issuesClient = issuesClient;
+
         }
 
         public Task<List<FeedEntry>> GetNewsAsync() => _newsClient.GetAsync();
 
         public Task<FeedEntry> GetNewsArticleAsync(string id) => _newsClient.GetByIdAsync(id);
 
-        public Task<List<FeedEntry>> GetIssuesAsync() => _issuesClient.GetAsync();
     }
 
     public class DesignTimeBernieClient : IBernieClient
@@ -41,9 +38,5 @@ namespace BernieApp.Portable.Client {
             return new FeedEntry();
         }
 
-        public async Task<List<FeedEntry>> GetIssuesAsync()
-        {
-            return new List<FeedEntry>();
-        }
     }
 }
