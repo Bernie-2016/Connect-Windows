@@ -16,8 +16,6 @@ namespace BernieApp.UWP.ViewModels {
         private readonly IBernieClient _client;
         private FeedEntry _selectedItem;
         private RelayCommand _loadCommand;
-        private RelayCommand<FeedEntry> _itemClicked;
-        //private RelayCommand _itemSelectedCommand;
 
         public NewsViewModel(IBernieClient client)
         {

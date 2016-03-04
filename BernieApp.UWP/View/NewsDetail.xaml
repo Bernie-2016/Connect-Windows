@@ -42,6 +42,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Header.(Grid.Row)" Value="2"/>
+                        <Setter Target="Header.BackButtonVisibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopState">
@@ -50,6 +51,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Header.(Grid.Row)" Value="0"/>
+                        <Setter Target="Header.BackButtonVisibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -61,7 +63,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
-        <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}" BackButtonVisibility="Visible">
+        <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Collapsed" />
             </Interactivity:Interaction.Behaviors>
