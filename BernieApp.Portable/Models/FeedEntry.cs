@@ -25,8 +25,6 @@ namespace BernieApp.Portable.Models
 
         public string Url { get; set; }
 
-        public string Excerpt { get; set; }
-
         [JsonProperty(PropertyName ="lang")]
         public string Language { get; set; }
     }

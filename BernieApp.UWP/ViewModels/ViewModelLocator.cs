@@ -26,8 +26,7 @@ namespace BernieApp.UWP.ViewModels
             {
                 SimpleIoc.Default.Register(
                     () => new FeedClient<FeedEntry>(
-                        Endpoints.NewsBaseUrl,
-                        new FeedFilter { Type = FeedItemType.News }));
+                        Endpoints.NewsBaseUrl));
 
                 SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
             }

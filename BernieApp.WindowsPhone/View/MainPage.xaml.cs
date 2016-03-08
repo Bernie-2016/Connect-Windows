@@ -1,10 +1,9 @@
-﻿using BernieApp.Common;
-using BernieApp.Common.ViewModels;
-using System;
+﻿using System;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Display;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using BernieApp.Portable.Models;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -15,8 +14,8 @@ namespace BernieApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private readonly NavigationHelper navigationHelper;
-        private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
+
+
         private readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView("Resources");
 
         public MainPage()
@@ -28,9 +27,6 @@ namespace BernieApp
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
-            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
         }
 
         /// <summary>

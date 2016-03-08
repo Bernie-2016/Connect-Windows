@@ -18,15 +18,15 @@ namespace BernieApp.UWP.ViewModels
 
         public FeedEntry Item => _item;
 
-        public async Task GetArticleAsync(string id)
-        {
-            var article = await _client.GetNewsArticleAsync(id);
-            article.Id = Item.Id;
-            article.Title = Item.Title;
-            article.Body = Item.Body;
-            article.Date = Item.Date;
-            article.Url = Item.Url;
-        }
+        //public async Task GetArticleAsync(string id)
+        //{
+        //    var article = await _client.GetNewsArticleAsync(id);
+        //    article.Id = Item.Id;
+        //    article.Title = Item.Title;
+        //    article.Body = Item.Body;
+        //    article.Date = Item.Date;
+        //    article.Url = Item.Url;
+        //}
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -39,7 +39,7 @@ namespace BernieApp.UWP.ViewModels
             {
                 string id = (string)parameter;
                 FeedEntry Item = new FeedEntry();
-                GetArticleAsync(id);
+                //GetArticleAsync(id);
             }
             return Task.CompletedTask;
         }

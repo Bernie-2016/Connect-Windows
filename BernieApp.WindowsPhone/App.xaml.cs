@@ -5,9 +5,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using BernieApp.Common;
-using BernieApp.Common.DependencyInjection;
-using BernieApp.Common.Models;
+using BernieApp.Portable;
+using BernieApp.Portable.Client;
+using BernieApp.Portable.Models;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 
