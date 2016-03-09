@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -7,7 +9,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using BernieApp.Portable.Client.ES4BS.DataTransferObjects;
 using BernieApp.Portable.Helpers;
-using BernieApp.Portable.Models;
+using BernieApp.Portable.Models.FeedClientModels;
 using Newtonsoft.Json;
 
 namespace BernieApp.Portable.Client.ES4BS
@@ -24,17 +26,31 @@ namespace BernieApp.Portable.Client.ES4BS
 
         public async Task<List<TDataType>> GetAsync()
         {
-            string query;
-            using (var content = new FormUrlEncodedContent(new KeyValuePair<string, >[]{
-                new KeyValuePair<string, string>("from", "0"),
-                new KeyValuePair<string, string>("size", "30"),
-                new KeyValuePair<string, List<string>("_source", System.Collections.Generic.List<string> = {"title", "body_markdown", "excerpt", "timestamp_publish", "url", "image_url" }),
-            }))
+            var queryString = new ArticlesClientModel
             {
-                query = content.ReadAsStringAsync().Result;
-            }
+                from = 0,
+                size = 30,
+                _source = new[] { "uuid", "title", "article_type", "body", "excerpt", "timestamp_publish", "url", "image_url", "lang" },
+                query = new Query
+                {
+                    query_string = new QueryString
+                    {
+                        default_field = "article_type",
+                        query = "PressRelease OR DemocracyDaily"
+                    }
+                },
+                sort = new Sort
+                {
+                    timestamp_publish = new TimeStampPublish
+                    {
+                        order = "desc",
+                        ignore_unmapped = true
+                    }
+                }      
+            };
+            string content = JsonConvert.SerializeObject(queryString, Formatting.Indented);
 
-            var response = await GetEntriesAsync(query);
+            var response = await GetEntriesAsync(content);
 
             //Parse Json here
             var json = await response.Content.ReadAsStringAsync();
@@ -52,10 +68,10 @@ namespace BernieApp.Portable.Client.ES4BS
         //    //return entry
         //}
 
-        private async Task<HttpResponseMessage> GetEntriesAsync(string query)
+        private async Task<HttpResponseMessage> GetEntriesAsync(string queryString)
         {
             var uri = new Uri(_endpoint);
-            var content = query; //Need to cast to HttpContent
+            var content = new StringContent(queryString); //Need to cast to HttpContent
 
             using (HttpClient client = new HttpClient())
             {
@@ -64,6 +80,7 @@ namespace BernieApp.Portable.Client.ES4BS
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsync(uri, content);
+                
                 if (response.IsSuccessStatusCode)
                 {
                     return response;
