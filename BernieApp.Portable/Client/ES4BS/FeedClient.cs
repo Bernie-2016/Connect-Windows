@@ -9,8 +9,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using BernieApp.Portable.Client.ES4BS.DataTransferObjects;
 using BernieApp.Portable.Helpers;
+using BernieApp.Portable.Models;
 using BernieApp.Portable.Models.FeedClientModels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BernieApp.Portable.Client.ES4BS
 {
@@ -24,7 +26,7 @@ namespace BernieApp.Portable.Client.ES4BS
             _endpoint = endpoint;
         }
 
-        public async Task<List<TDataType>> GetAsync()
+        public async Task<List<FeedEntry>> GetAsync()
         {
             var queryString = new ArticlesClientModel
             {
@@ -46,27 +48,48 @@ namespace BernieApp.Portable.Client.ES4BS
                         order = "desc",
                         ignore_unmapped = true
                     }
-                }      
+                }
             };
             string content = JsonConvert.SerializeObject(queryString, Formatting.Indented);
 
             var response = await GetEntriesAsync(content);
 
-            //Parse Json here
+            //Convert to JObject to bypass Response/HitData classes, then convert to List
             var json = await response.Content.ReadAsStringAsync();
-            var entries = JsonConvert.DeserializeObject<ResponseDto<TDataType>>(json).Items.ToList();
+            JObject httpResponse = JObject.Parse(json);
+            IList<JToken> httpResponseData = httpResponse["hits"]["hits"].Children().ToList();
+            var hits = JsonConvert.SerializeObject(httpResponseData);
+            JArray hitsArray = JArray.Parse(hits);
+            IList<FeedEntry> entries = hitsArray.Select(e => new FeedEntry
+            {
+                Id = (string)e["_id"],
+                Title = (string)e["_source"]["title"],
+                ArticleType = (string)e["_source"]["article_type"],
+                Date = (DateTime)e["_source"]["timestamp_publish"],
+                Body = (string)e["_source"]["body"],
+                Excerpt = (string)e["_source"]["excerpt"],
+                Url = (string)e["_source"]["url"],
+                ImageUrl = (string)e["_source"]["image_url"],
+                Language = (string)e["_source"]["lang"]
 
-            return entries;
+            }).ToList();
+
+            return entries as List<FeedEntry>;
         }
 
-        //public async Task<TDataType> GetAsync(string id)
-        //{
-        //    //var entry = await GetEntryAsync(id);
+        public async Task<TDataType> GetAsync(string id)
+        {
+            var queryString = new ArticleClientModel
+            {
 
-        //    //Parse Json here
+            }
 
-        //    //return entry
-        //}
+            var entry = await GetEntryAsync(queryString);
+
+            //Parse Json here
+
+            return entry as FeedEntry;
+        }
 
         private async Task<HttpResponseMessage> GetEntriesAsync(string queryString)
         {
@@ -80,11 +103,10 @@ namespace BernieApp.Portable.Client.ES4BS
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsync(uri, content);
-                
+
                 if (response.IsSuccessStatusCode)
                 {
                     return response;
-                    
                 }
                 else
                 {
@@ -94,10 +116,29 @@ namespace BernieApp.Portable.Client.ES4BS
             }
         }
 
-        //private async Task GetEntryAsync(string id)
-        //{
-        //    var result = string.Empty;
-        //    return result;
-        //}
+        private async Task<HttpResponseMessage> GetEntryAsync(string id, string queryString)
+        {
+            var uri = new Uri(_endpoint);
+            var content = new StringContent(queryString);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = uri;
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("allplication/json"));
+
+                HttpResponseMessage response = await client.PostAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return response;
+                }
+                else
+                {
+                    //Do something
+                    throw new HttpRequestException();
+                }
+            }
+        }
     }
 }

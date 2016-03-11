@@ -7,7 +7,7 @@ namespace BernieApp.Portable.Client {
     public interface IBernieClient
     {
         Task<List<FeedEntry>> GetNewsAsync();
-        //Task<FeedEntry> GetNewsArticleAsync(string id);
+        Task<FeedEntry> GetNewsArticleAsync(string id);
     }
 
     public class LiveBernieClient : IBernieClient
@@ -22,7 +22,7 @@ namespace BernieApp.Portable.Client {
 
         public Task<List<FeedEntry>> GetNewsAsync() => _newsClient.GetAsync();
 
-        //public Task<FeedEntry> GetNewsArticleAsync(string id) => _newsClient.GetByIdAsync(id);
+        public Task<FeedEntry> GetNewsArticleAsync(string id) => _newsClient.GetByIdAsync(id);
 
     }
 
@@ -33,10 +33,10 @@ namespace BernieApp.Portable.Client {
             return new List<FeedEntry>();
         }
 
-        //public async Task<FeedEntry> GetNewsArticleAsync(string id)
-        //{
-        //    return new FeedEntry();
-        //}
+        public async Task<FeedEntry> GetNewsArticleAsync(string id)
+        {
+            return new FeedEntry();
+        }
 
     }
 }

@@ -13,20 +13,20 @@ namespace BernieApp.UWP.ViewModels
 {
     public class NewsDetailViewModel : MainViewModel
     {
-        private readonly FeedEntry _item;
+        private readonly FeedEntry _item = new FeedEntry();
         private readonly IBernieClient _client;
 
         public FeedEntry Item => _item;
 
-        //public async Task GetArticleAsync(string id)
-        //{
-        //    var article = await _client.GetNewsArticleAsync(id);
-        //    article.Id = Item.Id;
-        //    article.Title = Item.Title;
-        //    article.Body = Item.Body;
-        //    article.Date = Item.Date;
-        //    article.Url = Item.Url;
-        //}
+        public async Task GetArticleAsync(string id)
+        {
+            var article = await _client.GetNewsArticleAsync(id);
+            article.Id = _item.Id;
+            article.Title = _item.Title;
+            article.Body = _item.Body;
+            article.Date = _item.Date;
+            article.Url = _item.Url;
+        }
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
@@ -38,8 +38,7 @@ namespace BernieApp.UWP.ViewModels
             if (parameter != null)
             {
                 string id = (string)parameter;
-                FeedEntry Item = new FeedEntry();
-                //GetArticleAsync(id);
+                GetArticleAsync(id);
             }
             return Task.CompletedTask;
         }
@@ -47,8 +46,7 @@ namespace BernieApp.UWP.ViewModels
         public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
             var h = Shell.HamburgerMenu;
-            h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;
-            h.IsOpen = true;
+            h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;           
 
             return Task.CompletedTask;
         }

@@ -17,6 +17,7 @@ namespace BernieApp.CLI {
                 var entry = news[i];
                 Console.WriteLine(i + ": " + entry.Id + " " + entry.Title);
             }
+            
         }
     }
 }

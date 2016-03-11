@@ -59,7 +59,7 @@ namespace BernieApp.UWP.ViewModels {
         
         //Navigate to the NewsDetails page to view full article
         public void GoToDetailsPage() =>
-            NavigationService.Navigate(typeof(View.NewsDetail), SelectedItem);
+            NavigationService.Navigate(typeof(View.NewsDetail), SelectedItem.Id.ToString());
 
 
 
