@@ -1,12 +1,8 @@
-﻿using System;
-using BernieApp.Portable.Client;
+﻿using BernieApp.Portable.Client;
 using BernieApp.Portable.Models;
 using BernieApp.UWP.View;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Template10.Utils;
-using GalaSoft.MvvmLight.Command;
 using Windows.UI.Xaml.Navigation;
 
 namespace BernieApp.UWP.ViewModels
@@ -15,8 +11,15 @@ namespace BernieApp.UWP.ViewModels
     {
         private readonly FeedEntry _item = new FeedEntry();
         private readonly IBernieClient _client;
+        private string _id;
 
         public FeedEntry Item => _item;
+        public string Id => _id;
+
+        public NewsDetailViewModel(IBernieClient client)
+        {
+            _client = client;
+        }
 
         public async Task GetArticleAsync(string id)
         {
@@ -28,7 +31,7 @@ namespace BernieApp.UWP.ViewModels
             article.Url = _item.Url;
         }
 
-        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             //hide the hamburger button, navigation should only go back to the NewsPage via the hardware back button or back button in page header
             var h = Shell.HamburgerMenu;
@@ -37,10 +40,9 @@ namespace BernieApp.UWP.ViewModels
 
             if (parameter != null)
             {
-                string id = (string)parameter;
-                GetArticleAsync(id);
-            }
-            return Task.CompletedTask;
+                _id = (string)parameter;
+                await GetArticleAsync(Id);
+            }            
         }
 
         public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)

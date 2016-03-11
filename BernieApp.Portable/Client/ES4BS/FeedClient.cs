@@ -28,6 +28,7 @@ namespace BernieApp.Portable.Client.ES4BS
 
         public async Task<List<FeedEntry>> GetAsync()
         {
+            //Build Query
             var queryString = new ArticlesClientModel
             {
                 from = 0,
@@ -52,7 +53,7 @@ namespace BernieApp.Portable.Client.ES4BS
             };
             string content = JsonConvert.SerializeObject(queryString, Formatting.Indented);
 
-            var response = await GetEntriesAsync(content);
+            var response = await WebRequest(content);
 
             //Convert to JObject to bypass Response/HitData classes, then convert to List
             var json = await response.Content.ReadAsStringAsync();
@@ -77,21 +78,35 @@ namespace BernieApp.Portable.Client.ES4BS
             return entries as List<FeedEntry>;
         }
 
-        public async Task<TDataType> GetAsync(string id)
+        public async Task<FeedEntry> GetAsync(string id)
         {
+            //Create Query
             var queryString = new ArticleClientModel
             {
+                from = 0,
+                size = 1,
+                _source = new[] { "uuid", "title", "article_type", "body", "excerpt", "timestamp_publish", "url", "image_url", "lang" },
+                filter = new Filter
+                {
+                    term = new Term
+                    {
+                        _id = id
+                    }
+                }
+            };
+            string content = JsonConvert.SerializeObject(queryString, Formatting.Indented);
 
-            }
+            var response = await WebRequest(content);
 
-            var entry = await GetEntryAsync(queryString);
-
-            //Parse Json here
+            //Parse Json
+            var json = await response.Content.ReadAsStringAsync();
+            JObject httpResponse = JObject.Parse(json);
+            FeedEntry entry = new FeedEntry();
 
             return entry as FeedEntry;
         }
 
-        private async Task<HttpResponseMessage> GetEntriesAsync(string queryString)
+        private async Task<HttpResponseMessage> WebRequest(string queryString)
         {
             var uri = new Uri(_endpoint);
             var content = new StringContent(queryString); //Need to cast to HttpContent
@@ -101,31 +116,6 @@ namespace BernieApp.Portable.Client.ES4BS
                 client.BaseAddress = uri;
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage response = await client.PostAsync(uri, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return response;
-                }
-                else
-                {
-                    //Do something
-                    throw new HttpRequestException();
-                }
-            }
-        }
-
-        private async Task<HttpResponseMessage> GetEntryAsync(string id, string queryString)
-        {
-            var uri = new Uri(_endpoint);
-            var content = new StringContent(queryString);
-
-            using (HttpClient client = new HttpClient())
-            {
-                client.BaseAddress = uri;
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("allplication/json"));
 
                 HttpResponseMessage response = await client.PostAsync(uri, content);
 

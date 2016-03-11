@@ -9,7 +9,8 @@ using Template10.Utils;
 using GalaSoft.MvvmLight.Command;
 using System.Diagnostics;
 
-namespace BernieApp.UWP.ViewModels {
+namespace BernieApp.UWP.ViewModels
+{
     public class NewsViewModel : MainViewModel
     {
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();

@@ -22,7 +22,7 @@ namespace BernieApp.Portable.Client {
 
         public Task<List<FeedEntry>> GetNewsAsync() => _newsClient.GetAsync();
 
-        public Task<FeedEntry> GetNewsArticleAsync(string id) => _newsClient.GetByIdAsync(id);
+        public Task<FeedEntry> GetNewsArticleAsync(string id) => _newsClient.GetAsync(id);
 
     }
 
