@@ -1,39 +1,38 @@
 ﻿<Page
-    x:Class="BernieApp.MainPage"
+    x:Class="BernieApp.WindowsPhone.View.HubPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BernieApp"
+    xmlns:local="using:BernieApp.WindowsPhone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    DataContext="{Binding Path=Main, Source={StaticResource Locator}}"    
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
-    <!--DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"-->
+
     <Page.Resources>
-        <ResourceDictionary>
-            <DataTemplate x:Key="NewsTemplate">
-                
-            </DataTemplate>
-            <DataTemplate x:Key="IssuesTemplate">
-                
-            </DataTemplate>
-        </ResourceDictionary>
+
+        <DataTemplate x:Key="NewsItemTemplate">
+            <StackPanel>
+                <TextBlock Grid.Row="0" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <TextBlock Grid.Row="1" Text="{Binding Description}"/>
+            </StackPanel>
+        </DataTemplate>
+
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
+        <Hub x:Name="Hub" x:Uid="Hub">
+            <Hub.Header>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <Image Source="Assets/movement-icon.png" Margin="20,10,10,10"/>
+                    <TextBlock Text="Connect" FontWeight="Bold" VerticalAlignment="Center"
+                           Style="{ThemeResource SubheaderTextBlockStyle}"
+                           />
+                </StackPanel>
+               
+            </Hub.Header>
 
-        <Hub x:Name="Hub" x:Uid="Hub" Margin="0,26,0,0">
-            <HubSection x:Uid="MainSection" MinWidth="100" MaxWidth="390" Margin="-20,0,0,0" Background="#FF388FDA">
-                <HubSection.HeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Assets/movement-icon.png" Margin="20,10,10,10"/>
-                            <TextBlock Text="Movement" Style="{ThemeResource SubheaderTextBlockStyle}" FontWeight="Bold" Margin="10" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </HubSection.HeaderTemplate>
+            <HubSection x:Uid="MainSection" Margin="-20,0,0,0" 
+                        Background="#FF388FDA"
+                        MinWidth="100" MaxWidth="390">
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -54,11 +53,8 @@
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                            Text="News" Style="{ThemeResource MessageDialogTitleStyle}"/>
                             </Button>
-                            <Button x:Name="NearbyButton" Grid.Row="1" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="Silver">
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
-                                           Text="Nearby" Style="{ThemeResource MessageDialogTitleStyle}"/>
-                            </Button>
-                            <Button x:Name="actionButton" Grid.Row="2" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="#FFEA504E">
+                            
+                            <Button x:Name="actionButton" Grid.Row="1" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="#FFEA504E">
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                            Text="Take Action" Style="{ThemeResource MessageDialogTitleStyle}"/>
                             </Button>
@@ -67,15 +63,15 @@
                 </DataTemplate>
             </HubSection>
 
-            <HubSection x:Uid="NewsSection" MinWidth="100" MaxWidth="390">
-                <HubSection.Header>
-                    <TextBlock Text="NEWS" Style="{ThemeResource TitleTextBlockStyle}"
-                               Margin="0,10,0,0"/>
-                </HubSection.Header>
+            <HubSection x:Uid="NewsSection" Header="NEWS FEED" Width="Auto">
                 <DataTemplate>
-                    <ListView ItemTemplate="{StaticResource NewsTemplate}"/>
+                    <ListView x:Name="NewsFeedListView"
+                              ItemTemplate="{StaticResource NewsItemTemplate}">
+                        
+                    </ListView>
                 </DataTemplate>
             </HubSection>
+
             
         </Hub>
     </Grid>

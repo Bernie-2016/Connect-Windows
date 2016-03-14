@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using BernieApp.UWP.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,14 @@ namespace BernieApp.UWP.View
         public NewsDetail()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
+
+            DataContextChanged += (s, e) =>
+            {
+                ViewModel = DataContext as NewsDetailViewModel;
+            };
         }
+
+        public NewsDetailViewModel ViewModel { get; set; }
     }
 }

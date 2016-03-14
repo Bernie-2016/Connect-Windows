@@ -11,7 +11,7 @@
 
     <t10:HamburgerMenu x:Name="Menu"
                            HamburgerForeground="White"
-                           HamburgerBackground="#FF147FD7"
+                           HamburgerBackground="#FF194D7B"
                            NavAreaBackground="#FF2B2B2B"
                            NavButtonForeground="White"
                            NavButtonHoverBackground="#FFEA504E"

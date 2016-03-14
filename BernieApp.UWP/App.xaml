@@ -8,7 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Name="Locator"/>
-            <Style TargetType="controls:CustomTitleBar">
+            <!--<Style TargetType="controls:CustomTitleBar">
                 <Setter Property="BackgroundColor" Value="SteelBlue" />
                 <Setter Property="ButtonBackgroundColor" Value="Maroon" />
                 <Setter Property="ButtonForegroundColor" Value="White" />
@@ -22,7 +22,7 @@
                 <Setter Property="ForegroundColor" Value="White" />
                 <Setter Property="InactiveBackgroundColor" Value="LightSteelBlue" />
                 <Setter Property="InactiveForegroundColor" Value="DimGray" />
-            </Style>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </common:BootStrapper>

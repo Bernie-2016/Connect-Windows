@@ -1,25 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using BernieApp.Portable.Client;
 using BernieApp.Portable.Models;
-using BernieApp.UWP.View;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Template10.Utils;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using System.Diagnostics;
 
-namespace BernieApp.UWP.ViewModels
+namespace BernieApp.WindowsPhone.ViewModels
 {
-    public class NewsViewModel : MainViewModel
+    public class HubPageViewModel : MainViewModel
     {
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
         private FeedEntry _selectedItem;
         private RelayCommand _loadCommand;
 
-        public NewsViewModel(IBernieClient client)
+        public HubPageViewModel(IBernieClient client)
         {
             _client = client;
             PopulateAsync();
@@ -29,7 +27,6 @@ namespace BernieApp.UWP.ViewModels
         {
             var news = await _client.GetNewsAsync();
             _items.AddRange(news);
-            //TODO: Need to check for null values and handle non 200 codes
         }
 
         public ObservableCollection<FeedEntry> Items => _items;
@@ -57,19 +54,15 @@ namespace BernieApp.UWP.ViewModels
                 }
                 return _loadCommand;
             }
-            
+
         }
-        
+
         //Navigate to the NewsDetails page to view full article
-        public void GoToDetailsPage()
-        {
-            var entry = SelectedItem;
-            Messenger.Default.Send(entry);
-            NavigationService.Navigate(typeof(NewsDetail));
-        }
-            
+        public void GoToDetailsPage() =>
+            NavigationService.Navigate(typeof(View.NewsDetailPage), SelectedItem.Id.ToString());
 
 
 
     }
+}
 }

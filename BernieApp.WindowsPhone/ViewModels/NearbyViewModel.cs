@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BernieApp.ViewModels
+namespace BernieApp.WindowsPhone.ViewModels
 {
-    class NearbyViewModel
+    public class NearbyViewModel : MainViewModel
     {
     }
 }

@@ -25,6 +25,7 @@ namespace BernieApp.UWP.View
         public NewsPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
     }

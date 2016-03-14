@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BernieApp.ViewModels
+namespace BernieApp.WindowsPhone.ViewModels
 {
-    class ActionsViewModel
+    public class ActionsViewModel : MainViewModel
     {
+
     }
 }

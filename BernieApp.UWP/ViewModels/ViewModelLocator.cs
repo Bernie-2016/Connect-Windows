@@ -18,7 +18,8 @@ namespace BernieApp.UWP.ViewModels
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            if (ViewModelBase.IsInDesignModeStatic)
+            // Changed to MainViewModel from ViewModelBase. May not change or help at all
+            if (MainViewModel.IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IBernieClient, DesignTimeBernieClient>();
             }
@@ -31,7 +32,7 @@ namespace BernieApp.UWP.ViewModels
                 SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
             }
             SimpleIoc.Default.Register<NewsViewModel>();
-            SimpleIoc.Default.Register<NewsDetailViewModel>();
+            SimpleIoc.Default.Register<NewsDetailViewModel>(true);
             SimpleIoc.Default.Register<ActionsViewModel>();
             SimpleIoc.Default.Register<NearbyViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();

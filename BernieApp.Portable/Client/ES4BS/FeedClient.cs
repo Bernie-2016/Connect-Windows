@@ -7,8 +7,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
-using BernieApp.Portable.Client.ES4BS.DataTransferObjects;
-using BernieApp.Portable.Helpers;
+//using BernieApp.Portable.Client.ES4BS.DataTransferObjects;
+//using BernieApp.Portable.Helpers;
 using BernieApp.Portable.Models;
 using BernieApp.Portable.Models.FeedClientModels;
 using Newtonsoft.Json;
@@ -98,12 +98,28 @@ namespace BernieApp.Portable.Client.ES4BS
 
             var response = await WebRequest(content);
 
-            //Parse Json
+            //Convert to JObject to bypass Response/HitData classes, then convert to List
             var json = await response.Content.ReadAsStringAsync();
             JObject httpResponse = JObject.Parse(json);
-            FeedEntry entry = new FeedEntry();
+            IList<JToken> httpResponseData = httpResponse["hits"]["hits"].Children().ToList();
+            var hits = JsonConvert.SerializeObject(httpResponseData);
+            JArray hitsArray = JArray.Parse(hits); 
+            IList<FeedEntry> entries = hitsArray.Select(e => new FeedEntry
+            {
+                Id = (string)e["_id"],
+                Title = (string)e["_source"]["title"],
+                ArticleType = (string)e["_source"]["article_type"],
+                Date = (DateTime)e["_source"]["timestamp_publish"],
+                Body = (string)e["_source"]["body"],
+                Excerpt = (string)e["_source"]["excerpt"],
+                Url = (string)e["_source"]["url"],
+                ImageUrl = (string)e["_source"]["image_url"],
+                Language = (string)e["_source"]["lang"]
 
-            return entry as FeedEntry;
+            }).ToList();
+            FeedEntry entry = entries.FirstOrDefault();
+
+            return entry;
         }
 
         private async Task<HttpResponseMessage> WebRequest(string queryString)

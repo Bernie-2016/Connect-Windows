@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
 
-  <Identity Name="15f1a3e8-56d9-4b7d-9ab4-e6c5bf66c111"
-            Publisher="CN=fyndor"
+  <Identity Name="721dcd72-8fd3-49ea-873f-163bab4b5efd"
+            Publisher="CN=riley"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="15f1a3e8-56d9-4b7d-9ab4-e6c5bf66c111" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="721dcd72-8fd3-49ea-873f-163bab4b5efd" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>BernieApp.WindowsPhone</DisplayName>
-    <PublisherDisplayName>fyndor</PublisherDisplayName>
+    <PublisherDisplayName>riley</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
