@@ -11,7 +11,7 @@
 
     <t10:HamburgerMenu x:Name="Menu"
                            HamburgerForeground="White"
-                           HamburgerBackground="#FF147FD7"
+                           HamburgerBackground="#FF194D7B"
                            NavAreaBackground="#FF2B2B2B"
                            NavButtonForeground="White"
                            NavButtonHoverBackground="#FFEA504E"
@@ -23,13 +23,6 @@
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <SymbolIcon Symbol="Message" Width="48" Height="48" />
                     <TextBlock Text="News" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                </StackPanel>
-            </t10:HamburgerButtonInfo>
-
-            <t10:HamburgerButtonInfo PageType="view:IssuesPage" ClearHistory="True">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <SymbolIcon Symbol="Favorite" Width="48" Height="48" />
-                    <TextBlock Text="Issues" Margin="12,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
             </t10:HamburgerButtonInfo>
 

@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="BernieApp.WindowsPhone.View.HubPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BernieApp.WindowsPhone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <DataTemplate x:Key="NewsItemTemplate">
+            <StackPanel>
+                <TextBlock Grid.Row="0" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+                <TextBlock Grid.Row="1" Text="{Binding Description}"/>
+            </StackPanel>
+        </DataTemplate>
+
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot">
+        <Hub x:Name="Hub" x:Uid="Hub">
+            <Hub.Header>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <Image Source="Assets/movement-icon.png" Margin="20,10,10,10"/>
+                    <TextBlock Text="Connect" FontWeight="Bold" VerticalAlignment="Center"
+                           Style="{ThemeResource SubheaderTextBlockStyle}"
+                           />
+                </StackPanel>
+               
+            </Hub.Header>
+
+            <HubSection x:Uid="MainSection" Margin="-20,0,0,0" 
+                        Background="#FF388FDA"
+                        MinWidth="100" MaxWidth="390">
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <!-- Some sort of Logo, text, background, etc. here -->
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="newsButton" Grid.Row="0" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="Silver">
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Text="News" Style="{ThemeResource MessageDialogTitleStyle}"/>
+                            </Button>
+                            
+                            <Button x:Name="actionButton" Grid.Row="1" HorizontalAlignment="Center" Width="300" Height="70" BorderBrush="" Background="#FFEA504E">
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Text="Take Action" Style="{ThemeResource MessageDialogTitleStyle}"/>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+
+            <HubSection x:Uid="NewsSection" Header="NEWS FEED" Width="Auto">
+                <DataTemplate>
+                    <ListView x:Name="NewsFeedListView"
+                              ItemTemplate="{StaticResource NewsItemTemplate}">
+                        
+                    </ListView>
+                </DataTemplate>
+            </HubSection>
+
+            
+        </Hub>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Settings"/>
+                <AppBarButton Label="About"/>
+                <AppBarButton Label="Share this app"/>
+                <AppBarButton Label="Give Feedback"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

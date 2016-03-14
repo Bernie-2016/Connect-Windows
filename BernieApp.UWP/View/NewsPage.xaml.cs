@@ -25,11 +25,8 @@ namespace BernieApp.UWP.View
         public NewsPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
-        private void Refresh_Click(object sender, RoutedEventArgs e)
-        {
-            //Refresh the newsfeed
-        }
     }
 }

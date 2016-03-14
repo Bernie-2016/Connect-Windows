@@ -6,10 +6,16 @@
     xmlns:t10="using:Template10.Controls"
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:t10behaviors="using:Template10.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <Binding Path="NewsViewModel" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
+    
     <Page.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="NewsItemTemplate">
@@ -58,12 +64,23 @@
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
             <t10:PageHeader.SecondaryCommands>
-                <AppBarButton Icon="Refresh"  Label="Refresh" Click="Refresh_Click"/>
+                <AppBarButton Icon="Refresh"  Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </t10:PageHeader.SecondaryCommands>
         </t10:PageHeader>
 
         <Grid Grid.Row="1">
-            <ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}"/>
+
+            <ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" 
+                      ItemsSource="{Binding Items}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"    
+                      >
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:CallMethodAction MethodName="GoToDetailsPage" TargetObject="{Binding}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </ListView>
+
         </Grid>
         
     </Grid>

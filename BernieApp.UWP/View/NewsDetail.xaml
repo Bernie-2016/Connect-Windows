@@ -6,11 +6,87 @@
     xmlns:t10="using:Template10.Controls"
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:triggers="using:WindowsStateTriggers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <Binding Path="NewsDetailViewModel" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WidthStates">
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="DeviceStates">
+                <VisualState x:Name="PhoneState">
+                    <VisualState.StateTriggers>
+                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Mobile"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Header.(Grid.Row)" Value="2"/>
+                        <Setter Target="Header.BackButtonVisibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopState">
+                    <VisualState.StateTriggers>
+                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Desktop"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Header.(Grid.Row)" Value="0"/>
+                        <Setter Target="Header.BackButtonVisibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}">
+            <Interactivity:Interaction.Behaviors>
+                <Behaviors:EllipsisBehavior Visibility="Collapsed" />
+            </Interactivity:Interaction.Behaviors>
+            <t10:PageHeader.PrimaryCommands>
+                <AppBarButton Label="Share" Tag="Share">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Open in Browser" Icon="Globe" Tag="Share"/>
+            </t10:PageHeader.PrimaryCommands>
+        </t10:PageHeader>
+
+        <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="5,10,5,0">
+                <TextBlock Text="{x:Bind ViewModel.Item.Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
+                                TextWrapping="WrapWholeWords" Foreground="Blue"/>
+                <TextBlock Text="{x:Bind ViewModel.Item.ArticleType}" Style="{ThemeResource BaseTextBlockStyle}"/>
+                <TextBlock Text="{x:Bind ViewModel.Item.Date}" Style="{ThemeResource BaseTextBlockStyle}"/>
+                <TextBlock Text="{x:Bind ViewModel.Item.Body}" Style="{ThemeResource BodyTextBlockStyle}" 
+                                TextWrapping="WrapWholeWords"/>
+            </StackPanel>
+        </ScrollViewer>
+        
     </Grid>
 </Page>
