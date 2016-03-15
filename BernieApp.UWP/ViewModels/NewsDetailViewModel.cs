@@ -23,17 +23,20 @@ namespace BernieApp.UWP.ViewModels
         {
             //_client = client;
 
-            Messenger.Default.Register<FeedEntry>(this, entry =>
+            Messenger.Default.Register<NotificationMessage<FeedEntry>>(this, (message) =>
             {
-                _item.Id = entry.Id;
-                _item.Title = entry.Title;
-                _item.ArticleType = entry.ArticleType;
-                _item.Date = entry.Date;
-                _item.Body = entry.Body;
-                _item.Url = entry.Url;
-                _item.ImageUrl = entry.ImageUrl;
+                var entry = message.Content;
+                if (message.Notification == "Selected_Entry")
+                {
+                    _item.Id = entry.Id;
+                    _item.Title = entry.Title;
+                    _item.ArticleType = entry.ArticleType;
+                    _item.Date = entry.Date;
+                    _item.Body = entry.Body;
+                    _item.Url = entry.Url;
+                    _item.ImageUrl = entry.ImageUrl;
+                }
 
-                
             });   
         }
 
@@ -50,7 +53,7 @@ namespace BernieApp.UWP.ViewModels
         public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
             var h = Shell.HamburgerMenu;
-            h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;           
+            h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;
 
             return Task.CompletedTask;
         }
