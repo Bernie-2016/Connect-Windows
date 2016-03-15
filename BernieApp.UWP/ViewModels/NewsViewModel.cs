@@ -79,5 +79,7 @@ namespace BernieApp.UWP.ViewModels
             }
 
         }
+
+       
     }
 }

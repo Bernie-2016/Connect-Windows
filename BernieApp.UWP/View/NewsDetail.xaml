@@ -68,12 +68,14 @@
                 <Behaviors:EllipsisBehavior Visibility="Collapsed" />
             </Interactivity:Interaction.Behaviors>
             <t10:PageHeader.PrimaryCommands>
-                <AppBarButton Label="Share" Tag="Share">
+                <AppBarButton Label="Share" 
+                              Command="{Binding Path=ShareCommand}">
                     <AppBarButton.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;"/>
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarButton Label="Open in Browser" Icon="Globe" Tag="Share"/>
+                <AppBarButton Label="Open in Browser" Icon="Globe"
+                              Command="{Binding Path=OpenWebPageCommand}"/>
             </t10:PageHeader.PrimaryCommands>
         </t10:PageHeader>
 
