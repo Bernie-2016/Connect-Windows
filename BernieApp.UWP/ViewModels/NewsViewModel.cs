@@ -9,6 +9,7 @@ using Template10.Utils;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Diagnostics;
+using Windows.UI.Xaml.Navigation;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -23,6 +24,13 @@ namespace BernieApp.UWP.ViewModels
         {
             _client = client;
             PopulateAsync();
+        }
+
+        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        {
+            Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
+
+            return base.OnNavigatedToAsync(parameter, mode, state);
         }
 
         private async Task PopulateAsync()
@@ -63,13 +71,15 @@ namespace BernieApp.UWP.ViewModels
         //Navigate to the NewsDetails page to view full article
         public void GoToDetailsPage()
         {
-            var entry = SelectedItem;
-            Messenger.Default.Send(entry);
-            NavigationService.Navigate(typeof(NewsDetail));
+            if (SelectedItem != null)
+            {
+                var entry = SelectedItem;
+                Messenger.Default.Send(new NotificationMessage<FeedEntry>(entry, "Selected_Entry"));
+                NavigationService.Navigate(typeof(NewsDetail));
+            }
+
         }
-            
 
-
-
+       
     }
 }
