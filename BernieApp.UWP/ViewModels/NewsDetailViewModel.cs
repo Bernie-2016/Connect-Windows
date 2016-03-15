@@ -10,6 +10,7 @@ using Windows.System;
 using Windows.UI.Popups;
 using System.Diagnostics;
 using GalaSoft.MvvmLight.Command;
+using Windows.ApplicationModel.DataTransfer;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -46,6 +47,9 @@ namespace BernieApp.UWP.ViewModels
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            //Register for share
+            DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
+            
             //hide the hamburger button, navigation should only go back to the NewsPage via the hardware back button or back button in page header
             var h = Shell.HamburgerMenu;
             h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Collapsed;
@@ -56,6 +60,9 @@ namespace BernieApp.UWP.ViewModels
 
         public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
+            //Un-register for share
+            DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
+
             var h = Shell.HamburgerMenu;
             h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;
 
@@ -95,13 +102,22 @@ namespace BernieApp.UWP.ViewModels
             {
                 if (_shareCommand == null)
                 {
-                    _shareCommand = new RelayCommand(async () =>
+                    _shareCommand = new RelayCommand( () =>
                     {
-                        
+                       DataTransferManager.ShowShareUI();
                     });
                 }
                 return _shareCommand;
             }
+        }
+
+        void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var request = args.Request;
+
+            request.Data.Properties.Title = " ";
+            request.Data.Properties.Description = "Share this news article";
+            request.Data.SetWebLink(new Uri(Item.Url));
         }
     }
 }
