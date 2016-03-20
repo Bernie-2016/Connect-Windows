@@ -8,6 +8,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.DataContext>
+        <Binding Path="NewsDetailPageViewModel" Source="{StaticResource Locator}"/>
+    </Page.DataContext>
+    
     <Grid x:Name="LayoutRoot">
 
         <Grid.ChildrenTransitions>
@@ -23,15 +27,16 @@
 
         <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="{Binding Title}" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="{Binding ArticleType}" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1" x:Name="ContentRoot">
-            <ScrollViewer ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="5,10,5,0">
                     <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords"/>
-                    <TextBlock Text="{Binding Date}" Style="{ThemeResource BaseTextBlockStyle}"/>
+                    <TextBlock Text="{Binding Date}" Style="{ThemeResource BaseTextBlockStyle}"
+                                Foreground="Gray"/>
                     <TextBlock Text="{Binding Body}" Style="{ThemeResource BodyTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords"/>
                 </StackPanel>
