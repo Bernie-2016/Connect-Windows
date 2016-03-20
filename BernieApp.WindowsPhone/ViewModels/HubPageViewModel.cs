@@ -17,7 +17,7 @@ namespace BernieApp.WindowsPhone.ViewModels
     {
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
-        private INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
         private FeedEntry _selectedItem;
         private RelayCommand _loadCommand;
 
@@ -28,7 +28,7 @@ namespace BernieApp.WindowsPhone.ViewModels
             PopulateAsync();
         }
 
-        public  override void Activate(object parameter)
+        public override void Activate(object parameter)
         {
             Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
         }
@@ -94,7 +94,7 @@ namespace BernieApp.WindowsPhone.ViewModels
             {
                 var entry = SelectedItem;
                 Messenger.Default.Send(new NotificationMessage<FeedEntry>(entry, "Selected_Entry"));
-                _navigationService.NavigateTo("NewsDetailPage");
+                _navigationService.NavigateTo(ViewModelLocator.NewsDetailPageKey);
             }
 
         }

@@ -36,33 +36,36 @@ namespace BernieApp.WindowsPhone.View
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            Messenger.Default.Register<NotificationMessage<string>>(this, (message) =>
-            {
-                var m = message.Notification.ToString();
-                if (m == "Reset")
-                {       
-                    ListView newsfeed = FindChildControl<ListView>(NewsSection, "NewsFeedListView") as ListView;
-                    newsfeed.SelectedItem = null;
-                }
-            });
+            //    Messenger.Default.Register<NotificationMessage<string>>(this, (message) =>
+            //    {
+            //        var m = message.Notification.ToString();
+            //        if (m == "Reset")
+            //        {       
+            //            ListView newsfeed = FindChildControl<ListView>(NewsSection, "NewsFeedListView") as ListView;
+            //            newsfeed.SelectedItem = null;
+            //        }
+            //    });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
+            //ListView newsfeed = FindChildControl<ListView>(NewsSection, "NewsFeedListView") as ListView;
+            //newsfeed.SelectedItem = null;
 
-            var navigableViewModel = this.DataContext as INavigable;
-            if (navigableViewModel != null)
-                navigableViewModel.Activate(e.Parameter);
+            //base.OnNavigatedTo(e);
+
+            //var navigableViewModel = this.DataContext as INavigable;
+            //if (navigableViewModel != null)
+            //    navigableViewModel.Activate(e.Parameter);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnNavigatedFrom(e);
+            //base.OnNavigatedFrom(e);
 
-            var navigableViewModel = this.DataContext as INavigable;
-            if (navigableViewModel != null)
-                navigableViewModel.Deactivate(e.Parameter);
+            //var navigableViewModel = this.DataContext as INavigable;
+            //if (navigableViewModel != null)
+            //    navigableViewModel.Deactivate(e.Parameter);
         }
 
 

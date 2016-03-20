@@ -17,17 +17,26 @@ namespace BernieApp.WindowsPhone.ViewModels
 {
     public class ViewModelLocator
     {
+        #region Constants
+        public const string NewsDetailPageKey = "NewsDetailPage";
+        public const string HubPageKey = "HubPage";
+        public const string ActionsPageKey = "ActionsPage";
+        public const string NearbyPageKey = "NearbyPage";
+        public const string SettingsPageKey = "SettingsPage";
+        #endregion
+
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+            //Navigation
             var navigationService = CreateNavigationService();
+            SimpleIoc.Default.Register<INavigationService>(
+                    () => navigationService);
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IBernieClient, DesignTimeBernieClient>();
-                SimpleIoc.Default.Register<INavigationService>(
-                    () => navigationService);
             }
             else
             {
@@ -35,9 +44,10 @@ namespace BernieApp.WindowsPhone.ViewModels
                     () => new FeedClient<FeedEntry>(
                         Endpoints.NewsBaseUrl));
                 SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
-                SimpleIoc.Default.Register<INavigationService>(
-                    () => new NavigationService());
+
             }
+
+            //Register ViewModels
             SimpleIoc.Default.Register<HubPageViewModel>();
             SimpleIoc.Default.Register<NewsDetailViewModel>();
             SimpleIoc.Default.Register<ActionsViewModel>();
@@ -55,11 +65,11 @@ namespace BernieApp.WindowsPhone.ViewModels
         private INavigationService CreateNavigationService()
         {
             var navigationService = new NavigationService();
-            navigationService.Configure("HubPage", typeof(HubPage));
-            navigationService.Configure("NewsDetailPage", typeof(NewsDetailPage));
-            navigationService.Configure("ActionsPage", typeof(ActionsPage));
-            navigationService.Configure("NearbyPage", typeof(NearbyPage));
-            navigationService.Configure("SettingsPage", typeof(SettingsPage));
+            navigationService.Configure(HubPageKey, typeof(HubPage));
+            navigationService.Configure(NewsDetailPageKey, typeof(NewsDetailPage));
+            navigationService.Configure(ActionsPageKey, typeof(ActionsPage));
+            navigationService.Configure(NearbyPageKey, typeof(NearbyPage));
+            navigationService.Configure(SettingsPageKey, typeof(SettingsPage));
 
             return navigationService;
         }
