@@ -63,6 +63,7 @@
                         MinWidth="400">
                 <DataTemplate>
                     <ListView x:Name="NewsFeedListView"
+                              Margin="0,-20,0,0"
                               ItemTemplate="{StaticResource NewsItemTemplate}"
                               SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                               ItemsSource="{Binding Items}">
@@ -74,19 +75,17 @@
                     </ListView>
                 </DataTemplate>
             </HubSection>
-
-
         </Hub>
     </Grid>
 
     <Page.BottomAppBar>
         <CommandBar x:Name="AppBar">
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="RefreshButton"  Icon="Refresh" Label="Refresh News" Command="{Binding Path=LoadCommand}"/>
+                <AppBarButton x:Name="RefreshButton"  Icon="Refresh" Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Settings"/>
-                <AppBarButton Label="About"/>
+                <AppBarButton Label="Settings" Command="{Binding Path=GotoSettingsCommand}"/>
+                <AppBarButton Label="About" Command="{Binding Path=GoToAboutCommand}"/>
                 <AppBarButton Label="Share this app"/>
                 <AppBarButton Label="Give Feedback"/>
             </CommandBar.SecondaryCommands>

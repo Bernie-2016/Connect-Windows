@@ -96,7 +96,18 @@ namespace BernieApp.WindowsPhone.ViewModels
                 Messenger.Default.Send(new NotificationMessage<FeedEntry>(entry, "Selected_Entry"));
                 _navigationService.NavigateTo(ViewModelLocator.NewsDetailPageKey);
             }
+        }
 
+        //Navigate to Settings
+        public void GoToSettingspage()
+        {
+            _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "Settings");
+        }
+
+        //Navigate to About
+        public void GoToAboutpage()
+        {
+            _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "About");
         }
     }
 }

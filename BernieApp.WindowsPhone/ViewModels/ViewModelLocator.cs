@@ -10,7 +10,7 @@ using BernieApp.WindowsPhone.View;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
-using Microsoft.Practices.ServiceLocation; //Needto find this for WinRT!!!
+using Microsoft.Practices.ServiceLocation;
 
 
 namespace BernieApp.WindowsPhone.ViewModels

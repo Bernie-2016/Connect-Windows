@@ -29,5 +29,29 @@ namespace BernieApp.WindowsPhone.View
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            string parameter = (string)e.Parameter;
+
+            if (parameter == "Settings")
+            {
+                
+            }
+            else if (parameter == "About")
+            {
+
+            }
+            else if (parameter == "Feedback")
+            {
+
+            }
+            else
+            {
+
+            }
+
+            base.OnNavigatedTo(e);
+        }
     }
 }
