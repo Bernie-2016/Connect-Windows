@@ -68,34 +68,6 @@ namespace BernieApp.WindowsPhone.View
             //    navigableViewModel.Deactivate(e.Parameter);
         }
 
-
-
-        private DependencyObject FindChildControl<T>(DependencyObject control, string ctrlName)
-        {
-            int childNumber = VisualTreeHelper.GetChildrenCount(control);
-            for (int i = 0; i < childNumber; i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(control, i);
-                FrameworkElement fe = child as FrameworkElement;
-                // Not a framework element or is null
-                if (fe == null) return null;
-
-                if (child is T && fe.Name == ctrlName)
-                {
-                    // Found the control so return
-                    return child;
-                }
-                else
-                {
-                    // Not found it - search children
-                    DependencyObject nextLevel = FindChildControl<T>(child, ctrlName);
-                    if (nextLevel != null)
-                        return nextLevel;
-                }
-            }
-            return null;
-        }       
-
         private void Hub_SectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
         {
             if(Hub.SectionsInView[0] == NewsSection)
@@ -108,6 +80,11 @@ namespace BernieApp.WindowsPhone.View
                 RefreshButton.Visibility = Visibility.Collapsed;
                 AppBar.ClosedDisplayMode = AppBarClosedDisplayMode.Minimal;
             }
+        }
+
+        private void newsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hub.ScrollToSection(NewsSection);
         }
     }
 }

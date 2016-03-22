@@ -44,16 +44,24 @@
                 <DataTemplate>
                     <StackPanel VerticalAlignment="Bottom">
                         <Button x:Name="newsButton" HorizontalAlignment="Center" 
-                                Width="350" Height="70" BorderBrush="" Background="Silver"
-                                Padding="0">
+                                Width="350" Height="70" Padding="0"
+                                BorderBrush="" Background="Silver"
+                                Click="newsButton_Click">
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                            Text="News" Style="{ThemeResource MessageDialogTitleStyle}"/>
                         </Button>
 
                         <Button x:Name="actionButton" HorizontalAlignment="Center" 
-                                Width="350" Height="70" BorderBrush="" Background="#FFEA504E">
+                                Width="350" Height="70" 
+                                BorderBrush="" Background="#FFEA504E"
+                                >
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                            Text="Take Action" Style="{ThemeResource MessageDialogTitleStyle}"/>
+                            <Interactivity:Interaction.Behaviors>
+                                <Core:EventTriggerBehavior EventName="Click">
+                                    <Core:CallMethodAction MethodName="GoToActionsPage" TargetObject="{Binding}"/>
+                                </Core:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
                         </Button>
                     </StackPanel>
                 </DataTemplate>
@@ -81,13 +89,18 @@
     <Page.BottomAppBar>
         <CommandBar x:Name="AppBar">
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="RefreshButton"  Icon="Refresh" Label="Refresh" Command="{Binding Path=LoadCommand}"/>
+                <AppBarButton x:Name="RefreshButton" Label="Refresh" Command="{Binding Path=LoadCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE117;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Settings" Command="{Binding Path=GotoSettingsCommand}"/>
-                <AppBarButton Label="About" Command="{Binding Path=GoToAboutCommand}"/>
+                <AppBarButton Label="Settings" Command="{Binding Path=GotToSettingsPageCommand}" />
+                <AppBarButton Label="About" Command="{Binding Path=GotToAboutSectionCommand}"/>
                 <AppBarButton Label="Share this app"/>
-                <AppBarButton Label="Give Feedback"/>
+                <AppBarButton Label="Give Feedback" Command="{Binding Path=GotToFeedbackSectionCommand}">
+                </AppBarButton>
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

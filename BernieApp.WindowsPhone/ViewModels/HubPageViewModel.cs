@@ -20,6 +20,9 @@ namespace BernieApp.WindowsPhone.ViewModels
         private readonly INavigationService _navigationService;
         private FeedEntry _selectedItem;
         private RelayCommand _loadCommand;
+        private RelayCommand _settingsCommand;
+        private RelayCommand _aboutCommand;
+        private RelayCommand _feedbackCommand;
 
         public HubPageViewModel(IBernieClient client, INavigationService navigationService)
         {
@@ -38,14 +41,6 @@ namespace BernieApp.WindowsPhone.ViewModels
 
         }
 
-
-        //public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
-        //{
-        //    Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
-
-        //    return base.OnNavigatedToAsync(parameter, mode, state);
-        //}
-
         private async Task PopulateAsync()
         {
             var news = await _client.GetNewsAsync();
@@ -53,7 +48,6 @@ namespace BernieApp.WindowsPhone.ViewModels
             {
                 _items.Add(item);
             }
-            //TODO: Need to check for null values and handle non 200 codes
         }
 
         public ObservableCollection<FeedEntry> Items => _items;
@@ -84,7 +78,52 @@ namespace BernieApp.WindowsPhone.ViewModels
                 }
                 return _loadCommand;
             }
+        }
 
+        //Refresh the news feed
+        public RelayCommand GotToSettingsPageCommand
+        {
+            get
+            {
+                if (_settingsCommand == null)
+                {
+                    _settingsCommand = new RelayCommand( () =>
+                    {
+                        _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "Settings");
+                    });
+                }
+                return _settingsCommand;
+            }
+        }
+
+        public RelayCommand GotToAboutSectionCommand
+        {
+            get
+            {
+                if (_aboutCommand == null)
+                {
+                    _aboutCommand = new RelayCommand(() =>
+                    {
+                        _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "About");
+                    });
+                }
+                return _aboutCommand;
+            }
+        }
+
+        public RelayCommand GotToFeedbackSectionCommand
+        {
+            get
+            {
+                if (_feedbackCommand == null)
+                {
+                    _feedbackCommand = new RelayCommand(() =>
+                    {
+                        _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "Feedback");
+                    });
+                }
+                return _feedbackCommand;
+            }
         }
 
         //Navigate to the NewsDetails page to view full article
@@ -99,15 +138,27 @@ namespace BernieApp.WindowsPhone.ViewModels
         }
 
         //Navigate to Settings
-        public void GoToSettingspage()
+        public void GoToSettingsPage()
         {
             _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "Settings");
         }
 
         //Navigate to About
-        public void GoToAboutpage()
+        public void GoToAboutPage()
         {
             _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "About");
+        }
+
+        //Navigate to Feedback
+        public void GoToFeedbackPage()
+        {
+            _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "Feedback");
+        }
+
+        //Navigate to Actions page
+        public void GoToActionsPage()
+        {
+            _navigationService.NavigateTo(ViewModelLocator.ActionsPageKey);
         }
     }
 }

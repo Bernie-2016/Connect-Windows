@@ -47,5 +47,7 @@ namespace BernieApp.WindowsPhone.View
             if (navigableViewModel != null)
                 navigableViewModel.Deactivate(e.Parameter);
         }
+
+        //TODO: Need to handle back requested
     }
 }

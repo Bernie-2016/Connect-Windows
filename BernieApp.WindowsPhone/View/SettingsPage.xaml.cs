@@ -36,19 +36,19 @@ namespace BernieApp.WindowsPhone.View
 
             if (parameter == "Settings")
             {
-                
+                Pivot.SelectedIndex = 0;
             }
             else if (parameter == "About")
             {
-
+                Pivot.SelectedIndex = 1;
             }
             else if (parameter == "Feedback")
             {
-
+                Pivot.SelectedIndex = 2;
             }
             else
             {
-
+                
             }
 
             base.OnNavigatedTo(e);
