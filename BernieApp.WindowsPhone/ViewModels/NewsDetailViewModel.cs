@@ -13,10 +13,11 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
 using Windows.UI.Popups;
 using System.Diagnostics;
+using BernieApp.WindowsPhone.Common;
 
 namespace BernieApp.WindowsPhone.ViewModels
 {
-    public class NewsDetailViewModel : MainViewModel
+    public class NewsDetailViewModel : MainViewModel, INavigable
     {
         private INavigationService _navigationService;
         private FeedEntry _item = new FeedEntry();
@@ -32,27 +33,21 @@ namespace BernieApp.WindowsPhone.ViewModels
         public NewsDetailViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-
-            Messenger.Default.Register<NotificationMessage<FeedEntry>>(this, (message) =>
-            {
-                var entry = message.Content;
-                if (message.Notification == "Selected_Entry")
-                {
-                    _item.Id = entry.Id;
-                    _item.Title = entry.Title;
-                    _item.ArticleType = entry.ArticleType;
-                    _item.Date = entry.Date;
-                    _item.Body = entry.Body;
-                    _item.Url = entry.Url;
-                    _item.ImageUrl = entry.ImageUrl;
-                }
-
-            });
         }
 
         public override void Activate(object parameter)
         {
-
+            var entry = parameter as FeedEntry;
+            if (entry != null)
+            {
+                _item.Id = entry.Id;
+                _item.Title = entry.Title;
+                _item.ArticleType = entry.ArticleType;
+                _item.Date = entry.Date;
+                _item.Body = entry.Body;
+                _item.Url = entry.Url;
+                _item.ImageUrl = entry.ImageUrl;
+            }
         }
 
         public override void Deactivate(object parameter)

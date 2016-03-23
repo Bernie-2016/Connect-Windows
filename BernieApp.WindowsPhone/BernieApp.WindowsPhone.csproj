@@ -84,7 +84,6 @@
     </Compile>
     <Compile Include="Common\INavigable.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
-    <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\HubPageViewModel.cs" />

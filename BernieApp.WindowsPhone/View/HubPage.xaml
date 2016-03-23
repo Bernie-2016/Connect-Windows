@@ -74,7 +74,9 @@
                               Margin="0,-20,0,0"
                               ItemTemplate="{StaticResource NewsItemTemplate}"
                               SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                              ItemsSource="{Binding Items}">
+                              ItemsSource="{Binding Items}"
+                              
+                              Loaded="NewsFeedListView_Loaded">
                         <Interactivity:Interaction.Behaviors>
                             <Core:EventTriggerBehavior EventName="SelectionChanged">
                                 <Core:CallMethodAction MethodName="GoToDetailsPage" TargetObject="{Binding}"/>

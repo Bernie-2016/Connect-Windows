@@ -29,12 +29,15 @@ namespace BernieApp.WindowsPhone.View
     /// </summary>
     public sealed partial class HubPage : Page
     {
+        private ListView _NewsFeedListView = default(ListView);
 
         public HubPage()
         {
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+            //_NewsFeedListView.SelectedItem = null;
 
             //    Messenger.Default.Register<NotificationMessage<string>>(this, (message) =>
             //    {
@@ -47,25 +50,28 @@ namespace BernieApp.WindowsPhone.View
             //    });
         }
 
+        void HubPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this._NewsFeedListView.SelectedItem = null;
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //ListView newsfeed = FindChildControl<ListView>(NewsSection, "NewsFeedListView") as ListView;
-            //newsfeed.SelectedItem = null;
 
-            //base.OnNavigatedTo(e);
+            base.OnNavigatedTo(e);
 
-            //var navigableViewModel = this.DataContext as INavigable;
-            //if (navigableViewModel != null)
-            //    navigableViewModel.Activate(e.Parameter);
+            var navigableViewModel = this.DataContext as INavigable;
+            if (navigableViewModel != null)
+                navigableViewModel.Activate(e.Parameter);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            //base.OnNavigatedFrom(e);
+            base.OnNavigatedFrom(e);
 
-            //var navigableViewModel = this.DataContext as INavigable;
-            //if (navigableViewModel != null)
-            //    navigableViewModel.Deactivate(e.Parameter);
+            var navigableViewModel = this.DataContext as INavigable;
+            if (navigableViewModel != null)
+                navigableViewModel.Deactivate(e.Parameter);
         }
 
         private void Hub_SectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
@@ -85,6 +91,11 @@ namespace BernieApp.WindowsPhone.View
         private void newsButton_Click(object sender, RoutedEventArgs e)
         {
             Hub.ScrollToSection(NewsSection);
+        }
+
+        private void NewsFeedListView_Loaded(object sender, RoutedEventArgs e)
+        {
+            _NewsFeedListView = sender as ListView;
         }
     }
 }

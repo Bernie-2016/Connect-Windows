@@ -7,13 +7,14 @@ using System.Collections.ObjectModel;
 using BernieApp.WindowsPhone.View;
 using BernieApp.Portable.Client;
 using BernieApp.Portable.Models;
+using BernieApp.WindowsPhone.Common;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Views;
 
 namespace BernieApp.WindowsPhone.ViewModels
 {
-    public class HubPageViewModel : MainViewModel
+    public class HubPageViewModel : MainViewModel, INavigable
     {
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
@@ -33,7 +34,7 @@ namespace BernieApp.WindowsPhone.ViewModels
 
         public override void Activate(object parameter)
         {
-            Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
+            //Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
         }
 
         public override void Deactivate(object parameter)
@@ -132,27 +133,8 @@ namespace BernieApp.WindowsPhone.ViewModels
             if (SelectedItem != null)
             {
                 var entry = SelectedItem;
-                Messenger.Default.Send(new NotificationMessage<FeedEntry>(entry, "Selected_Entry"));
-                _navigationService.NavigateTo(ViewModelLocator.NewsDetailPageKey);
+                _navigationService.NavigateTo(ViewModelLocator.NewsDetailPageKey, entry);
             }
-        }
-
-        //Navigate to Settings
-        public void GoToSettingsPage()
-        {
-            _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "Settings");
-        }
-
-        //Navigate to About
-        public void GoToAboutPage()
-        {
-            _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "About");
-        }
-
-        //Navigate to Feedback
-        public void GoToFeedbackPage()
-        {
-            _navigationService.NavigateTo(ViewModelLocator.SettingsPageKey, "Feedback");
         }
 
         //Navigate to Actions page
