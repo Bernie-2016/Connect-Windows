@@ -37,6 +37,7 @@ namespace BernieApp.WindowsPhone.ViewModels
 
         public override void Activate(object parameter)
         {
+<<<<<<< HEAD
             var entry = parameter as FeedEntry;
             if (entry != null)
             {
@@ -48,28 +49,17 @@ namespace BernieApp.WindowsPhone.ViewModels
                 _item.Url = entry.Url;
                 _item.ImageUrl = entry.ImageUrl;
             }
+=======
+            //Register for share
+            DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
+>>>>>>> e47c169eea461eb6ad8f621036e7b0901db50427
         }
 
         public override void Deactivate(object parameter)
         {
-
+            //Un-register for share
+            DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
         }
-
-        //public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
-        //{
-        //    //Register for share
-        //    DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
-
-        //    return Task.CompletedTask;
-        //}
-
-        //public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
-        //{
-        //    //Un-register for share
-        //    DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
-
-        //    return Task.CompletedTask;
-        //}
 
         //Open article Url in Web Browser
         public RelayCommand OpenWebPageCommand
@@ -94,7 +84,6 @@ namespace BernieApp.WindowsPhone.ViewModels
                 }
                 return _openWebPageCommand;
             }
-
         }
 
         //Invoke Share charm to share a link to the article
