@@ -21,21 +21,11 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="{Binding Item.ArticleType}" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-        </StackPanel>
-
         <Grid Grid.Row="1" x:Name="ContentRoot">
-            <ScrollViewer Grid.Row="1" 
-                          Margin="19,0,0,0"
+            <ScrollViewer Margin="19,0,0,0"
                           ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="5,10,5,0">
+                    <TextBlock Text="{Binding Item.ArticleType}" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
                     <TextBlock Text="{Binding Item.Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords"/>
                     <TextBlock Text="{Binding Item.Date}" Style="{ThemeResource BaseTextBlockStyle}"
@@ -49,12 +39,13 @@
 
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Share">
+            <AppBarButton Label="Share" Command="{Binding Path=ShareCommand}">
                 <AppBarButton.Icon>
-                    <FontIcon/>
+                    <BitmapIcon UriSource="/Assets/share.png"/>
                 </AppBarButton.Icon>
             </AppBarButton>
-            <AppBarButton Label="Open in Browser" Icon="Globe"/>
+            <AppBarButton Label="Open Link" Icon="Globe" Command="{Binding Path=OpenWebPageCommand}"
+                          />
         </CommandBar>
     </Page.BottomAppBar>
     

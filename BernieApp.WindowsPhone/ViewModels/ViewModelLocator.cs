@@ -30,6 +30,7 @@ namespace BernieApp.WindowsPhone.ViewModels
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             //Navigation
+            SimpleIoc.Default.Unregister<INavigationService>();
             var navigationService = CreateNavigationService();
             SimpleIoc.Default.Register<INavigationService>(
                     () => navigationService);

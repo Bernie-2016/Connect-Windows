@@ -37,7 +37,6 @@ namespace BernieApp.WindowsPhone.ViewModels
 
         public override void Activate(object parameter)
         {
-<<<<<<< HEAD
             var entry = parameter as FeedEntry;
             if (entry != null)
             {
@@ -49,10 +48,9 @@ namespace BernieApp.WindowsPhone.ViewModels
                 _item.Url = entry.Url;
                 _item.ImageUrl = entry.ImageUrl;
             }
-=======
+
             //Register for share
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
->>>>>>> e47c169eea461eb6ad8f621036e7b0901db50427
         }
 
         public override void Deactivate(object parameter)
