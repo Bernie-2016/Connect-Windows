@@ -21,7 +21,8 @@
             <DataTemplate x:Key="NewsItemTemplate">
                 <StackPanel>
                     <TextBlock Grid.Row="0" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                    <TextBlock Grid.Row="1" Text="{Binding Description}"/>
+                    <TextBlock Grid.Row="1" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}"
+                           Foreground="Gray"/>
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>

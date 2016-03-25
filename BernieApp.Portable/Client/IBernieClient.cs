@@ -9,21 +9,29 @@ namespace BernieApp.Portable.Client {
     {
         Task<List<FeedEntry>> GetNewsAsync();
         Task<FeedEntry> GetNewsArticleAsync(string id);
+        Task<List<ActionAlert>> GetActionsAsync();
+        Task<ActionAlert> GetActionAsync(int id);
     }
 
     public class LiveBernieClient : IBernieClient
     {
         private readonly FeedClient<FeedEntry> _newsClient;
+        private readonly ActionClient<ActionAlert> _actionClient;
 
-        public LiveBernieClient(FeedClient<FeedEntry> newsClient)
+        public LiveBernieClient(FeedClient<FeedEntry> newsClient, ActionClient<ActionAlert> actionClient)
         {
             _newsClient = newsClient;
+            _actionClient = actionClient;
 
         }
 
         public Task<List<FeedEntry>> GetNewsAsync() => _newsClient.GetAsync();
 
         public Task<FeedEntry> GetNewsArticleAsync(string id) => _newsClient.GetAsync(id);
+
+        public Task<List<ActionAlert>> GetActionsAsync() => _actionClient.GetAsync();
+
+        public Task<ActionAlert> GetActionAsync(int id) => _actionClient.GetAsync(id);
 
     }
 
@@ -49,6 +57,26 @@ namespace BernieApp.Portable.Client {
                 Url = "http://www.BernieSanders.com/article-url"
             };
             return entry;
+        }
+
+        public async Task<List<ActionAlert>> GetActionsAsync()
+        {
+            return new List<ActionAlert>();
+        }
+
+        public async Task<ActionAlert> GetActionAsync(int id)
+        {
+            var alert = new ActionAlert
+            {
+                Id = 1,
+                Title = "Look, a tweet!",
+                Date = "March 23",
+                ShortDescription = "Bleh",
+                Body = "Body"
+
+            };
+
+            return alert;
         }
     }
 }

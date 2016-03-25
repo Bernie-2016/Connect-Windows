@@ -29,6 +29,10 @@ namespace BernieApp.UWP.ViewModels
                     () => new FeedClient<FeedEntry>(
                         Endpoints.NewsBaseUrl));
 
+                SimpleIoc.Default.Register(
+                    () => new ActionClient<ActionAlert>(
+                        Endpoints.ActionAlertsUrl));
+
                 SimpleIoc.Default.Register<IBernieClient, LiveBernieClient>();
             }
             SimpleIoc.Default.Register<NewsViewModel>();

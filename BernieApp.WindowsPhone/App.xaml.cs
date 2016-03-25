@@ -1,4 +1,6 @@
 ﻿using BernieApp.WindowsPhone.Common;
+using GalaSoft.MvvmLight.Views;
+using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -17,13 +20,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-// The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
 namespace BernieApp.WindowsPhone
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     public sealed partial class App : Application
     {
         private TransitionCollection transitions;
@@ -35,7 +34,9 @@ namespace BernieApp.WindowsPhone
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
+            //this.Suspending += this.OnSuspending;
+            //this.Resuming += OnResuming;
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         /// <summary>
@@ -53,45 +54,37 @@ namespace BernieApp.WindowsPhone
             }
 #endif
 
-            Frame rootFrame = Window.Current.Content as Frame;
+            ApplicationExecutionState previousState = e.PreviousExecutionState;
+            ActivationKind activationKind = e.Kind;
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active.
+            Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page.
                 rootFrame = new Frame();
-
-                // Associate the frame with a SuspensionManager key.
-                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
-
-                // TODO: Change this value to a cache size that is appropriate for your application.
-                rootFrame.CacheSize = 1;
+                //SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
+                rootFrame.CacheSize = 2;
 
                 // Set the default language
                 rootFrame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // Restore the saved session state only when appropriate.
-                    try
-                    {
-                        await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
-                        // Something went wrong restoring state.
-                        // Assume there is no state and continue.
-                    }
-                }
+                //if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                //{
+                //    try
+                //    {
+                //        await SuspensionManager.RestoreAsync();
+                //    }
+                //    catch (SuspensionManagerException)
+                //    {
+                //        // Something went wrong restoring state.
+                //        // Assume there is no state and continue.
+                //    }
+                //}
 
-                // Place the frame in the current Window.
                 Window.Current.Content = rootFrame;
             }
 
             if (rootFrame.Content == null)
             {
-                // Removes the turnstile navigation for startup.
                 if (rootFrame.ContentTransitions != null)
                 {
                     this.transitions = new TransitionCollection();
@@ -134,11 +127,29 @@ namespace BernieApp.WindowsPhone
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private async void OnSuspending(object sender, SuspendingEventArgs e)
+        //private async void OnSuspending(object sender, SuspendingEventArgs e)
+        //{
+        //    var deferral = e.SuspendingOperation.GetDeferral();
+        //    await SuspensionManager.SaveAsync();
+        //    deferral.Complete();
+        //}
+
+        //private async void OnResuming(object sender, object e )
+        //{
+            
+        //}
+
+        //Handle navigation via Back Button
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            await SuspensionManager.SaveAsync();
-            deferral.Complete();
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame != null && rootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                var nav = ServiceLocator.Current.GetInstance<INavigationService>();
+                nav.GoBack();
+            }
         }
     }
 }

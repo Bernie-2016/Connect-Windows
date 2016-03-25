@@ -1,4 +1,8 @@
+using BernieApp.WindowsPhone.Common;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace BernieApp.WindowsPhone.ViewModels
 {
@@ -14,7 +18,7 @@ namespace BernieApp.WindowsPhone.ViewModels
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, INavigable
     {
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -29,6 +33,18 @@ namespace BernieApp.WindowsPhone.ViewModels
             ////{
             ////    // Code runs "for real"
             ////}
+
+            
+        }
+
+        public virtual void Activate (object parameter)
+        {
+
+        }
+
+        public virtual void Deactivate (object parameter)
+        {
+
         }
     }
 }
