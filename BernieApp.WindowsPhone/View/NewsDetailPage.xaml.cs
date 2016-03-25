@@ -28,6 +28,7 @@ namespace BernieApp.WindowsPhone.View
         public NewsDetailPage()
         {
             this.InitializeComponent();
+            //Application.Current.Suspending += new SuspendingEventHandler(App_Suspending);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -48,6 +49,10 @@ namespace BernieApp.WindowsPhone.View
                 navigableViewModel.Deactivate(e.Parameter);
         }
 
-        //TODO: Need to handle back requested
+        //async void App_Suspending(Object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        //{
+
+        //}
+
     }
 }

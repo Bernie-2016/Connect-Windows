@@ -7,8 +7,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
-//using BernieApp.Portable.Client.ES4BS.DataTransferObjects;
-//using BernieApp.Portable.Helpers;
 using BernieApp.Portable.Models;
 using BernieApp.Portable.Models.FeedClientModels;
 using Newtonsoft.Json;
@@ -125,7 +123,7 @@ namespace BernieApp.Portable.Client.ES4BS
         private async Task<HttpResponseMessage> WebRequest(string queryString)
         {
             var uri = new Uri(_endpoint);
-            var content = new StringContent(queryString); //Need to cast to HttpContent
+            var content = new StringContent(queryString);
 
             using (HttpClient client = new HttpClient())
             {

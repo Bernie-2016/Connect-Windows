@@ -13,6 +13,21 @@
     <Page.DataContext>
         <Binding Path="ActionsViewModel" Source="{StaticResource Locator}" />
     </Page.DataContext>
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ActionTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <WebView/>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -49,34 +64,11 @@
         </t10:PageHeader>
 
         <Grid Grid.Row="1">
-            <Pivot>
-                <PivotItem Margin="10,0,10,0">
-                    <PivotItem.Header>
-                        <TextBlock Text="Actions" Style="{ThemeResource SubheaderTextBlockStyle}"/>
-                    </PivotItem.Header>
-                    <PivotItem.Content>
-                        <ListView/>
-                    </PivotItem.Content>
-                </PivotItem>
-                <PivotItem Margin="10,0,10,0">
-                    <PivotItem.Header>
-                        <TextBlock Text="Fundraise" Style="{ThemeResource SubheaderTextBlockStyle}"/>
-                    </PivotItem.Header>
-                    <PivotItem.Content>
-                        <StackPanel>
-
-                        </StackPanel>
-                    </PivotItem.Content>
-                </PivotItem>
-                <PivotItem Margin="10,0,10,0">
-                    <PivotItem.Header>
-                        <TextBlock Text="Organize" Style="{ThemeResource SubheaderTextBlockStyle}"/>
-                    </PivotItem.Header>
-                    <PivotItem.Content>
-                        <ListView/>
-                    </PivotItem.Content>
-                </PivotItem>
-            </Pivot>
+            <FlipView Margin="10" ScrollViewer.HorizontalScrollMode="Enabled"
+                      ItemTemplate="{StaticResource ActionTemplate}" 
+                      ItemsSource="{Binding Alerts}">
+                
+            </FlipView>
         </Grid>
 
     </Grid>

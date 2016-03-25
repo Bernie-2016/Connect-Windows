@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Client\Endpoints.cs" />
+    <Compile Include="Client\ES4BS\ActionClient.cs" />
     <Compile Include="Client\ES4BS\FeedClient.cs" />
     <Compile Include="Client\IBernieClient.cs" />
     <Compile Include="Models\ActionAlert.cs" />
