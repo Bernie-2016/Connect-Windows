@@ -34,24 +34,24 @@ namespace BernieApp.Portable.Client.ES4BS
             JArray alertsArray = JArray.Parse(alertsJson);
             IList<ActionAlert> alerts = alertsArray.Select(e => new ActionAlert
             {
-                Id = (int)e["_id"],
-                Title = (string)e,
-                Type = (string)e,
-                Date = (string)e,
-                ShortDescription = (string)e,
-                Body = (string)e,
-                BodyHTML = (string)e,
-                TargetUrl = (string)e,
-                TweetId = (int)e,
-                TwitterUrl = (string)e
+                Id = (string)e["id"],
+                Title = (string)e["attributes"]["title"],
+                Type = (string)e["type"],
+                Date = (string)e["attributes"]["date"],
+                ShortDescription = (string)e["attributes"]["short_description"],
+                Body = (string)e["attributes"]["body"],
+                BodyHTML = (string)e["attributes"]["body_HTML"],
+                TargetUrl = (string)e["attributes"]["target_url"],
+                TweetId = (string)e["attributes"]["tweet_id"],
+                TwitterUrl = (string)e["attributes"]["twitter_url"]
             }).ToList();
 
             return alerts as List<ActionAlert>;
         }
 
-        public async Task<ActionAlert> GetAsync(int id)
+        public async Task<ActionAlert> GetAsync(string id)
         {
-            string _id = id.ToString();
+            string _id = id;
             string uri = String.Format("{0}/{1}", _endpoint, _id);
 
             var message = await WebRequest(uri);
@@ -63,16 +63,16 @@ namespace BernieApp.Portable.Client.ES4BS
             JArray alertsArray = JArray.Parse(alertsJson);
             IList<ActionAlert> alerts = alertsArray.Select(e => new ActionAlert
             {
-                Id = (int)e["_id"],
-                Title = (string)e,
-                Type = (string)e,
-                Date = (string)e,
-                ShortDescription = (string)e,
-                Body = (string)e,
-                BodyHTML = (string)e,
-                TargetUrl = (string)e,
-                TweetId = (int)e,
-                TwitterUrl = (string)e
+                Id = (string)e["id"],
+                Title = (string)e["attributes"]["title"],
+                Type = (string)e["type"],
+                Date = (string)e["attributes"]["date"],
+                ShortDescription = (string)e["attributes"]["short_description"],
+                Body = (string)e["attributes"]["body"],
+                BodyHTML = (string)e["attributes"]["body_HTML"],
+                TargetUrl = (string)e["attributes"]["target_url"],
+                TweetId = (string)e["attributes"]["tweet_id"],
+                TwitterUrl = (string)e["attributes"]["twitter_url"]
             }).ToList();
             ActionAlert alert = alerts.FirstOrDefault();
 

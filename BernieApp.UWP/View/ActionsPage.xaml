@@ -22,8 +22,9 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-
-                    <WebView/>
+                    <TextBlock Grid.Row="0" Text="{Binding Title}"/>
+                    <TextBlock Grid.Row="1" Text="{Binding Body}"/>
+                    <!--<WebView Grid.Row="1" Padding="20,10,20,10"/>-->
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
@@ -59,14 +60,18 @@
 
         <t10:PageHeader x:Name="Header" Content="Actions" Frame="{x:Bind Frame}">
             <t10:PageHeader.SecondaryCommands>
-                <AppBarButton/>
+                <AppBarButton Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </t10:PageHeader.SecondaryCommands>
         </t10:PageHeader>
 
         <Grid Grid.Row="1">
-            <FlipView Margin="10" ScrollViewer.HorizontalScrollMode="Enabled"
+            <FlipView ScrollViewer.HorizontalScrollMode="Enabled"
                       ItemTemplate="{StaticResource ActionTemplate}" 
-                      ItemsSource="{Binding Alerts}">
+                      ItemsSource="{Binding Alerts}"
+                      >
+                <FlipView.Background>
+                    <ImageBrush/>
+                </FlipView.Background>
                 
             </FlipView>
         </Grid>

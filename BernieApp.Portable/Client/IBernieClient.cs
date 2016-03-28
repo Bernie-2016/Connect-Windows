@@ -10,7 +10,7 @@ namespace BernieApp.Portable.Client {
         Task<List<FeedEntry>> GetNewsAsync();
         Task<FeedEntry> GetNewsArticleAsync(string id);
         Task<List<ActionAlert>> GetActionsAsync();
-        Task<ActionAlert> GetActionAsync(int id);
+        Task<ActionAlert> GetActionAsync(string id);
     }
 
     public class LiveBernieClient : IBernieClient
@@ -31,7 +31,7 @@ namespace BernieApp.Portable.Client {
 
         public Task<List<ActionAlert>> GetActionsAsync() => _actionClient.GetAsync();
 
-        public Task<ActionAlert> GetActionAsync(int id) => _actionClient.GetAsync(id);
+        public Task<ActionAlert> GetActionAsync(string id) => _actionClient.GetAsync(id);
 
     }
 
@@ -64,11 +64,11 @@ namespace BernieApp.Portable.Client {
             return new List<ActionAlert>();
         }
 
-        public async Task<ActionAlert> GetActionAsync(int id)
+        public async Task<ActionAlert> GetActionAsync(string id)
         {
             var alert = new ActionAlert
             {
-                Id = 1,
+                Id = "1",
                 Title = "Look, a tweet!",
                 Date = "March 23",
                 ShortDescription = "Bleh",
