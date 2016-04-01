@@ -97,6 +97,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AlertPresenter.xaml.cs">
+      <DependentUpon>AlertPresenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />
     <Compile Include="ViewModels\NewsDetailViewModel.cs" />
@@ -160,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\AlertPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ActionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

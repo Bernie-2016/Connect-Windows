@@ -11,6 +11,8 @@ using GalaSoft.MvvmLight.Messaging;
 using System.Diagnostics;
 using Windows.UI.Xaml.Navigation;
 using Template10.Services.NavigationService;
+using System.Linq;
+using Windows.UI.Xaml.Controls;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -18,8 +20,8 @@ namespace BernieApp.UWP.ViewModels
     {
         private readonly ObservableCollection<ActionAlert> _alerts = new ObservableCollection<ActionAlert>();
         private readonly IBernieClient _client;
-        private ActionAlert _selectedItem;
         private RelayCommand _loadCommand;
+        private ActionAlert _selectedItem;
 
         public ActionsViewModel(IBernieClient client)
         {
@@ -68,7 +70,6 @@ namespace BernieApp.UWP.ViewModels
                 }
                 return _loadCommand;
             }
-
         }
     }
 }

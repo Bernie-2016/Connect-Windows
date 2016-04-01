@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using GalaSoft.MvvmLight.Views;
 
 namespace BernieApp.Portable.Models
 {
