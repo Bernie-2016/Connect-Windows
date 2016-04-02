@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BernieApp.UWP.View"
+    xmlns:controls="using:BernieApp.UWP.Controls"
     xmlns:t10="using:Template10.Controls"
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
@@ -170,7 +171,7 @@
                       >
                 <FlipView.ItemTemplate>
                     <DataTemplate>
-                        <!--<controls:AlertPresenter/>-->
+                        <controls:AlertPresenter/>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
                 <FlipView.Background>
