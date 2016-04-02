@@ -167,13 +167,12 @@
                       ScrollViewer.HorizontalScrollMode="Enabled"
                       ItemsSource="{Binding Alerts}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       UseTouchAnimationsForAllNavigation="True"
-                      SelectionChanged="{Binding FlipViewSelectionChanged}"
                       >
-                <!--<FlipView.ItemTemplate>
+                <FlipView.ItemTemplate>
                     <DataTemplate>
-                        <controls:AlertPresenter/>
+                        <!--<controls:AlertPresenter/>-->
                     </DataTemplate>
-                </FlipView.ItemTemplate>-->
+                </FlipView.ItemTemplate>
                 <FlipView.Background>
                     <ImageBrush/>
                 </FlipView.Background>
