@@ -13,8 +13,7 @@
         public const string EventsBaseUrl = "https://elasticsearch.movementapp.io/events_en_v1/berniesanders_com/_search";
 
         //Actions
-        public const string ConnectBaseUrl = "https://connect.berniesanders.com/api/action_alerts";
+        public const string ConnectBaseUrl = "https://sanders-connect-staging.herokuapp.com/api/action_alerts";
         public const string ActionAlertsUrl = ConnectBaseUrl;
-        //Staging URL: https://sanders-connect-staging.herokuapp.com/api/action_alerts 
     }
 }
