@@ -20,6 +20,7 @@ namespace BernieApp.UWP.ViewModels
         private readonly IBernieClient _client;
         private ActionAlert _selectedItem;
         private RelayCommand _loadCommand;
+        private string _webViewSource;
 
         public ActionsViewModel(IBernieClient client)
         {
@@ -51,6 +52,12 @@ namespace BernieApp.UWP.ViewModels
             set { Set(ref _selectedItem, value); }
         }
 
+        public string WebViewSource
+        {
+            get { return _webViewSource; }
+            set { Set(ref _webViewSource, value); }
+        }
+
         //Refresh the news feed
         public RelayCommand LoadCommand
         {
@@ -68,7 +75,26 @@ namespace BernieApp.UWP.ViewModels
                 }
                 return _loadCommand;
             }
+        }
 
+        public void FlipViewSelectionChanged()
+        {
+            if (SelectedItem != null)
+            {
+                string _bodyHTML = SelectedItem.BodyHTML;
+                string _width = "100";
+                string _videoWidth = "150";
+                SetWebView(_bodyHTML, _width, _videoWidth);
+            }
+        }
+        
+        //Format the tweet/facebook embed for display in WebView control
+        public void SetWebView(string bodyHTML, string width, string videowidth)
+        {
+            //pull from selectedItem, use SelectionChanged event on FlipView
+            string html = String.Format("<html><head><style type='text/css'>html { height: 100%; width: 100%; border-radius: 4px; overflow-x: hidden; } body { margin: 0px; overflow-x: hidden; font-family: -apple-system, 'Helvetica Neue', 'Lucida Grande'; } body > blockquote, .custom-body { background-color: white; border-radius: 4px; display: inline-block; width: {0}px; padding: 8px; overflow: hidden; } .fb_iframe_widget iframe { margin-top: -10px !important; overflow-x: hidden;} .fb-post iframe { margin-left: -10px; } iframe[src^='https://www.youtube.com'] { width: {1}px !important; border-radius: 4px; overflow: hidden; }</style></head><body>{2}</body></html>",
+                width, videowidth, bodyHTML);
+            _webViewSource = html;
         }
     }
 }

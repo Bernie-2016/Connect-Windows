@@ -40,7 +40,7 @@ namespace BernieApp.Portable.Client.ES4BS
                 Date = (string)e["attributes"]["date"],
                 ShortDescription = (string)e["attributes"]["short_description"],
                 Body = (string)e["attributes"]["body"],
-                BodyHTML = (string)e["attributes"]["body_HTML"],
+                BodyHTML = (string)e["attributes"]["body_html"],
                 TargetUrl = (string)e["attributes"]["target_url"],
                 TweetId = (string)e["attributes"]["tweet_id"],
                 TwitterUrl = (string)e["attributes"]["twitter_url"]

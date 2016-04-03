@@ -7,6 +7,7 @@
     xmlns:t10="using:Template10.Controls"
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -169,6 +170,11 @@
                       ItemsSource="{Binding Alerts}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       UseTouchAnimationsForAllNavigation="True"
                       >
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:CallMethodAction MethodName="FlipViewSelectionChanged" TargetObject="{Binding}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
                 <FlipView.ItemTemplate>
                     <DataTemplate>
                         <controls:AlertPresenter/>

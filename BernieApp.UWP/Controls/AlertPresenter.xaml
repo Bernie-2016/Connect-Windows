@@ -9,9 +9,9 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <Binding Path="ActionsViewModel" Source="{StaticResource Locator}" />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
 
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
@@ -23,6 +23,6 @@
                                Margin="10,0,0,20"
                                TextWrapping="NoWrap" Style="{ThemeResource SubheaderTextBlockStyle}"/>
         <TextBlock Grid.Row="1" Text="{Binding Body}" TextWrapping="Wrap"/>
-        <WebView  Grid.Row="2"/>
+        <WebView Grid.Row="2" local:WebViewExtensions.HtmlString="{Binding WebViewSource}" Height="Auto" Width="Auto"/>
     </Grid>
 </UserControl>

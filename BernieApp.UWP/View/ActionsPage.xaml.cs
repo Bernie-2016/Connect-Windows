@@ -27,5 +27,10 @@ namespace BernieApp.UWP.View
         {
             this.InitializeComponent();
         }
+
+        private void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
