@@ -11,6 +11,7 @@ using GalaSoft.MvvmLight.Messaging;
 using System.Diagnostics;
 using Windows.UI.Xaml.Navigation;
 using Template10.Services.NavigationService;
+using System.Text.RegularExpressions;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -20,7 +21,7 @@ namespace BernieApp.UWP.ViewModels
         private readonly IBernieClient _client;
         private ActionAlert _selectedItem;
         private RelayCommand _loadCommand;
-        private string _webViewSource;
+        private Uri _webViewSource;
 
         public ActionsViewModel(IBernieClient client)
         {
@@ -52,7 +53,7 @@ namespace BernieApp.UWP.ViewModels
             set { Set(ref _selectedItem, value); }
         }
 
-        public string WebViewSource
+        public Uri WebViewSource
         {
             get { return _webViewSource; }
             set { Set(ref _webViewSource, value); }
@@ -91,10 +92,30 @@ namespace BernieApp.UWP.ViewModels
         //Format the tweet/facebook embed for display in WebView control
         public void SetWebView(string bodyHTML, string width, string videowidth)
         {
-            //pull from selectedItem, use SelectionChanged event on FlipView
-            string html = String.Format("<html><head><style type='text/css'>html { height: 100%; width: 100%; border-radius: 4px; overflow-x: hidden; } body { margin: 0px; overflow-x: hidden; font-family: -apple-system, 'Helvetica Neue', 'Lucida Grande'; } body > blockquote, .custom-body { background-color: white; border-radius: 4px; display: inline-block; width: {0}px; padding: 8px; overflow: hidden; } .fb_iframe_widget iframe { margin-top: -10px !important; overflow-x: hidden;} .fb-post iframe { margin-left: -10px; } iframe[src^='https://www.youtube.com'] { width: {1}px !important; border-radius: 4px; overflow: hidden; }</style></head><body>{2}</body></html>",
-                width, videowidth, bodyHTML);
-            _webViewSource = html;
+            string result = EditString(bodyHTML);
+            CreateUri(result);
+
+            
+        }
+
+        public string EditString(string bodyHTML)
+        {
+            string _newlineReplacement = " ";
+
+            string htmlDecoded = System.Net.WebUtility.HtmlDecode(bodyHTML);
+            string removeNewline = Regex.Replace(htmlDecoded, @"\r\n?|\n", _newlineReplacement);
+            string htmlPage = String.Format("<html><body>{0}</body></html>",
+                removeNewline);
+            if (htmlPage.Contains("//platform.twitter.com/widgets.js"))
+            {
+                htmlPage = Regex.Replace(htmlPage, "//platform.twitter.com/widgets.js", "https://platform.twitter.com/widgets.js");
+            }
+            return htmlPage;
+        }
+
+        public async Task CreateUri(string htmlPage)
+        {
+
         }
     }
 }
