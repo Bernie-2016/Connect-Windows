@@ -26,11 +26,12 @@
         <TextBlock Grid.Row="1" Text="{Binding ShortDescription}" 
                    Margin="10,0,0,20" HorizontalAlignment="Center" TextAlignment="Center"
                    TextWrapping="WrapWholeWords"/>
-        <WebView Grid.Row="2" local:WebViewExtensions.UriSource="{Binding WebViewSource}"
-                 Height="400" Width="400"
-                 />
-        <!--<WebView Grid.Row="2" Source="ms-appx-web:///Assets/WebViewText.html" 
+        <!--<WebView Grid.Row="2" x:Name="webView"
+                 Source="ms-appx-web:///Assets/Scripts/WebViewText.html" 
                  Width="400" Height="400"
                  />-->
+        <WebView Grid.Row="2" x:Name="webView"
+                 Height="400" Width="400"
+                 />
     </Grid>
 </UserControl>

@@ -21,7 +21,7 @@ namespace BernieApp.UWP.ViewModels
         private readonly IBernieClient _client;
         private ActionAlert _selectedItem;
         private RelayCommand _loadCommand;
-        private Uri _webViewSource;
+        private string _webViewSource;
 
         public ActionsViewModel(IBernieClient client)
         {
@@ -53,7 +53,7 @@ namespace BernieApp.UWP.ViewModels
             set { Set(ref _selectedItem, value); }
         }
 
-        public Uri WebViewSource
+        public string WebViewSource
         {
             get { return _webViewSource; }
             set { Set(ref _webViewSource, value); }
@@ -93,8 +93,9 @@ namespace BernieApp.UWP.ViewModels
         public void SetWebView(string bodyHTML, string width, string videowidth)
         {
             string result = EditString(bodyHTML);
-            CreateUri(result);
-
+            //CreateUri(result);
+            _webViewSource = result;
+            Messenger.Default.Send<string>(_webViewSource);
             
         }
 
@@ -110,12 +111,11 @@ namespace BernieApp.UWP.ViewModels
             {
                 htmlPage = Regex.Replace(htmlPage, "//platform.twitter.com/widgets.js", "https://platform.twitter.com/widgets.js");
             }
+            if (htmlPage.Contains("//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3"))
+            {
+                htmlPage = Regex.Replace(htmlPage, "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3", "https://www.connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3");
+            }
             return htmlPage;
-        }
-
-        public async Task CreateUri(string htmlPage)
-        {
-
         }
     }
 }

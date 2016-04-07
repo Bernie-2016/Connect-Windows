@@ -23,6 +23,14 @@ namespace BernieApp.UWP.Controls
         public AlertPresenter()
         {
             this.InitializeComponent();
+            Messenger.Default.Register<string>(this, (message) =>
+            {
+                var m = message.ToString();
+                if (m.Contains("<html>"))
+                {
+                    webView.NavigateToString(m);
+                }
+            });
         }
     }
 }

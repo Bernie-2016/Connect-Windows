@@ -150,7 +150,9 @@
     <Content Include="Assets\Movement-icons\appicon80.png" />
     <Content Include="Assets\Movement-icons\appicon87.png" />
     <Content Include="Assets\Movement-icons\appiconwhite.png" />
-    <Content Include="Assets\WebViewText.html" />
+    <Content Include="Assets\Scripts\facebook.js" />
+    <Content Include="Assets\Scripts\HTMLPage1.html" />
+    <Content Include="Assets\Scripts\WebViewText.html" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
