@@ -28,7 +28,7 @@ namespace BernieApp.UWP.Controls
                 var m = message.ToString();
                 if (m.Contains("<html>"))
                 {
-                    webView.NavigateToString(m);
+                    //webView.NavigateToString(m);
                 }
             });
         }
