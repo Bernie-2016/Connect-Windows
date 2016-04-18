@@ -82,20 +82,31 @@ namespace BernieApp.UWP.ViewModels
         {
             if (SelectedItem != null)
             {
+                Messenger.Default.Send(new NotificationMessage("navigating"));
+
                 string _bodyHTML = SelectedItem.BodyHTML;
+                string _id = SelectedItem.Id;
+
+                //width and videowidth are for modifying html sizes for facebook if necessary
                 string _width = "100";
                 string _videoWidth = "150";
-                SetWebView(_bodyHTML, _width, _videoWidth);
+
+                SetWebView(_bodyHTML, _id, _width, _videoWidth);
             }
         }
         
         //Format the tweet/facebook embed for display in WebView control
-        public void SetWebView(string bodyHTML, string width, string videowidth)
+        public async void SetWebView(string bodyHTML, string id, string width, string videowidth)
         {
             string result = EditString(bodyHTML);
-            //CreateUri(result);
-            _webViewSource = result;
+
+            string path = await WriteHTML(result, id);
+
+            _webViewSource = path;
             Messenger.Default.Send<string>(_webViewSource);
+
+            //_webViewSource = result;
+            //Messenger.Default.Send<string>(_webViewSource);
             
         }
 
@@ -105,7 +116,33 @@ namespace BernieApp.UWP.ViewModels
 
             string htmlDecoded = System.Net.WebUtility.HtmlDecode(bodyHTML);
             string removeNewline = Regex.Replace(htmlDecoded, @"\r\n?|\n", _newlineReplacement);
-            string htmlPage = String.Format("<html><body>{0}</body></html>",
+            string htmlPage = String.Format(@"<html><head>
+                    <style type='text/css'>
+                            html {{
+                                height: 100%;
+                                width: 100%;
+                                border-radius: 4px;
+                                overflow-x: hidden;
+                                overflow-y: hidden;
+                            }}
+
+                            span {{
+                                width: 400px !important;
+                                height: 600px !important;
+                            }}
+
+                            iframe {{
+                                width: 400px !important;
+                                height: 600px !important;
+                            }}
+
+                            iframe[src^='https://www.youtube.com'] {{
+                                width: 350px !important;
+                                border-radius: 4px;
+                                overflow: hidden;
+                            }}
+                        </style>
+                    </head><body>{0}</body></html>",
                 removeNewline);
             if (htmlPage.Contains("//platform.twitter.com/widgets.js"))
             {
@@ -113,9 +150,22 @@ namespace BernieApp.UWP.ViewModels
             }
             if (htmlPage.Contains("//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3"))
             {
-                htmlPage = Regex.Replace(htmlPage, "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3", "https://www.connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3");
+                htmlPage = Regex.Replace(htmlPage, "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3", "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3");
             }
             return htmlPage;
+        }
+
+        public async Task<string> WriteHTML(string bodyHTML, string id)
+        {
+            Windows.Storage.StorageFolder storageFolder =
+                 Windows.Storage.ApplicationData.Current.TemporaryFolder;
+            Windows.Storage.StorageFile file =
+                await storageFolder.CreateFileAsync(string.Format("alert-{0}.html", id),
+                    Windows.Storage.CreationCollisionOption.OpenIfExists);
+
+            await Windows.Storage.FileIO.WriteTextAsync(file, bodyHTML);
+
+            return file.DisplayName;
         }
     }
 }

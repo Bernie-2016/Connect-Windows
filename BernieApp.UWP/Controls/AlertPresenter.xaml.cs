@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using BernieApp.UWP.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,12 +26,29 @@ namespace BernieApp.UWP.Controls
             this.InitializeComponent();
             Messenger.Default.Register<string>(this, (message) =>
             {
-                var m = message.ToString();
-                if (m.Contains("<html>"))
+                if (message.Contains("alert"))
                 {
-                    //webView.NavigateToString(m);
+                    Uri url = webView.BuildLocalStreamUri("Alert", message);
+                    StreamUriResolver resolver = new StreamUriResolver();
+                    webView.NavigateToLocalStreamUri(url, resolver);
+                    webView.Visibility = Visibility.Visible;
                 }
             });
+
+            Messenger.Default.Register<NotificationMessage>(this, (message) =>
+            {
+                if(message.Notification == "navigating")
+                {
+                    webView.Visibility = Visibility.Collapsed;
+                }
+            });
+
+            DataContextChanged += (s, e) =>
+            {
+                ViewModel = DataContext as ActionsViewModel;
+            };
         }
+
+        public ActionsViewModel ViewModel { get; set; }
     }
 }

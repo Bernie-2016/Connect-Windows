@@ -41,30 +41,29 @@ namespace BernieApp.UWP.Controls
         }
 
 
-        // Bind to the html string
-        public static readonly DependencyProperty HtmlStringProperty =
-           DependencyProperty.RegisterAttached(
-               "HtmlString", typeof(string), typeof(WebViewExtensions), 
-               new PropertyMetadata(null, OnHtmlStringChanged));
-
-        // Getter and Setter
-        public static string GetHtmlString(WebView obj)
+        public static string GetHTML(DependencyObject obj)
         {
-            return (string)obj.GetValue(HtmlStringProperty);
+            return (string)obj.GetValue(HTMLProperty);
         }
 
-        public static void SetHtmlString(WebView obj, string value)
+        public static void SetHTML(DependencyObject obj, string value)
         {
-            obj.SetValue(HtmlStringProperty, value);
+            obj.SetValue(HTMLProperty, value);
         }
 
-        // Handler for property changes in the DataContext : set the WebView
-        private static void OnHtmlStringChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        // Using a DependencyProperty as the backing store for HTML.  This enables animation, styling, binding, etc...  
+        public static readonly DependencyProperty HTMLProperty =
+            DependencyProperty.RegisterAttached(
+                "HTML", typeof(string), typeof(WebViewExtensions), 
+                new PropertyMetadata(0, new PropertyChangedCallback(OnHTMLChanged)));
+
+        private static void OnHTMLChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var webView = sender as WebView;
-            if (webView != null)
+
+            WebView wv = d as WebView;
+            if (wv != null)
             {
-                webView.NavigateToString((string)e.NewValue);
+                wv.NavigateToString((string)e.NewValue);
             }
         }
     }
