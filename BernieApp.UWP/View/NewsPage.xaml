@@ -22,7 +22,7 @@
                 <StackPanel>
                     <TextBlock Grid.Row="0" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
                     <TextBlock Grid.Row="1" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}"
-                           Foreground="Gray"/>
+                           Foreground="Gray" TextWrapping="NoWrap"/>
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>

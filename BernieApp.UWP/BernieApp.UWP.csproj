@@ -97,6 +97,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AlertPresenter.xaml.cs">
+      <DependentUpon>AlertPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StreamUriResolver.cs" />
+    <Compile Include="Controls\WebViewExtensions.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />
     <Compile Include="ViewModels\NewsDetailViewModel.cs" />
@@ -146,6 +151,9 @@
     <Content Include="Assets\Movement-icons\appicon80.png" />
     <Content Include="Assets\Movement-icons\appicon87.png" />
     <Content Include="Assets\Movement-icons\appiconwhite.png" />
+    <Content Include="Assets\Scripts\facebook.js" />
+    <Content Include="Assets\Scripts\HTMLPage1.html" />
+    <Content Include="Assets\Scripts\WebViewText.html" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -160,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\AlertPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ActionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +206,9 @@
       <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
       <Name>BernieApp.Portable</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Fonts\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
