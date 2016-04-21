@@ -58,9 +58,18 @@ namespace BernieApp.UWP.ViewModels
                     _loadCommand = new RelayCommand(async () =>
                     {
                         //Clears the list, then adds from the server. TODO: A way to add only new items would probably be better.
-                        var news = await _client.GetNewsAsync();
-                        _items.Clear();
-                        _items.AddRange(news);
+                        try
+                        {
+                            var news = await _client.GetNewsAsync();
+                            _items.Clear();
+                            _items.AddRange(news);
+                        }
+                        catch (Exception ex)
+                        {
+                            //Handle if newsfeed doesn't load
+                            throw;
+                        }
+
                     });
                 }
                 return _loadCommand;

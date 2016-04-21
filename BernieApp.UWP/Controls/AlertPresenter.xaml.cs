@@ -23,7 +23,9 @@ namespace BernieApp.UWP.Controls
     {
         public AlertPresenter()
         {
+
             this.InitializeComponent();
+
             Messenger.Default.Register<string>(this, (message) =>
             {
                 if (message.Contains("alert"))

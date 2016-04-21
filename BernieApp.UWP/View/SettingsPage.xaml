@@ -12,6 +12,148 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Settings Page!" HorizontalAlignment="Center"/>
+        <Pivot x:Name="Pivot" Grid.Row="1">
+
+            <PivotItem Header="Settings">
+                <StackPanel>
+                    <!--Add icons like Aeries or Windows settings-->
+                    <TextBlock Text="General Settings"/>
+                    <TextBlock Text="Privacy Policy"/>
+                    <TextBlock Text="About"/>
+                    <TextBlock Text="Open Source Licenses"/>
+                    <TextBlock Text="Feedback"/>
+                </StackPanel>
+
+
+            </PivotItem>
+            
+            
+            <!--  General  -->
+            <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="General">
+                <ScrollViewer Margin="0,12,-12,0" HorizontalContentAlignment="Left"
+                              VerticalScrollBarVisibility="Auto">
+                    <RelativePanel HorizontalAlignment="Left">
+
+                        <ToggleSwitch x:Name="UseShellDrawnBackButtonToggleSwtich"
+                                      Header="Use shell-drawn back button"
+                                      IsOn="{Binding UseShellBackButton, Mode=TwoWay}"
+                                      OffContent="Back button in page header"
+                                      OnContent="Back button in titlebar or taskbar"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.AlignTopWithPanel="True" />
+
+                        <ToggleSwitch x:Name="UseLightThemeToggleSwitch" Header="Use Light Theme"
+                                      IsOn="{Binding UseLightThemeButton, Mode=TwoWay}"
+                                      OffContent="Dark theme" OnContent="Light theme"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="UseShellDrawnBackButtonToggleSwtich" />
+
+                    </RelativePanel>
+
+                </ScrollViewer>
+            </PivotItem>
+
+            <!-- Analytics -->
+            <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="Analytics">
+                <ScrollViewer Margin="0,12,0,0" HorizontalContentAlignment="Left"
+                              VerticalScrollBarVisibility="Auto">
+                    <RelativePanel HorizontalAlignment="Left">
+                        <TextBlock x:Name="descriptionText" TextWrapping="WrapWholeWords" Margin="0,0,0,10"
+                                   Text="We collect anonymous data about how you use this app (i.e., we record what you tap on and share). This is done soley to improve the app for yourself and other users. We use ______ and _____ to record this data. If you would rather not have your activity collected, you may disable analytics with the switch below."
+                                   />
+
+                        <ToggleSwitch x:Name="AnalyticsToggleSwitch" Header="Analytics Enabled"
+                                      IsOn="{Binding UseAnalytics, Mode=TwoWay}"
+                                      OffContent="Yes" OnContent="No"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="descriptionText"/>
+                    </RelativePanel>
+
+                </ScrollViewer>
+            </PivotItem>
+
+            <!--  privacy  -->
+            <PivotItem DataContext="{Binding SettingsPartViewModel}"
+                       Padding="0" Header="Privacy">
+                <ScrollViewer Margin="0,0,-12,0" VerticalScrollBarVisibility="Auto">
+                    <WebView Margin="0,0,10,0" Source="https://berniesanders.com/privacy-policy/"/>
+                </ScrollViewer>
+            </PivotItem>
+
+            <!--  about  -->
+            <PivotItem Header="About">
+                <RelativePanel DataContext="{Binding AboutPartViewModel}">
+
+                    <Border x:Name="LogoImage" HorizontalAlignment="Center"
+                            VerticalAlignment="Top" BorderBrush="DimGray"
+                            BorderThickness="1" IsHitTestVisible="False"
+                            RelativePanel.AlignHorizontalCenterWithPanel="True"
+                            RelativePanel.AlignTopWithPanel="True">
+                        <Border.Background>
+                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                        </Border.Background>
+                        <Image Margin="12" Source="{Binding Logo}"
+                               Stretch="None" />
+                    </Border>
+
+                    <TextBlock x:Name="AboutTextBlock"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="LogoImage"
+                               TextWrapping="WrapWholeWords"
+                               Text="This app is built by a small group of volunteers working with the Bernie 2016 campgain. The purpose of this app is to help raise awareness of Bernie, his work, and the growing political movement. WHen registering for an event, you will be registring into the berniesanders.com events page. If you would like to contribute towards this project, check out the buttons below:"/>
+
+                    <Button x:Name="SlackButton" Margin="10"
+                            RelativePanel.Below="AboutTextBlock"
+                            RelativePanel.AlignHorizontalCenterWithPanel="True">
+                        <Button.Content>
+                            <TextBlock Text="Talk to us on Slack"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Button x:Name="GitHubButton" Margin="10"
+                            RelativePanel.Below="SlackButton"
+                            RelativePanel.AlignHorizontalCenterWithPanel="True">
+                        <Button.Content>
+                            <TextBlock Text="View code on GitHub"/>
+                        </Button.Content>
+                    </Button>
+
+                    <TextBlock x:Name="DisplayNameTextBlock" Margin="0,0,0,12"
+                               FontSize="24" RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.AlignRightWith="LogoImage"
+                               RelativePanel.Below="GitHubButton"
+                               Text="{Binding DisplayName}" />
+
+                    <TextBlock x:Name="PublisherTextBlock"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="DisplayNameTextBlock"
+                               Text="{Binding Publisher}" />
+
+                    <TextBlock x:Name="VersionTextBlock"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="PublisherTextBlock">
+                        <Run>Version:</Run>
+                        <Run Text="{Binding Version}" />
+                    </TextBlock>
+
+                </RelativePanel>
+            </PivotItem>
+
+            <!--  open source  -->
+            <PivotItem 
+                       Padding="0" Header="OSS Licenses">
+                <ScrollViewer Margin="0,0,-12,0" VerticalScrollBarVisibility="Auto">
+                    <TextBlock/>
+                </ScrollViewer>
+            </PivotItem>
+
+            <!--  feedback  -->
+            <PivotItem 
+                       Padding="0" Header="Feedback">
+                <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
+                    <WebView/>
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

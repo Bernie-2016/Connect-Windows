@@ -38,5 +38,7 @@ namespace BernieApp.Portable.Models
 
         [JsonProperty(PropertyName = "tweet_id")]
         public string TweetId { get; set; }
+
+        public Uri HtmlFile { get; set; }
     }
 }

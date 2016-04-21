@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="Controls\StreamUriResolver.cs" />
     <Compile Include="Controls\WebViewExtensions.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />
     <Compile Include="ViewModels\NewsDetailViewModel.cs" />
@@ -140,17 +141,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Movement-icons\appicon120.png" />
-    <Content Include="Assets\Movement-icons\appicon152.png" />
-    <Content Include="Assets\Movement-icons\appicon167.png" />
-    <Content Include="Assets\Movement-icons\appicon180.png" />
-    <Content Include="Assets\Movement-icons\appicon29.png" />
-    <Content Include="Assets\Movement-icons\appicon58.png" />
-    <Content Include="Assets\Movement-icons\appicon60.png" />
-    <Content Include="Assets\Movement-icons\appicon76.png" />
-    <Content Include="Assets\Movement-icons\appicon80.png" />
-    <Content Include="Assets\Movement-icons\appicon87.png" />
-    <Content Include="Assets\Movement-icons\appiconwhite.png" />
+    <Content Include="Assets\PrivacyPolicy.html" />
     <Content Include="Assets\Scripts\facebook.js" />
     <Content Include="Assets\Scripts\HTMLPage1.html" />
     <Content Include="Assets\Scripts\WebViewText.html" />
@@ -202,6 +193,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Parse-SDK-dotNET\Parse.UWP\Parse.UWP.csproj">
+      <Project>{f7c2be8d-ac16-4786-a0c4-1945b1b61d08}</Project>
+      <Name>Parse.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Parse-SDK-dotNET\Parse\Parse.csproj">
+      <Project>{de07a443-9619-4bd7-b540-41296f8a2959}</Project>
+      <Name>Parse</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BernieApp.Portable\BernieApp.Portable.csproj">
       <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
       <Name>BernieApp.Portable</Name>
