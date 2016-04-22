@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BernieApp.UWP.View"
+    xmlns:controls="using:BernieApp.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -11,9 +12,14 @@
         <Binding Path="SettingsViewModel" Source="{StaticResource Locator}" />
     </Page.DataContext>
 
+    <Page.Resources>
+        <Style x:Key="headerStyle" TargetType="PivotHeaderPanel">
+            <Setter Property="Margin" Value="48"/>
+        </Style>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot x:Name="Pivot" Grid.Row="1">
-
             <PivotItem Header="Settings">
                 <StackPanel>
                     <!--Add icons like Aeries or Windows settings-->
@@ -73,16 +79,16 @@
             </PivotItem>
 
             <!--  privacy  -->
-            <PivotItem DataContext="{Binding SettingsPartViewModel}"
+            <PivotItem 
                        Padding="0" Header="Privacy">
-                <ScrollViewer Margin="0,0,-12,0" VerticalScrollBarVisibility="Auto">
-                    <WebView Margin="0,0,10,0" Source="https://berniesanders.com/privacy-policy/"/>
+                <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
+                    <WebView Margin="0,0,10,0" controls:WebViewExtensions.UriSource="{Binding PrivacyUrl}"/>
                 </ScrollViewer>
             </PivotItem>
 
             <!--  about  -->
             <PivotItem Header="About">
-                <RelativePanel DataContext="{Binding AboutPartViewModel}">
+                <RelativePanel>
 
                     <Border x:Name="LogoImage" HorizontalAlignment="Center"
                             VerticalAlignment="Top" BorderBrush="DimGray"
@@ -102,15 +108,16 @@
                                TextWrapping="WrapWholeWords"
                                Text="This app is built by a small group of volunteers working with the Bernie 2016 campgain. The purpose of this app is to help raise awareness of Bernie, his work, and the growing political movement. WHen registering for an event, you will be registring into the berniesanders.com events page. If you would like to contribute towards this project, check out the buttons below:"/>
 
-                    <Button x:Name="SlackButton" Margin="10"
+                    <Button x:Name="SlackButton" Margin="10" Command="{Binding Path=SlackButtonCommand}"
                             RelativePanel.Below="AboutTextBlock"
                             RelativePanel.AlignHorizontalCenterWithPanel="True">
                         <Button.Content>
                             <TextBlock Text="Talk to us on Slack"/>
                         </Button.Content>
+                        
                     </Button>
 
-                    <Button x:Name="GitHubButton" Margin="10"
+                    <Button x:Name="GitHubButton" Margin="10" Command="{Binding Path=GithubButtonCommand}"
                             RelativePanel.Below="SlackButton"
                             RelativePanel.AlignHorizontalCenterWithPanel="True">
                         <Button.Content>
@@ -142,8 +149,8 @@
             <!--  open source  -->
             <PivotItem 
                        Padding="0" Header="OSS Licenses">
-                <ScrollViewer Margin="0,0,-12,0" VerticalScrollBarVisibility="Auto">
-                    <TextBlock/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <RichTextBlock controls:RichTextBlockExtensions.Text="{Binding OSSText}"/>
                 </ScrollViewer>
             </PivotItem>
 
@@ -151,7 +158,7 @@
             <PivotItem 
                        Padding="0" Header="Feedback">
                 <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
-                    <WebView/>
+                    <WebView Margin="0,0,10,0" controls:WebViewExtensions.UriSource="{Binding FeedbackUrl}"/>
                 </ScrollViewer>
             </PivotItem>
         </Pivot>

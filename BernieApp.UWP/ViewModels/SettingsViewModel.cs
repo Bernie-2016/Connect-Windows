@@ -1,9 +1,13 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Services.SettingsService;
+using Windows.System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace BernieApp.UWP.ViewModels
@@ -11,6 +15,16 @@ namespace BernieApp.UWP.ViewModels
     public class SettingsViewModel : MainViewModel
     {
         public Services.SettingsService _settings;
+        private RelayCommand _slackButtonCommand;
+        private RelayCommand _githubButtonCommand;
+
+        public Uri SlackUrl => new Uri(Portable.Client.Endpoints.SlackUrl);
+
+        public Uri GithubUrl => new Uri(Portable.Client.Endpoints.GithubUrl);
+
+        public Uri FeedbackUrl => new Uri(Portable.Client.Endpoints.FeedbackUrl);
+
+        public Uri PrivacyUrl => new Uri(Portable.Client.Endpoints.PrivacyUrl);
 
         public SettingsViewModel()
         {
@@ -60,6 +74,52 @@ namespace BernieApp.UWP.ViewModels
             }
         }
 
-        public Uri RateMe => new Uri("http://aka.ms/template10");
+        public RelayCommand SlackButtonCommand
+        {
+            get
+            {
+                if (_slackButtonCommand == null)
+                {
+                    _slackButtonCommand = new RelayCommand(async () =>
+                    {
+                        var success = await Launcher.LaunchUriAsync(SlackUrl);
+                        if (success)
+                        {
+                            Debug.WriteLine("url successfully opened in browser");
+                        }
+                        else
+                        {
+                            var dialog = new MessageDialog("Unable to open the webpage, please try again later.", "Oops...");
+                            await dialog.ShowAsync();
+                        }
+                    });
+                }
+                return _slackButtonCommand;
+            }
+        }
+
+        public RelayCommand GithubButtonCommand
+        {
+            get
+            {
+                if (_githubButtonCommand == null)
+                {
+                    _githubButtonCommand = new RelayCommand(async () =>
+                    {
+                        var success = await Launcher.LaunchUriAsync(GithubUrl);
+                        if (success)
+                        {
+                            Debug.WriteLine("url successfully opened in browser");
+                        }
+                        else
+                        {
+                            var dialog = new MessageDialog("Unable to open the webpage, please try again later.", "Oops...");
+                            await dialog.ShowAsync();
+                        }
+                    });
+                }
+                return _githubButtonCommand;
+            }
+        }
     }
 }

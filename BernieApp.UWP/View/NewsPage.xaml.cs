@@ -26,7 +26,7 @@ namespace BernieApp.UWP.View
         public NewsPage()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+            //this.NavigationCacheMode = NavigationCacheMode.Required;
 
             Messenger.Default.Register<NotificationMessage<string>>(this, (message) => 
             {

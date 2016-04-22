@@ -39,8 +39,8 @@
         </VisualStateManager.VisualStateGroups>-->
 
 
-        <ScrollViewer HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-            <Grid HorizontalAlignment="Stretch" MaxWidth="500">
+        <ScrollViewer HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <Grid HorizontalAlignment="Center" MaxWidth="500">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>

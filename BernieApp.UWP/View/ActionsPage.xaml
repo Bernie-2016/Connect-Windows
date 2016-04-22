@@ -148,9 +148,6 @@
         </Grid.RowDefinitions>
 
         <t10:PageHeader x:Name="Header" Content="Actions" Frame="{x:Bind Frame}">
-            <t10:PageHeader.PrimaryCommands>
-                <AppBarButton Label="Share" Icon="Placeholder"/>
-            </t10:PageHeader.PrimaryCommands>
             <t10:PageHeader.SecondaryCommands>
                 <AppBarButton Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </t10:PageHeader.SecondaryCommands>

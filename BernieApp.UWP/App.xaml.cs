@@ -5,7 +5,7 @@ using Windows.ApplicationModel.Activation;
 using Template10.Common;
 using BernieApp.UWP.View;
 using System.Linq;
-using Parse;
+//using Parse;
 using System.Diagnostics;
 
 namespace BernieApp.UWP
