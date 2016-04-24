@@ -150,7 +150,8 @@
             <PivotItem 
                        Padding="0" Header="OSS Licenses">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <RichTextBlock controls:RichTextBlockExtensions.Text="{Binding OSSText}"/>
+                    <WebView Margin="0"
+                        Source="ms-appx-web:///Assets/OSSText.html"/>
                 </ScrollViewer>
             </PivotItem>
 

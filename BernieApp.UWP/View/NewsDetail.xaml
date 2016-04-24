@@ -80,9 +80,9 @@
         </t10:PageHeader>
 
         <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="5,10,5,0">
+            <StackPanel Margin="10,10,5,0">
                 <TextBlock Text="{x:Bind ViewModel.Item.ArticleType}" Style="{ThemeResource BaseTextBlockStyle}"
-                                />
+                           Foreground="Blue"     />
                 <TextBlock Text="{x:Bind ViewModel.Item.Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords"/>
                 <TextBlock Text="{x:Bind ViewModel.Item.Date}" Style="{ThemeResource BaseTextBlockStyle}"

@@ -17,6 +17,7 @@ namespace BernieApp.UWP.ViewModels
         public Services.SettingsService _settings;
         private RelayCommand _slackButtonCommand;
         private RelayCommand _githubButtonCommand;
+        
 
         public Uri SlackUrl => new Uri(Portable.Client.Endpoints.SlackUrl);
 

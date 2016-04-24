@@ -5,14 +5,14 @@ namespace BernieApp.Portable.Client
     public static class Endpoints 
     {
         //News
-        public const string SharknadoBaseUrl = "https://elasticsearch.movementapp.io/articles_en_v1/berniesanders_com/_search";
+        public const string SharknadoBaseUrl = "https://sharknado.berniesanders.com/articles_en_v1/berniesanders_com/_search";
         public const string NewsBaseUrl = SharknadoBaseUrl;
 
         //Videos
         public const string VideosBaseurl = "https://elasticsearch.movementapp.io/videos_v1/_search";
 
         //Events
-        public const string EventsBaseUrl = "https://elasticsearch.movementapp.io/events_en_v1/berniesanders_com/_search";
+        public const string EventsBaseUrl = "https://elasticsearch.movementapp.io/events_en_v1/berniesanders_com/_search"; //outdated
 
         //Actions
         public const string ConnectBaseUrl = "https://connect.berniesanders.com/api/action_alerts";

@@ -100,7 +100,6 @@
     <Compile Include="Controls\AlertPresenter.xaml.cs">
       <DependentUpon>AlertPresenter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\RichTextBlockExtensions.cs" />
     <Compile Include="Controls\StreamUriResolver.cs" />
     <Compile Include="Controls\WebViewExtensions.cs" />
     <Compile Include="Services\SettingsService.cs" />
@@ -142,10 +141,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\PrivacyPolicy.html" />
-    <Content Include="Assets\Scripts\facebook.js" />
-    <Content Include="Assets\Scripts\HTMLPage1.html" />
-    <Content Include="Assets\Scripts\WebViewText.html" />
+    <Content Include="Assets\OSSText.html" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

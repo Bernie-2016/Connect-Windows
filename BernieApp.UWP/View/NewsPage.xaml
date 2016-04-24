@@ -27,11 +27,8 @@
             </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-       
-        
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidthStates">
                 <VisualState x:Name="NarrowState">
