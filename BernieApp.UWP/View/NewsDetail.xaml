@@ -5,6 +5,7 @@
     xmlns:local="using:BernieApp.UWP.View"
     xmlns:t10="using:Template10.Controls"
     xmlns:Behaviors="using:Template10.Behaviors"
+    xmlns:converters="using:BernieApp.UWP.Converters"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:triggers="using:WindowsStateTriggers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,6 +15,10 @@
     <Page.DataContext>
         <Binding Path="NewsDetailViewModel" Source="{StaticResource Locator}"/>
     </Page.DataContext>
+
+    <Page.Resources>
+        <converters:ArticleTypeConverter x:Key="articleConverter"/>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -81,7 +86,7 @@
 
         <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="10,10,5,0">
-                <TextBlock Text="{x:Bind ViewModel.Item.ArticleType}" Style="{ThemeResource BaseTextBlockStyle}"
+                <TextBlock Text="{x:Bind ViewModel.Item.ArticleType, Converter={StaticResource articleConverter}}" Style="{ThemeResource BaseTextBlockStyle}"
                            Foreground="Blue"     />
                 <TextBlock Text="{x:Bind ViewModel.Item.Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords"/>

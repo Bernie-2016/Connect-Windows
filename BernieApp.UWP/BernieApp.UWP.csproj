@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="Controls\StreamUriResolver.cs" />
     <Compile Include="Controls\WebViewExtensions.cs" />
+    <Compile Include="Converters\ArticleTypeConverter.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />

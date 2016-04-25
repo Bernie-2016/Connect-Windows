@@ -7,6 +7,7 @@
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:converters="BernieApp.UWP.Converters"
     xmlns:t10behaviors="using:Template10.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -19,10 +20,30 @@
     <Page.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="NewsItemTemplate">
-                <StackPanel>
-                    <TextBlock Grid.Row="0" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-                    <TextBlock Grid.Row="1" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}"
-                           Foreground="Gray" TextWrapping="NoWrap"/>
+                <RelativePanel Width="230" Height="300" Background="GhostWhite" Margin="5">
+                    <TextBlock x:Name="title" Margin="10" Text="{Binding Title}"
+                               Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
+                    <TextBlock Margin="10" Text="{Binding Excerpt}" RelativePanel.Below="title"
+                           Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
+                           TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="6"/>
+                    <TextBlock Margin="10" Text="Timestamp here" RelativePanel.AlignBottomWithPanel="True"
+                               Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Bottom"/>
+                </RelativePanel>
+            </DataTemplate>
+            <DataTemplate x:Key="NewsItemWithImageTemplate">
+                <StackPanel Width="230" Height="350" Background="LightGray" Margin="5">
+                    <!-- Image here-->
+                    <TextBlock Grid.Row="0" Margin="10" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Margin="10" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
+                           TextWrapping="WrapWholeWords" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="NewsItemWithVideoTemplate">
+                <StackPanel Width="230" Height="350" Background="LightGray" Margin="5">
+                    <!-- video here-->
+                    <TextBlock Grid.Row="0" Margin="10" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1" Margin="10" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
+                           TextWrapping="WrapWholeWords" />
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
@@ -56,8 +77,7 @@
         </Grid.RowDefinitions>
 
         <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}"
-                        Text="News"
-                        >
+                        Text="News">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>
@@ -66,10 +86,10 @@
             </t10:PageHeader.SecondaryCommands>
         </t10:PageHeader>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
 
-            <ListView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" 
-                      ItemsSource="{Binding Items}"
+            <GridView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" 
+                      ItemsSource="{Binding Items}" Margin="0,5,0,0"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"    
                       >
                 <Interactivity:Interaction.Behaviors>
@@ -77,7 +97,7 @@
                         <Core:CallMethodAction MethodName="GoToDetailsPage" TargetObject="{Binding}"/>
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
-            </ListView>
+            </GridView>
 
         </Grid>
         

@@ -3,6 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BernieApp.UWP.View"
+    xmlns:t10="using:Template10.Controls"
+    xmlns:Behaviors="using:Template10.Behaviors"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:controls="using:BernieApp.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -19,20 +22,41 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WidthStates">
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Header.Margin" Value="48,0,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Header.Margin" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <t10:PageHeader x:Name="Header" Grid.Row="0" Content="Settings" Frame="{x:Bind Frame}">
+            <Interactivity:Interaction.Behaviors>
+                <Behaviors:EllipsisBehavior Visibility="Collapsed" />
+            </Interactivity:Interaction.Behaviors>
+        </t10:PageHeader>
+
+
         <Pivot x:Name="Pivot" Grid.Row="1">
-            <PivotItem Header="Settings">
-                <StackPanel>
-                    <!--Add icons like Aeries or Windows settings-->
-                    <TextBlock Text="General Settings"/>
-                    <TextBlock Text="Privacy Policy"/>
-                    <TextBlock Text="About"/>
-                    <TextBlock Text="Open Source Licenses"/>
-                    <TextBlock Text="Feedback"/>
-                </StackPanel>
-
-
-            </PivotItem>
-            
             
             <!--  General  -->
             <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="General">
