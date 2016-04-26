@@ -191,14 +191,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Parse-SDK-dotNET\Parse.UWP\Parse.UWP.csproj">
-      <Project>{f7c2be8d-ac16-4786-a0c4-1945b1b61d08}</Project>
-      <Name>Parse.UWP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Parse-SDK-dotNET\Parse\Parse.csproj">
-      <Project>{de07a443-9619-4bd7-b540-41296f8a2959}</Project>
-      <Name>Parse</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BernieApp.Portable\BernieApp.Portable.csproj">
       <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
       <Name>BernieApp.Portable</Name>
