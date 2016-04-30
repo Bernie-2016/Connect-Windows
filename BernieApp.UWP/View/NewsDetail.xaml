@@ -47,7 +47,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Header.(Grid.Row)" Value="2"/>
-                        <Setter Target="Header.BackButtonVisibility" Value="Collapsed"/>
+                        <Setter Target="Header.BackButtonVisibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopState">
@@ -56,7 +56,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Header.(Grid.Row)" Value="0"/>
-                        <Setter Target="Header.BackButtonVisibility" Value="Visible"/>
+                        <Setter Target="Header.BackButtonVisibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -85,15 +85,22 @@
         </t10:PageHeader>
 
         <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="10,10,5,0">
+            <StackPanel Margin="10,10,20,0">
+
                 <TextBlock Text="{x:Bind ViewModel.Item.ArticleType, Converter={StaticResource articleConverter}}" Style="{ThemeResource BaseTextBlockStyle}"
                            Foreground="Blue"     />
+                <Image Margin="-10,10,-20,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Image.Source>
+                        <BitmapImage UriSource="{x:Bind ViewModel.Item.ImageUrl}" />
+                    </Image.Source>
+                </Image>
+                
                 <TextBlock Text="{x:Bind ViewModel.Item.Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords"/>
                 <TextBlock Text="{x:Bind ViewModel.Item.Date}" Style="{ThemeResource BaseTextBlockStyle}"
                                 Foreground="Gray"/>
                 <TextBlock Text="{x:Bind ViewModel.Item.Body}" Style="{ThemeResource BodyTextBlockStyle}" 
-                                TextWrapping="WrapWholeWords"/>
+                                TextWrapping="WrapWholeWords" Margin="0,0,0,20"/>
             </StackPanel>
         </ScrollViewer>
         

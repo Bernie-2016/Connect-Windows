@@ -7,7 +7,7 @@
     xmlns:Behaviors="using:Template10.Behaviors"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:converters="BernieApp.UWP.Converters"
+    xmlns:converters="using:BernieApp.UWP.Converters"
     xmlns:t10behaviors="using:Template10.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -20,32 +20,52 @@
     <Page.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="NewsItemTemplate">
-                <RelativePanel Width="230" Height="300" Background="GhostWhite" Margin="5">
+                <RelativePanel Width="250" Height="330" Background="GhostWhite" Margin="5">
                     <TextBlock x:Name="title" Margin="10" Text="{Binding Title}"
                                Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
                     <TextBlock Margin="10" Text="{Binding Excerpt}" RelativePanel.Below="title"
                            Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
-                           TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="6"/>
-                    <TextBlock Margin="10" Text="Timestamp here" RelativePanel.AlignBottomWithPanel="True"
+                           TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="5"/>
+                    <TextBlock Margin="10" Text="{Binding Date, Converter={StaticResource dateConverter}}" RelativePanel.AlignBottomWithPanel="True"
                                Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Bottom"/>
                 </RelativePanel>
             </DataTemplate>
             <DataTemplate x:Key="NewsItemWithImageTemplate">
-                <StackPanel Width="230" Height="350" Background="LightGray" Margin="5">
+                
+                <RelativePanel Width="250" Height="330" Background="GhostWhite" Margin="5">
                     <!-- Image here-->
-                    <TextBlock Grid.Row="0" Margin="10" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Margin="10" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
-                           TextWrapping="WrapWholeWords" />
-                </StackPanel>
+                    <Viewbox x:Name="imageBox" Width="Auto" Height="Auto" 
+                             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                        <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Image.Source>
+                                <BitmapImage UriSource="{Binding ImageUrl}" />
+                            </Image.Source>
+                        </Image>
+                    </Viewbox>
+                    <TextBlock x:Name="titleBox" Margin="10,0,10,0" RelativePanel.Below="imageBox"
+                               Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
+                    <TextBlock Margin="10" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}" 
+                               RelativePanel.Below="titleBox"
+                               FontWeight="Light" TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="2"/>
+                    <TextBlock Margin="10" Text="{Binding Date, Converter={StaticResource dateConverter}}" 
+                               RelativePanel.AlignBottomWithPanel="True"
+                               Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Bottom"/>
+                    
+                </RelativePanel>
             </DataTemplate>
             <DataTemplate x:Key="NewsItemWithVideoTemplate">
-                <StackPanel Width="230" Height="350" Background="LightGray" Margin="5">
+                <StackPanel Width="250" Height="330" Background="LightGray" Margin="5">
                     <!-- video here-->
                     <TextBlock Grid.Row="0" Margin="10" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
                     <TextBlock Grid.Row="1" Margin="10" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
                            TextWrapping="WrapWholeWords" />
                 </StackPanel>
             </DataTemplate>
+            <converters:NewsDataTemplateSelector x:Key="templateSelector"
+                                                 NewsItemTemplate="{StaticResource NewsItemTemplate}"
+                                                 NewsItemWithImageTemplate="{StaticResource NewsItemWithImageTemplate}"
+                                                 NewsItemWithVideoTemplate="{StaticResource NewsItemWithVideoTemplate}"/>
+            <converters:DateToHumanReadableConverter x:Key="dateConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -58,14 +78,25 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Header.Margin" Value="48,0,0,0"/>
+                        <!--Change widths of data templates for mobile to have two columns-->
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="WideState">
+                <VisualState x:Name="MediumState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="600"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="Header.Margin" Value="0"/>
+                        <!--Keep dimensions of data templates as is-->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Header.Margin" Value="0"/>
+                        <!--Make everything bigger-->
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -86,11 +117,12 @@
             </t10:PageHeader.SecondaryCommands>
         </t10:PageHeader>
 
-        <Grid Grid.Row="1" HorizontalAlignment="Center">
+        <Grid Grid.Row="1" HorizontalAlignment="Center" >
 
-            <GridView x:Name="Newsfeed" ItemTemplate="{StaticResource NewsItemTemplate}" 
+            <GridView x:Name="Newsfeed" ItemTemplateSelector="{StaticResource templateSelector}" 
                       ItemsSource="{Binding Items}" Margin="0,5,0,0"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"    
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       >
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="SelectionChanged">
@@ -98,6 +130,18 @@
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
             </GridView>
+
+            <t10:ModalDialog x:Name="BusyModal" CanBackButtonDismiss="False" DisableBackButtonWhenModal="True">
+                <t10:ModalDialog.ModalContent>
+                    <Viewbox Height="32" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <ProgressRing x:Name="BusyRing" Width="24" Height="24" Margin="12,0"
+                            Foreground="White" IsActive="{Binding IsModal, ElementName=BusyModal}" />
+                            <TextBlock x:Name="BusyText" VerticalAlignment="Center" Foreground="White" />
+                        </StackPanel>
+                    </Viewbox>
+                </t10:ModalDialog.ModalContent>
+            </t10:ModalDialog>
 
         </Grid>
         

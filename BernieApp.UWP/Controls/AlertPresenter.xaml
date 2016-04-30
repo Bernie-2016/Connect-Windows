@@ -6,8 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="800"
-    d:DesignWidth="500">
+>
 
     <!-- UserControl inherits datacontext from its source page, so this is probably unecessary
     <UserControl.DataContext>
@@ -15,15 +14,16 @@
     </UserControl.DataContext>-->
 
     <Grid Background="Transparent">
-        <!--<VisualStateManager.VisualStateGroups>
+        <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidthStates">
                 <VisualState x:Name="NarrowState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="webView.Width" Value="500"/>
-                        <Setter Target="webView.Height" Value="800"/>
+                        <Setter Target="webView.Width" Value="400"/>
+                        <Setter Target="webView.Height" Value="650"/>
+                        <Setter Target="grid.Width" Value="450"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideState">
@@ -31,16 +31,18 @@
                         <AdaptiveTrigger MinWindowWidth="600"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="webView.Width" Value="500"/>
-                        <Setter Target="webView.Height" Value="800"/>
+                        <Setter Target="webView.Width" Value="400"/>
+                        <Setter Target="webView.Height" Value="650"/>
+                        <Setter Target="grid.Width" Value="580"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>-->
+        </VisualStateManager.VisualStateGroups>
 
 
-        <ScrollViewer HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-            <Grid HorizontalAlignment="Center" MaxWidth="500">
+        <ScrollViewer HorizontalAlignment="Stretch" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <Grid x:Name="grid" HorizontalAlignment="Stretch" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -50,16 +52,16 @@
                 
                 <TextBlock x:Name="titleBox" Text="{Binding Title}"
                    Margin="10,0,10,20" HorizontalAlignment="Center"
-                   TextWrapping="WrapWholeWords" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+                   TextWrapping="Wrap" Style="{ThemeResource SubheaderTextBlockStyle}"/>
                 <TextBlock x:Name="descriptionBox" Grid.Row="1" Text="{Binding ShortDescription}"
                    Margin="10,0,0,20" HorizontalAlignment="Center"
-                   TextWrapping="WrapWholeWords"/>
+                   TextWrapping="Wrap"/>
                 <!--<WebView Grid.Row="2" x:Name="webView"
                  Source="ms-appx-web:///Assets/Scripts/WebViewText.html" 
                  Width="400" Height="800"
                  />-->
 
-                <WebView x:Name="webView" Grid.Row="2" Width="400" Height="600" HorizontalAlignment="Center"
+                <WebView x:Name="webView" Grid.Row="2" HorizontalAlignment="Center"
                  />
             </Grid>
         </ScrollViewer>

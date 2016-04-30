@@ -134,6 +134,10 @@ namespace BernieApp.UWP.ViewModels
                                 border-radius: 4px;
                                 overflow: hidden;
                             }}
+
+                            .instagram-media {{
+                                max-width: 380px !important;
+                            }}
                         </style>
                     </head><body>{0}</body></html>",
                 removeNewline);
@@ -144,6 +148,10 @@ namespace BernieApp.UWP.ViewModels
             if (htmlPage.Contains("//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3"))
             {
                 htmlPage = Regex.Replace(htmlPage, "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3", "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3");
+            }
+            if (htmlPage.Contains("//platform.instagram.com/en_US/embeds.js"))
+            {
+                htmlPage = Regex.Replace(htmlPage, "//platform.instagram.com/en_US/embeds.js", "https://platform.instagram.com/en_US/embeds.js");
             }
             return htmlPage;
         }

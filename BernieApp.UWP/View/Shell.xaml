@@ -11,7 +11,7 @@
 
     <t10:HamburgerMenu x:Name="Menu"
                            HamburgerForeground="White"
-                           HamburgerBackground="#FF194D7B"
+                           HamburgerBackground="#FF147FD7"
                            NavAreaBackground="#FF2B2B2B"
                            NavButtonForeground="White"
                            NavButtonHoverBackground="#FFEA504E"
@@ -35,7 +35,7 @@
 
             <t10:HamburgerButtonInfo PageType="view:ActionsPage" ClearHistory="True">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <SymbolIcon Symbol="People" Width="48" Height="48" />
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" Height="48" Width="48"/>
                     <TextBlock Text="Actions" Margin="12,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
             </t10:HamburgerButtonInfo>

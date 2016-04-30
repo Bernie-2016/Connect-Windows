@@ -39,7 +39,14 @@ namespace BernieApp.UWP.ViewModels
                     _item.Date = entry.Date;
                     _item.Body = entry.Body;
                     _item.Url = entry.Url;
-                    _item.ImageUrl = entry.ImageUrl;
+                    if (entry.ImageUrl == "")
+                    {
+                        _item.ImageUrl = "ms-appx-web:///Assets/bleh.png"; //ImageUrl can't be a non-url, so this allows nothing to display when there isn't an image.
+                    }
+                    else
+                    {
+                        _item.ImageUrl = entry.ImageUrl;
+                    }
                 }
 
             });   
@@ -53,8 +60,6 @@ namespace BernieApp.UWP.ViewModels
             //hide the hamburger button, navigation should only go back to the NewsPage via the hardware back button or back button in page header
             var h = Shell.HamburgerMenu;
             h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Collapsed;
-            h.IsOpen = false;
- 
             return Task.CompletedTask;        
         }
 

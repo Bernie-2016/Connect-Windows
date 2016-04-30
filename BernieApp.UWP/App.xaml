@@ -3,26 +3,27 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:vm="using:BernieApp.UWP.ViewModels"
                      xmlns:common="using:Template10.Common"
-                     xmlns:controls="using:Template10.Controls">
+                     xmlns:controls="using:Template10.Controls"
+                     RequestedTheme="Light">
 
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Name="Locator"/>
-            <!--<Style TargetType="controls:CustomTitleBar">
-                <Setter Property="BackgroundColor" Value="SteelBlue" />
-                <Setter Property="ButtonBackgroundColor" Value="Maroon" />
+            <Style TargetType="controls:CustomTitleBar">
+                <Setter Property="BackgroundColor" Value="#FF147FD7" />
+                <Setter Property="ButtonBackgroundColor" Value="#FF147FD7" />
                 <Setter Property="ButtonForegroundColor" Value="White" />
-                <Setter Property="ButtonHoverBackgroundColor" Value="Orange" />
-                <Setter Property="ButtonHoverForegroundColor" Value="White" />
+                <Setter Property="ButtonHoverBackgroundColor" Value="#FF147FD7" />
+                <Setter Property="ButtonHoverForegroundColor" Value="Gray" />
                 <Setter Property="ButtonInactiveBackgroundColor" Value="DimGray" />
                 <Setter Property="ButtonInactiveForegroundColor" Value="White" />
-                <Setter Property="ButtonPressedBackgroundColor" Value="Green" />
+                <Setter Property="ButtonPressedBackgroundColor" Value="#FF147FD7" />
                 <Setter Property="ButtonPressedForegroundColor" Value="White" />
                 <Setter Property="Extended" Value="False" />
                 <Setter Property="ForegroundColor" Value="White" />
-                <Setter Property="InactiveBackgroundColor" Value="LightSteelBlue" />
+                <Setter Property="InactiveBackgroundColor" Value="White" />
                 <Setter Property="InactiveForegroundColor" Value="DimGray" />
-            </Style>-->
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </common:BootStrapper>
