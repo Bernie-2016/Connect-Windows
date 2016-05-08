@@ -105,7 +105,10 @@ namespace BernieApp.UWP
         public static void ParsePush_OnNotificationReceived(object sender, ParsePushNotificationEventArgs args)
         {
             //Pull in json payload
+            var payload = args.Payload;
+
             Debug.WriteLine("notification received!");
+            Debug.WriteLine(payload);
 
             string title = "";
             string content = "";

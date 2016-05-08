@@ -102,6 +102,9 @@
     <Compile Include="Controls\AlertPresenter.xaml.cs">
       <DependentUpon>AlertPresenter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewsPresenter.xaml.cs">
+      <DependentUpon>NewsPresenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StreamUriResolver.cs" />
     <Compile Include="Controls\WebViewExtensions.cs" />
     <Compile Include="Converters\ArticleTypeConverter.cs" />
@@ -164,6 +167,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\AlertPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewsPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

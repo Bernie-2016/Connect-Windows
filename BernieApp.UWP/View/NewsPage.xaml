@@ -9,6 +9,8 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:converters="using:BernieApp.UWP.Converters"
     xmlns:t10behaviors="using:Template10.Behaviors"
+    xmlns:triggers="using:WindowsStateTriggers"
+    xmlns:controls="using:BernieApp.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -19,53 +21,7 @@
     
     <Page.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="NewsItemTemplate">
-                <RelativePanel Width="250" Height="330" Background="GhostWhite" Margin="5">
-                    <TextBlock x:Name="title" Margin="10" Text="{Binding Title}"
-                               Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
-                    <TextBlock Margin="10" Text="{Binding Excerpt}" RelativePanel.Below="title"
-                           Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
-                           TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="5"/>
-                    <TextBlock Margin="10" Text="{Binding Date, Converter={StaticResource dateConverter}}" RelativePanel.AlignBottomWithPanel="True"
-                               Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Bottom"/>
-                </RelativePanel>
-            </DataTemplate>
-            <DataTemplate x:Key="NewsItemWithImageTemplate">
-                
-                <RelativePanel Width="250" Height="330" Background="GhostWhite" Margin="5">
-                    <!-- Image here-->
-                    <Viewbox x:Name="imageBox" Width="Auto" Height="Auto" 
-                             RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True">
-                        <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <Image.Source>
-                                <BitmapImage UriSource="{Binding ImageUrl}" />
-                            </Image.Source>
-                        </Image>
-                    </Viewbox>
-                    <TextBlock x:Name="titleBox" Margin="10,0,10,0" RelativePanel.Below="imageBox"
-                               Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
-                    <TextBlock Margin="10" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}" 
-                               RelativePanel.Below="titleBox"
-                               FontWeight="Light" TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="2"/>
-                    <TextBlock Margin="10" Text="{Binding Date, Converter={StaticResource dateConverter}}" 
-                               RelativePanel.AlignBottomWithPanel="True"
-                               Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Bottom"/>
-                    
-                </RelativePanel>
-            </DataTemplate>
-            <DataTemplate x:Key="NewsItemWithVideoTemplate">
-                <StackPanel Width="250" Height="330" Background="LightGray" Margin="5">
-                    <!-- video here-->
-                    <TextBlock Grid.Row="0" Margin="10" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
-                    <TextBlock Grid.Row="1" Margin="10" Text="{Binding Excerpt}" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light"
-                           TextWrapping="WrapWholeWords" />
-                </StackPanel>
-            </DataTemplate>
-            <converters:NewsDataTemplateSelector x:Key="templateSelector"
-                                                 NewsItemTemplate="{StaticResource NewsItemTemplate}"
-                                                 NewsItemWithImageTemplate="{StaticResource NewsItemWithImageTemplate}"
-                                                 NewsItemWithVideoTemplate="{StaticResource NewsItemWithVideoTemplate}"/>
-            <converters:DateToHumanReadableConverter x:Key="dateConverter"/>
+
         </ResourceDictionary>
     </Page.Resources>
 
@@ -119,17 +75,7 @@
 
         <Grid Grid.Row="1" HorizontalAlignment="Center" >
 
-            <GridView x:Name="Newsfeed" ItemTemplateSelector="{StaticResource templateSelector}" 
-                      ItemsSource="{Binding Items}" Margin="0,5,0,0"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      >
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="SelectionChanged">
-                        <Core:CallMethodAction MethodName="GoToDetailsPage" TargetObject="{Binding}"/>
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
-            </GridView>
+            <controls:NewsPresenter/>
 
             <t10:ModalDialog x:Name="BusyModal" CanBackButtonDismiss="False" DisableBackButtonWhenModal="True">
                 <t10:ModalDialog.ModalContent>

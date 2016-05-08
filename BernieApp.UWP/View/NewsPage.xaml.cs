@@ -28,14 +28,14 @@ namespace BernieApp.UWP.View
             this.InitializeComponent();
             //this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            Messenger.Default.Register<NotificationMessage<string>>(this, (message) => 
-            {
-                var m = message.Notification.ToString();
-                if (m == "Reset")
-                {
-                    Newsfeed.SelectedItem = null;                  
-                }
-            });
+            //Messenger.Default.Register<NotificationMessage<string>>(this, (message) => 
+            //{
+            //    var m = message.Notification.ToString();
+            //    if (m == "Reset")
+            //    {
+            //        Newsfeed.SelectedItem = null;                  
+            //    }
+            //});
         }
     }
 }

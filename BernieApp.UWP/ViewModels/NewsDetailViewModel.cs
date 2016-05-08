@@ -58,8 +58,8 @@ namespace BernieApp.UWP.ViewModels
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
             
             //hide the hamburger button, navigation should only go back to the NewsPage via the hardware back button or back button in page header
-            var h = Shell.HamburgerMenu;
-            h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Collapsed;
+            //var h = Shell.HamburgerMenu;
+            //h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Collapsed;
             return Task.CompletedTask;        
         }
 
@@ -68,8 +68,8 @@ namespace BernieApp.UWP.ViewModels
             //Un-register for share
             DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
 
-            var h = Shell.HamburgerMenu;
-            h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;
+            //var h = Shell.HamburgerMenu;
+            //h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Visible;
 
             return Task.CompletedTask;
         }

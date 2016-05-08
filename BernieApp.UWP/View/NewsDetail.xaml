@@ -33,10 +33,11 @@
                 </VisualState>
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600"/>
+                        <AdaptiveTrigger MinWindowWidth="552"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-
+                        <Setter Target="textArea.Width" Value="552"/> <!-- Make this 600 once hamburger is fully removed-->
+                        <Setter Target="textArea.HorizontalAlignment" Value="Center"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -85,7 +86,7 @@
         </t10:PageHeader>
 
         <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="10,10,20,0">
+            <StackPanel Margin="10,10,20,0" x:Name="textArea">
 
                 <TextBlock Text="{x:Bind ViewModel.Item.ArticleType, Converter={StaticResource articleConverter}}" Style="{ThemeResource BaseTextBlockStyle}"
                            Foreground="Blue"     />
@@ -96,9 +97,9 @@
                 </Image>
                 
                 <TextBlock Text="{x:Bind ViewModel.Item.Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
-                                TextWrapping="WrapWholeWords"/>
+                                TextWrapping="WrapWholeWords" Margin="0,0,0,10"/>
                 <TextBlock Text="{x:Bind ViewModel.Item.Date}" Style="{ThemeResource BaseTextBlockStyle}"
-                                Foreground="Gray"/>
+                                Foreground="Gray" Margin="0,0,0,10"/>
                 <TextBlock Text="{x:Bind ViewModel.Item.Body}" Style="{ThemeResource BodyTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords" Margin="0,0,0,20"/>
             </StackPanel>
