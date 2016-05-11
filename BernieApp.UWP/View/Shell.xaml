@@ -36,7 +36,7 @@
             <t10:HamburgerButtonInfo PageType="view:ActionsPage" ClearHistory="True">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" Height="48" Width="48"/>
-                    <TextBlock Text="Actions" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Share This" Margin="12,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
             </t10:HamburgerButtonInfo>
 

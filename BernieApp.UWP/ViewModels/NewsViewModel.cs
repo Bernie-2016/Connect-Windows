@@ -18,6 +18,7 @@ namespace BernieApp.UWP.ViewModels
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
         private FeedEntry _selectedItem;
+        private double _itemWidth = 0;
         private RelayCommand _loadCommand;
 
         public NewsViewModel(IBernieClient client)
@@ -29,6 +30,12 @@ namespace BernieApp.UWP.ViewModels
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
+
+            Messenger.Default.Register<double>(this, (message) =>
+            {
+                var m = message;
+                this.ItemWidth = m;
+            });
 
             return base.OnNavigatedToAsync(parameter, mode, state);
         }
@@ -46,6 +53,12 @@ namespace BernieApp.UWP.ViewModels
         {
             get { return _selectedItem; }
             set { Set(ref _selectedItem, value); }
+        }
+
+        public double ItemWidth
+        {
+            get { return _itemWidth; }
+            set { Set(ref _itemWidth, value); }
         }
 
         //Refresh the news feed

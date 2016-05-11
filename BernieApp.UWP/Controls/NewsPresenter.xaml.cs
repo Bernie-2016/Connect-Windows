@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BernieApp.UWP.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -42,6 +43,12 @@ namespace BernieApp.UWP.Controls
 
         public NewsViewModel ViewModel { get; set; }
 
-
+        private void Newsfeed_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ItemsWrapGrid MyItemsPanel = (ItemsWrapGrid)Newsfeed.ItemsPanelRoot;
+            var width = e.NewSize.Width / 2;
+            MyItemsPanel.ItemWidth = width;
+            Messenger.Default.Send<double>(width);     
+        }
     }
 }

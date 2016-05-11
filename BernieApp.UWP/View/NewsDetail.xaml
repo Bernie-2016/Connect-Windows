@@ -47,8 +47,9 @@
                         <triggers:DeviceFamilyStateTrigger DeviceFamily="Mobile"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Header.(Grid.Row)" Value="2"/>
+                        <!--<Setter Target="Header.(Grid.Row)" Value="2"/>-->
                         <Setter Target="Header.BackButtonVisibility" Value="Visible"/>
+                        <!--<Setter Target="articleTypeBox.Margin" Value="48,0,0,0"/>-->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopState">
@@ -89,7 +90,7 @@
             <StackPanel Margin="10,10,20,0" x:Name="textArea">
 
                 <TextBlock Text="{x:Bind ViewModel.Item.ArticleType, Converter={StaticResource articleConverter}}" Style="{ThemeResource BaseTextBlockStyle}"
-                           Foreground="Blue"     />
+                           Foreground="Blue" x:Name="articleTypeBox" />
                 <Image Margin="-10,10,-20,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Image.Source>
                         <BitmapImage UriSource="{x:Bind ViewModel.Item.ImageUrl}" />

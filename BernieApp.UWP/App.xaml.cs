@@ -12,6 +12,11 @@ using NotificationsExtensions.Toasts;
 using Microsoft.QueryStringDotNET;
 using Windows.Data.Xml.Dom;
 using Windows.ApplicationModel.Background;
+using Windows.UI.ViewManagement;
+using Windows.Foundation;
+using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace BernieApp.UWP
 {
@@ -24,10 +29,23 @@ namespace BernieApp.UWP
         public App()
         {
             this.InitializeComponent();
+            
 
             ParseClient.Initialize(APP_ID, APP_KEY);
             ParseInstallation.CurrentInstallation.SaveAsync();
             ParsePush.ParsePushNotificationReceived += ParsePush_OnNotificationReceived;
+
+            //Set statusbar
+            //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            //{                
+            //    var statusBar = StatusBar.GetForCurrentView();
+            //    if (statusBar != null)
+            //    {
+            //        statusBar.BackgroundOpacity = 1;
+            //        statusBar.BackgroundColor = Colors.Black;
+            //        statusBar.ForegroundColor = Colors.White;
+            //    }
+            //}
         }
 
         // runs even if restored from state
