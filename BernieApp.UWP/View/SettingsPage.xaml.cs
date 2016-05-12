@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BernieApp.UWP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,15 @@ namespace BernieApp.UWP.View
         public SettingsPage()
         {
             this.InitializeComponent();
+
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
+
+            DataContextChanged += (s, e) =>
+            {
+                ViewModel = DataContext as SettingsViewModel;
+            };
         }
+
+        public SettingsViewModel ViewModel { get; set; }
     }
 }

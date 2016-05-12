@@ -2,6 +2,8 @@
 using Windows.UI.Xaml.Controls;
 using Template10.Controls;
 using Template10.Services.NavigationService;
+using Windows.UI.ViewManagement;
+using Windows.Foundation;
 
 namespace BernieApp.UWP.View
 {

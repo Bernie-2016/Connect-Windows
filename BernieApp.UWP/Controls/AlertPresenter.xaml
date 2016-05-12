@@ -3,11 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BernieApp.UWP.Controls"
+    xmlns:triggers="using:WindowsStateTriggers"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="800"
-    d:DesignWidth="500">
+>
 
     <!-- UserControl inherits datacontext from its source page, so this is probably unecessary
     <UserControl.DataContext>
@@ -16,32 +16,36 @@
 
     <Grid Background="Transparent">
         <!--<VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WidthStates">
-                <VisualState x:Name="NarrowState">
+            <VisualStateGroup x:Name="DeviceStates">
+                <VisualState x:Name="DesktopState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
+                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Mobile"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="webView.Width" Value="500"/>
-                        <Setter Target="webView.Height" Value="800"/>
+                        <Setter Target="webView.Width" Value="250"/>
+                        <Setter Target="webView.Height" Value="500"/>
+                        <Setter Target="grid.Width" Value="100%"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600"/>
+                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Desktop"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="webView.Width" Value="500"/>
-                        <Setter Target="webView.Height" Value="800"/>
+                        <Setter Target="webView.Width" Value="400"/>
+                        <Setter Target="webView.Height" Value="650"/>
+                        <Setter Target="grid.Width" Value="580"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>-->
 
 
-        <ScrollViewer HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-            <Grid HorizontalAlignment="Stretch" MaxWidth="500">
+        <ScrollViewer HorizontalAlignment="Stretch" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <Grid x:Name="grid" HorizontalAlignment="Stretch" Margin="10" MinWidth="400">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -49,16 +53,17 @@
                 
                 <TextBlock x:Name="titleBox" Text="{Binding Title}"
                    Margin="10,0,10,20" HorizontalAlignment="Center"
-                   TextWrapping="WrapWholeWords" Style="{ThemeResource SubheaderTextBlockStyle}"/>
+                   TextWrapping="Wrap" Style="{ThemeResource SubheaderTextBlockStyle}"/>
                 <TextBlock x:Name="descriptionBox" Grid.Row="1" Text="{Binding ShortDescription}"
                    Margin="10,0,0,20" HorizontalAlignment="Center"
-                   TextWrapping="WrapWholeWords"/>
+                   TextWrapping="Wrap"/>
                 <!--<WebView Grid.Row="2" x:Name="webView"
                  Source="ms-appx-web:///Assets/Scripts/WebViewText.html" 
                  Width="400" Height="800"
                  />-->
 
-                <WebView x:Name="webView" Grid.Row="2" Width="400" Height="600" HorizontalAlignment="Center"
+                <WebView x:Name="webView" Grid.Row="2" HorizontalAlignment="Center"
+                         Width="400" Height="650"
                  />
             </Grid>
         </ScrollViewer>

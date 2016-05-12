@@ -10,7 +10,6 @@ namespace BernieApp.UWP.Controls
 {
     public class WebViewExtensions
     {
-        //Bind to the Uri 
         public static string GetUriSource(WebView view)
         {
             return (string)view.GetValue(UriSourceProperty);

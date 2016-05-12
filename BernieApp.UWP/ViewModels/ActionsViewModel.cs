@@ -87,16 +87,12 @@ namespace BernieApp.UWP.ViewModels
                 string _bodyHTML = SelectedItem.BodyHTML;
                 string _id = SelectedItem.Id;
 
-                //width and videowidth are for modifying html sizes for facebook if necessary
-                string _width = "100";
-                string _videoWidth = "150";
-
-                SetWebView(_bodyHTML, _id, _width, _videoWidth);
+                SetWebView(_bodyHTML, _id);
             }
         }
         
         //Format the tweet/facebook embed for display in WebView control
-        public async void SetWebView(string bodyHTML, string id, string width, string videowidth)
+        public async void SetWebView(string bodyHTML, string id)
         {
             string result = EditString(bodyHTML);
 
@@ -104,9 +100,6 @@ namespace BernieApp.UWP.ViewModels
 
             _webViewSource = path;
             Messenger.Default.Send<string>(_webViewSource);
-
-            //_webViewSource = result;
-            //Messenger.Default.Send<string>(_webViewSource);
             
         }
 
@@ -137,9 +130,13 @@ namespace BernieApp.UWP.ViewModels
                             }}
 
                             iframe[src^='https://www.youtube.com'] {{
-                                width: 350px !important;
+                                width: 400px !important;
                                 border-radius: 4px;
                                 overflow: hidden;
+                            }}
+
+                            .instagram-media {{
+                                max-width: 380px !important;
                             }}
                         </style>
                     </head><body>{0}</body></html>",
@@ -151,6 +148,10 @@ namespace BernieApp.UWP.ViewModels
             if (htmlPage.Contains("//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3"))
             {
                 htmlPage = Regex.Replace(htmlPage, "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3", "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3");
+            }
+            if (htmlPage.Contains("//platform.instagram.com/en_US/embeds.js"))
+            {
+                htmlPage = Regex.Replace(htmlPage, "//platform.instagram.com/en_US/embeds.js", "https://platform.instagram.com/en_US/embeds.js");
             }
             return htmlPage;
         }

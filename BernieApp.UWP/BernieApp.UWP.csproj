@@ -16,7 +16,8 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>BernieApp.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>BernieApp.UWP_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>6CBD13FBF7DC3DF50E8B90E29BAFC2C868AEDE71</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -97,11 +98,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BackgroundTasks\NotificationActionBackgroundTask.cs" />
     <Compile Include="Controls\AlertPresenter.xaml.cs">
       <DependentUpon>AlertPresenter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewsPresenter.xaml.cs">
+      <DependentUpon>NewsPresenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\StreamUriResolver.cs" />
     <Compile Include="Controls\WebViewExtensions.cs" />
+    <Compile Include="Converters\ArticleTypeConverter.cs" />
+    <Compile Include="Converters\DateToHumanReadableConverter.cs" />
+    <Compile Include="Converters\NewsDataTemplateSelector.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\NearbyViewModel.cs" />
     <Compile Include="ViewModels\NewsDetailViewModel.cs" />
@@ -128,32 +137,21 @@
     <Compile Include="View\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Splash.xaml.cs">
-      <DependentUpon>Splash.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="BernieApp.UWP_StoreKey.pfx" />
     <None Include="BernieApp.UWP_TemporaryKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Movement-icons\appicon120.png" />
-    <Content Include="Assets\Movement-icons\appicon152.png" />
-    <Content Include="Assets\Movement-icons\appicon167.png" />
-    <Content Include="Assets\Movement-icons\appicon180.png" />
-    <Content Include="Assets\Movement-icons\appicon29.png" />
-    <Content Include="Assets\Movement-icons\appicon58.png" />
-    <Content Include="Assets\Movement-icons\appicon60.png" />
-    <Content Include="Assets\Movement-icons\appicon76.png" />
-    <Content Include="Assets\Movement-icons\appicon80.png" />
-    <Content Include="Assets\Movement-icons\appicon87.png" />
-    <Content Include="Assets\Movement-icons\appiconwhite.png" />
-    <Content Include="Assets\Scripts\facebook.js" />
-    <Content Include="Assets\Scripts\HTMLPage1.html" />
-    <Content Include="Assets\Scripts\WebViewText.html" />
+    <Content Include="Assets\HTMLPage1.html" />
+    <Content Include="Assets\Images\bernie2016logo.png" />
+    <Content Include="Assets\Images\Splash.png" />
+    <Content Include="Assets\OSSText.html" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -169,6 +167,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\AlertPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DeviceFamily-Mobile\NewsPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\NewsPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,19 +206,28 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Splash.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BernieApp.Portable\BernieApp.Portable.csproj">
       <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
       <Name>BernieApp.Portable</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ParseSDK\Parse.UWP\Parse.UWP.csproj">
+      <Project>{f7c2be8d-ac16-4786-a0c4-1945b1b61d08}</Project>
+      <Name>Parse.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParseSDK\Parse\Parse.csproj">
+      <Project>{de07a443-9619-4bd7-b540-41296f8a2959}</Project>
+      <Name>Parse</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
