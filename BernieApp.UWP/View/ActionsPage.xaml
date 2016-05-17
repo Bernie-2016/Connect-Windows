@@ -264,11 +264,10 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidthStates">

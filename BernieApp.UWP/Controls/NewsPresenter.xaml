@@ -94,7 +94,7 @@
                                     </Image.Source>
                                 </Image>
                             </Viewbox>
-                            <TextBlock x:Name="titleBox" Margin="10,10,10,0" RelativePanel.Below="imageBox" TextTrimming="WordEllipsis"
+                            <TextBlock x:Name="titleBox" Margin="10,10,10,0" RelativePanel.Below="imageBox" TextTrimming="WordEllipsis" MaxLines="3"
                                Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold"/>
                             <TextBlock Margin="10" Text="{Binding Date, Converter={StaticResource dateConverter}}" 
                                RelativePanel.AlignBottomWithPanel="True"

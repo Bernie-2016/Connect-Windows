@@ -9,19 +9,20 @@
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator x:Name="Locator"/>
+            <!-- Title Bar: This style set automatically styles the title bar.-->
             <Style TargetType="controls:CustomTitleBar">
                 <Setter Property="BackgroundColor" Value="#FF147FD7" />
                 <Setter Property="ButtonBackgroundColor" Value="#FF147FD7" />
                 <Setter Property="ButtonForegroundColor" Value="White" />
                 <Setter Property="ButtonHoverBackgroundColor" Value="#FF147FD7" />
                 <Setter Property="ButtonHoverForegroundColor" Value="Gray" />
-                <Setter Property="ButtonInactiveBackgroundColor" Value="DimGray" />
+                <Setter Property="ButtonInactiveBackgroundColor" Value="#ffb8d8f3" />
                 <Setter Property="ButtonInactiveForegroundColor" Value="White" />
                 <Setter Property="ButtonPressedBackgroundColor" Value="#FF147FD7" />
                 <Setter Property="ButtonPressedForegroundColor" Value="White" />
                 <Setter Property="Extended" Value="False" />
                 <Setter Property="ForegroundColor" Value="White" />
-                <Setter Property="InactiveBackgroundColor" Value="White" />
+                <Setter Property="InactiveBackgroundColor" Value="#ffb8d8f3" />
                 <Setter Property="InactiveForegroundColor" Value="DimGray" />
             </Style>
         </ResourceDictionary>

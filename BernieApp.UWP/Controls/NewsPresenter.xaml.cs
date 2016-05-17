@@ -41,6 +41,11 @@ namespace BernieApp.UWP.Controls
             });
         }
 
+        public class WidthMessage
+        {
+            public double Width { get; set; }
+        }
+
         public NewsViewModel ViewModel { get; set; }
 
         private void Newsfeed_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -48,7 +53,7 @@ namespace BernieApp.UWP.Controls
             ItemsWrapGrid MyItemsPanel = (ItemsWrapGrid)Newsfeed.ItemsPanelRoot;
             var width = e.NewSize.Width / 2;
             MyItemsPanel.ItemWidth = width;
-            Messenger.Default.Send<double>(width);     
+            Messenger.Default.Send(new WidthMessage() { Width = width });     
         }
     }
 }

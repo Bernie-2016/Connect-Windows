@@ -17,6 +17,7 @@ using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
+using Windows.ApplicationModel;
 
 namespace BernieApp.UWP
 {
@@ -32,20 +33,7 @@ namespace BernieApp.UWP
             
 
             ParseClient.Initialize(APP_ID, APP_KEY);
-            ParseInstallation.CurrentInstallation.SaveAsync();
             ParsePush.ParsePushNotificationReceived += ParsePush_OnNotificationReceived;
-
-            //Set statusbar
-            //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-            //{                
-            //    var statusBar = StatusBar.GetForCurrentView();
-            //    if (statusBar != null)
-            //    {
-            //        statusBar.BackgroundOpacity = 1;
-            //        statusBar.BackgroundColor = Colors.Black;
-            //        statusBar.ForegroundColor = Colors.White;
-            //    }
-            //}
         }
 
         // runs even if restored from state
@@ -61,6 +49,8 @@ namespace BernieApp.UWP
 
             //Push notification registration
             await ParsePush.SubscribeAsync("");
+            await ParseInstallation.CurrentInstallation.SaveAsync();
+            await ParseAnalytics.TrackAppOpenedAsync();
 
             //Handle ToastNotifications (Foreground activation)
             if (args is ToastNotificationActivatedEventArgs)
@@ -80,15 +70,28 @@ namespace BernieApp.UWP
             }
 
             //Handle ToastNotifications (Background activation)
-            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-            {
-                Name = "ToastTask",
-                TaskEntryPoint = "BernieApp.UWP.BackgroundTasks.NotificationActionBackgroundTask"
-            };
+            //BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+            //BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
+            //{
+            //    Name = "ToastTask",
+            //    TaskEntryPoint = "BernieApp.UWP.BackgroundTasks.NotificationActionBackgroundTask"
+            //};
 
-            builder.SetTrigger(new ToastNotificationActionTrigger());
+            //builder.SetTrigger(new ToastNotificationActionTrigger());
             //BackgroundTaskRegistration registration = builder.Register();
+
+            //Set statusbar
+            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    var background = GetSolidColorBrush("#FF147FD7").Color;
+                    statusBar.BackgroundOpacity = 1;
+                    statusBar.BackgroundColor = background;
+                    statusBar.ForegroundColor = Colors.White;
+                }
+            }
 
             //Ensure the current window is active
             Window.Current.Activate();
@@ -120,6 +123,16 @@ namespace BernieApp.UWP
             return Task.FromResult<object>(null);
         }
 
+        public override void OnResuming(object s, object e, AppExecutionState previousExecutionState)
+        {
+            base.OnResuming(s, e, previousExecutionState);
+        }
+
+        public override Task OnSuspendingAsync(object s, SuspendingEventArgs e, bool prelaunchActivated)
+        {
+            return base.OnSuspendingAsync(s, e, prelaunchActivated);
+        }
+
         public static void ParsePush_OnNotificationReceived(object sender, ParsePushNotificationEventArgs args)
         {
             //Pull in json payload
@@ -146,6 +159,17 @@ namespace BernieApp.UWP
             var toast = new ToastNotification(toastContent.GetXml());
             toast.ExpirationTime = DateTime.Now.AddDays(2);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+
+        public SolidColorBrush GetSolidColorBrush(string hex)
+        {
+            hex = hex.Replace("#", string.Empty);
+            byte a = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));
+            byte r = (byte)(Convert.ToUInt32(hex.Substring(2, 2), 16));
+            byte g = (byte)(Convert.ToUInt32(hex.Substring(4, 2), 16));
+            byte b = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
+            SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(a, r, g, b));
+            return myBrush;
         }
     }
 

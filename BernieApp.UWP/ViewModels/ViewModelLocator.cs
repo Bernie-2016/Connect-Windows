@@ -38,14 +38,16 @@ namespace BernieApp.UWP.ViewModels
             SimpleIoc.Default.Register<NewsViewModel>();
             SimpleIoc.Default.Register<NewsDetailViewModel>(true);
             SimpleIoc.Default.Register<ActionsViewModel>();
-            SimpleIoc.Default.Register<NearbyViewModel>();
+            SimpleIoc.Default.Register<EventsViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<RegisterViewModel>();
         }
 
         public NewsViewModel NewsViewModel => SimpleIoc.Default.GetInstance<NewsViewModel>();
         public NewsDetailViewModel NewsDetailViewModel => SimpleIoc.Default.GetInstance<NewsDetailViewModel>();
         public ActionsViewModel ActionsViewModel => SimpleIoc.Default.GetInstance<ActionsViewModel>();
-        public NearbyViewModel NearbyViewModel => SimpleIoc.Default.GetInstance<NearbyViewModel>();
+        public EventsViewModel NearbyViewModel => SimpleIoc.Default.GetInstance<EventsViewModel>();
         public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        public RegisterViewModel RegisterViewModel => SimpleIoc.Default.GetInstance<RegisterViewModel>();
     }
 }
