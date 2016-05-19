@@ -67,11 +67,13 @@
             </Grid>
             -->
             <Grid x:Name="grid" Margin="10" SizeChanged="grid_SizeChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ScrollViewer>
-                    <WebView VerticalAlignment ="Top" HorizontalAlignment="Center" x:Name="webView" Visibility="Collapsed" LoadCompleted="webView_LoadCompleted"/>
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <WebView VerticalAlignment ="Top" HorizontalAlignment="Center" x:Name="webView" Visibility="Collapsed" 
+                             LoadCompleted="webView_LoadCompleted"
+                             />
+                <!-- Eventually set the Webview's DefaultBackgroundColor="#FFE6E6E6", but can't mess with facebook posts-->
                 </ScrollViewer>
-                <ProgressRing x:Name="ProgressRing" Foreground="BlueViolet" IsActive="True" Width="100" Height="100">
-            </ProgressRing>
+            <ProgressRing x:Name="ProgressRing" Foreground="#FF147FD7" IsActive="True" Width="100" Height="100"/>
         </Grid>
         <!--</Grid>-->
         <!--</ScrollViewer>-->

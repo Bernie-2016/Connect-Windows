@@ -43,7 +43,7 @@
             <t10:HamburgerButtonInfo PageType="view:RegisterPage" ClearHistory="True">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0A2;" Width="48" Height="48"/>
-                    <TextBlock Text="Register" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Register to Vote" Margin="12,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
             </t10:HamburgerButtonInfo>
 
