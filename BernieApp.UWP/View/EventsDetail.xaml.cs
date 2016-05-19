@@ -20,9 +20,9 @@ namespace BernieApp.UWP.View
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NearbyPage : Page
+    public sealed partial class EventsDetail : Page
     {
-        public NearbyPage()
+        public EventsDetail()
         {
             this.InitializeComponent();
         }
