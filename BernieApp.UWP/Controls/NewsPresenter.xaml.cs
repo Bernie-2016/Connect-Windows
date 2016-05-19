@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BernieApp.UWP.ViewModels;
+using BernieApp.UWP.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight;
 
@@ -39,11 +40,6 @@ namespace BernieApp.UWP.Controls
                     Newsfeed.SelectedItem = null;
                 }
             });
-        }
-
-        public class WidthMessage
-        {
-            public double Width { get; set; }
         }
 
         public NewsViewModel ViewModel { get; set; }

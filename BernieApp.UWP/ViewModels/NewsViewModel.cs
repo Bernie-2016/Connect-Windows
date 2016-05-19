@@ -2,6 +2,7 @@
 using BernieApp.Portable.Client;
 using BernieApp.Portable.Models;
 using BernieApp.UWP.View;
+using BernieApp.UWP.Messages;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace BernieApp.UWP.ViewModels
         {
             Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
 
-            Messenger.Default.Register<Controls.NewsPresenter.WidthMessage>(this, (message) =>
+            Messenger.Default.Register<WidthMessage>(this, (message) =>
             {
                 var m = message.Width;
                 this.ItemWidth = m;

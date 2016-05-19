@@ -111,6 +111,7 @@
     <Compile Include="Converters\DateToHumanReadableConverter.cs" />
     <Compile Include="Converters\NewsDataTemplateSelector.cs" />
     <Compile Include="Messages\AlertMessage.cs" />
+    <Compile Include="Messages\WidthMessage.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
     <Compile Include="ViewModels\EventsViewModel.cs" />
