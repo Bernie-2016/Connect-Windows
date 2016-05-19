@@ -295,7 +295,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <t10:PageHeader x:Name="Header" Content="Share Now" Frame="{x:Bind Frame}">
+        <t10:PageHeader x:Name="Header" Content="Share Now" Frame="{x:Bind Frame}" Background="White">
             <t10:PageHeader.SecondaryCommands>
                 <AppBarButton Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </t10:PageHeader.SecondaryCommands>

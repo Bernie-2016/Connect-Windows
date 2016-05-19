@@ -18,6 +18,7 @@ using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.ApplicationModel;
+using Windows.Networking.PushNotifications;
 
 namespace BernieApp.UWP
 {
@@ -33,7 +34,8 @@ namespace BernieApp.UWP
             
 
             ParseClient.Initialize(APP_ID, APP_KEY);
-            ParsePush.ParsePushNotificationReceived += ParsePush_OnNotificationReceived;
+            //ParsePush.ParsePushNotificationReceived += ParsePush_OnNotificationReceived;
+            ParsePush.PushNotificationReceived += OnNotificationReceived;
         }
 
         // runs even if restored from state
@@ -133,13 +135,12 @@ namespace BernieApp.UWP
             return base.OnSuspendingAsync(s, e, prelaunchActivated);
         }
 
-        public static void ParsePush_OnNotificationReceived(object sender, ParsePushNotificationEventArgs args)
+        public static void OnNotificationReceived(object sender, PushNotificationReceivedEventArgs args)
         {
             //Pull in json payload
-            var payload = args.Payload;
-
+            var json = args.ToString();
             Debug.WriteLine("notification received!");
-            Debug.WriteLine(payload);
+            Debug.WriteLine(json);
 
             string title = "";
             string content = "";

@@ -55,7 +55,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <t10:PageHeader x:Name="Header" Content="Events" Frame="{x:Bind Frame}">
+        <t10:PageHeader x:Name="Header" Content="Events" Frame="{x:Bind Frame}" Background="White">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Visible"/>
             </Interactivity:Interaction.Behaviors>
@@ -72,8 +72,9 @@
                             QuerySubmitted="AutoSuggestBox_QuerySubmitted"
                             SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
         </Grid>
-        
-        <ScrollViewer Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto">
+
+        <ScrollViewer Grid.Row="2" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto">
             <ListView ItemTemplate="{StaticResource EventsListTemplate}"/>
         </ScrollViewer>
 
