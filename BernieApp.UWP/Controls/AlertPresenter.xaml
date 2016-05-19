@@ -41,32 +41,40 @@
         </VisualStateManager.VisualStateGroups>-->
 
 
-        <ScrollViewer HorizontalAlignment="Stretch" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-            <Grid x:Name="grid" HorizontalAlignment="Stretch" Margin="10" MinWidth="400">
+        <!--<ScrollViewer HorizontalAlignment="Stretch" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">-->
+        <!--  <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+         <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height=""/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                
-                <TextBlock x:Name="titleBox" Text="{Binding Title}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" x:Name="titleBox" Text="{Binding Title}"
                    Margin="10,0,10,20" HorizontalAlignment="Center"
                    TextWrapping="Wrap" Style="{ThemeResource SubheaderTextBlockStyle}"/>
-                <TextBlock x:Name="descriptionBox" Grid.Row="1" Text="{Binding ShortDescription}"
-                   Margin="10,0,0,20" HorizontalAlignment="Center"
-                   TextWrapping="Wrap"/>
-                <!--<WebView Grid.Row="2" x:Name="webView"
-                 Source="ms-appx-web:///Assets/Scripts/WebViewText.html" 
-                 Width="400" Height="800"
-                 />-->
+                <TextBlock Grid.Row="1" x:Name="descriptionBox" Text="{Binding ShortDescription}"
+                   Margin="10,0,0,20" HorizontalAlignment="Center" TextWrapping="Wrap" />
 
-                <WebView x:Name="webView" Grid.Row="2" HorizontalAlignment="Center"
-                         Width="400" Height="650"
-                 />
             </Grid>
-        </ScrollViewer>
+            -->
+            <Grid x:Name="grid" Margin="10" SizeChanged="grid_SizeChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer>
+                    <WebView VerticalAlignment ="Top" HorizontalAlignment="Center" x:Name="webView" Visibility="Collapsed" LoadCompleted="webView_LoadCompleted"/>
+                </ScrollViewer>
+                <ProgressRing x:Name="ProgressRing" Foreground="BlueViolet" IsActive="True" Width="100" Height="100">
+            </ProgressRing>
+        </Grid>
+        <!--</Grid>-->
+        <!--</ScrollViewer>-->
     </Grid>
 
 </UserControl>

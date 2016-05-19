@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Windows.UI.Xaml.Navigation;
 using Template10.Services.NavigationService;
 using System.Text.RegularExpressions;
+using BernieApp.UWP.Messages;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -82,7 +83,7 @@ namespace BernieApp.UWP.ViewModels
         {
             if (SelectedItem != null)
             {
-                Messenger.Default.Send(new NotificationMessage("navigating"));
+                Messenger.Default.Send(new AlertMessage(){ Id = SelectedItem.Id, Path = string.Empty });
 
                 string _bodyHTML = SelectedItem.BodyHTML;
                 string _id = SelectedItem.Id;
@@ -99,7 +100,7 @@ namespace BernieApp.UWP.ViewModels
             string path = await WriteHTML(result, id);
 
             _webViewSource = path;
-            Messenger.Default.Send<string>(_webViewSource);
+            Messenger.Default.Send<AlertMessage>(new AlertMessage() { Id = id, Path = path });
             
         }
 
@@ -109,38 +110,44 @@ namespace BernieApp.UWP.ViewModels
 
             string htmlDecoded = System.Net.WebUtility.HtmlDecode(bodyHTML);
             string removeNewline = Regex.Replace(htmlDecoded, @"\r\n?|\n", _newlineReplacement);
+
+            string width = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile" ? "100%" : "552px";
+            string height = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile" ? "100%" : "650px";
+
             string htmlPage = String.Format(@"<html><head>
+                    <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0' />
                     <style type='text/css'>
                             html {{
-                                height: 100%;
-                                width: 100%;
+                                width: {0};
+                                height: {1};
                                 border-radius: 4px;
                                 overflow-x: hidden;
                                 overflow-y: hidden;
                             }}
 
                             span {{
-                                width: 400px !important;
-                                height: 600px !important;
+                                width: {0} !important;
+                                height: {1} !important;
                             }}
 
                             iframe {{
-                                width: 400px !important;
-                                height: 600px !important;
+                                width: {0} !important;
+                                height: {1} !important;
                             }}
 
                             iframe[src^='https://www.youtube.com'] {{
-                                width: 400px !important;
+                                width: {0} !important;
                                 border-radius: 4px;
                                 overflow: hidden;
                             }}
 
                             .instagram-media {{
-                                max-width: 380px !important;
+                                max-width: {0} !important;
                             }}
+
                         </style>
-                    </head><body>{0}</body></html>",
-                removeNewline);
+                    </head><body>{2}</body></html>",
+                width, height, removeNewline);
             if (htmlPage.Contains("//platform.twitter.com/widgets.js"))
             {
                 htmlPage = Regex.Replace(htmlPage, "//platform.twitter.com/widgets.js", "https://platform.twitter.com/widgets.js");
