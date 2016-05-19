@@ -330,7 +330,7 @@
                 </Interactivity:Interaction.Behaviors>
                 <FlipView.ItemTemplate>
                     <DataTemplate>
-                        <controls:AlertPresenter HorizontalAlignment="Stretch"/>
+                        <controls:AlertPresenter Alert="{Binding}"/>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
                 <FlipView.Background>
