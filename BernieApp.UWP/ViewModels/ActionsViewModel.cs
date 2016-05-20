@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Navigation;
 using Template10.Services.NavigationService;
 using System.Text.RegularExpressions;
 using BernieApp.UWP.Messages;
+using System.Linq;
+using Windows.System.Profile;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -40,9 +42,13 @@ namespace BernieApp.UWP.ViewModels
             return base.OnNavigatingFromAsync(args);
         }
 
-        private async Task GetActionsAsync()
+        private async void GetActionsAsync()
         {
             var alerts = await _client.GetActionsAsync();
+            //workaround - as mobile webview control does not show fb-video posts correctly
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                alerts = alerts.Where(a => !a.BodyHTML.Contains("fb-video")).ToList();
+            _alerts.Clear();
             _alerts.AddRange(alerts);
         }
 
@@ -67,13 +73,7 @@ namespace BernieApp.UWP.ViewModels
             {
                 if (_loadCommand == null)
                 {
-                    _loadCommand = new RelayCommand(async () =>
-                    {
-                        //Clears the list, then adds from the server. TODO: A way to add only new items would probably be better.
-                        var alerts = await _client.GetActionsAsync();
-                        _alerts.Clear();
-                        _alerts.AddRange(alerts);
-                    });
+                    _loadCommand = new RelayCommand(GetActionsAsync);
                 }
                 return _loadCommand;
             }
@@ -111,12 +111,10 @@ namespace BernieApp.UWP.ViewModels
             string htmlDecoded = System.Net.WebUtility.HtmlDecode(bodyHTML);
             string removeNewline = Regex.Replace(htmlDecoded, @"\r\n?|\n", _newlineReplacement);
 
-            string width = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile" ? "100%" : "552px";
-            string height = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile" ? "100%" : "650px";
-
             string htmlPage = String.Format(@"<html><head>
-                    <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0' />
-                    <style type='text/css'>
+                        <meta name=viewport content='width=device-width, height=device-height, initial-scale=1' />
+                        <style type='text/css'>
+
                             html {{
                                 width: {0};
                                 height: {1};
@@ -128,26 +126,33 @@ namespace BernieApp.UWP.ViewModels
                             span {{
                                 width: {0} !important;
                                 height: {1} !important;
+                                max-width: {3} !important;
                             }}
 
                             iframe {{
                                 width: {0} !important;
                                 height: {1} !important;
+                                max-width: {3} !important;
                             }}
 
                             iframe[src^='https://www.youtube.com'] {{
                                 width: {0} !important;
+                                max-width: {3} !important;
                                 border-radius: 4px;
                                 overflow: hidden;
                             }}
 
+                            .fb_iframe_widget {{
+                                display: block !important;
+                            }}
+                            
                             .instagram-media {{
-                                max-width: {0} !important;
+                                max-width: {3} !important;
                             }}
 
                         </style>
                     </head><body>{2}</body></html>",
-                width, height, removeNewline);
+                "100%", "100%", removeNewline, "100%");
             if (htmlPage.Contains("//platform.twitter.com/widgets.js"))
             {
                 htmlPage = Regex.Replace(htmlPage, "//platform.twitter.com/widgets.js", "https://platform.twitter.com/widgets.js");
@@ -160,6 +165,7 @@ namespace BernieApp.UWP.ViewModels
             {
                 htmlPage = Regex.Replace(htmlPage, "//platform.instagram.com/en_US/embeds.js", "https://platform.instagram.com/en_US/embeds.js");
             }
+
             return htmlPage;
         }
 
