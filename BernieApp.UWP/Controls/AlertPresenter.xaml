@@ -10,16 +10,25 @@
 >
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SizeChanged="Grid_SizeChanged">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
-                              HorizontalAlignment="Center"  VerticalAlignment="Top"
-                              x:Name="scrollViewer">
-                    <WebView VerticalAlignment ="Top" HorizontalAlignment="Center" MaxWidth="500" x:Name="webView" 
-                             NavigationCompleted="webView_NavigationCompleted" PermissionRequested="webView_PermissionRequested" 
-                             UnsafeContentWarningDisplaying="webView_UnsafeContentWarningDisplaying" UnviewableContentIdentified="webView_UnviewableContentIdentified"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                <!-- Eventually set the Webview's DefaultBackgroundColor="#FFE6E6E6", but can't mess with facebook posts-->
-                </ScrollViewer>
-            <ProgressRing x:Name="ProgressRing" Foreground="#FF147FD7" IsActive="True" Width="100" Height="100"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding ShortDescription}" Style="{ThemeResource BaseTextBlockStyle}"/>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                            HorizontalAlignment="Center"  VerticalAlignment="Top"
+                            x:Name="scrollViewer">
+            <WebView VerticalAlignment ="Top" HorizontalAlignment="Center" MaxWidth="500" x:Name="webView" DefaultBackgroundColor="Transparent"
+                        NavigationCompleted="webView_NavigationCompleted" PermissionRequested="webView_PermissionRequested" 
+                        UnsafeContentWarningDisplaying="webView_UnsafeContentWarningDisplaying" UnviewableContentIdentified="webView_UnviewableContentIdentified"/>
+        </ScrollViewer>
+        
+        <ProgressRing Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ProgressRing" Foreground="#FF147FD7" 
+                      IsActive="True" Width="100" Height="100"/>
     </Grid>
 
 </UserControl>
