@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.QueryStringDotNET;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Notifications;
 
-namespace BernieApp.UWP.BackgroundTasks
+namespace BackgroundTasks
 {
     public sealed class NotificationActionBackgroundTask : IBackgroundTask
     {
@@ -17,8 +18,11 @@ namespace BernieApp.UWP.BackgroundTasks
             if (details != null)
             {
                 string arguments = details.Argument;
+                var userInput = details.UserInput;
+
                 
-                //Navigate to ActionsPage here
+
+                // Perform tasks
             }
         }
     }

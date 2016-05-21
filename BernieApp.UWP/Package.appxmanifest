@@ -25,7 +25,7 @@
         <uap:Rule Match="https://facebook.com" Type="include" WindowsRuntimeAccess="all" />
       </uap:ApplicationContentUriRules>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="RuntimeComponent1.NotificationActionBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTasks.NotificationActionBackgroundTask">
           <BackgroundTasks>
             <Task Type="systemEvent" />
           </BackgroundTasks>

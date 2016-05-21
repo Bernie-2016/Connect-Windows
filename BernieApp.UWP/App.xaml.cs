@@ -1,24 +1,22 @@
-﻿using System;
-using Windows.UI.Xaml;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Activation;
-using Template10.Common;
-using BernieApp.UWP.View;
-using System.Linq;
-using Parse;
-using System.Diagnostics;
-using Windows.UI.Notifications;
-using NotificationsExtensions.Toasts;
+﻿using BernieApp.UWP.View;
 using Microsoft.QueryStringDotNET;
-using Windows.Data.Xml.Dom;
-using Windows.ApplicationModel.Background;
-using Windows.UI.ViewManagement;
-using Windows.Foundation;
-using Windows.Foundation.Metadata;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
+using Newtonsoft.Json.Linq;
+using NotificationsExtensions.Toasts;
+using Parse;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Template10.Common;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
+using Windows.Foundation.Metadata;
 using Windows.Networking.PushNotifications;
+using Windows.UI;
+using Windows.UI.Notifications;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace BernieApp.UWP
 {
@@ -30,12 +28,8 @@ namespace BernieApp.UWP
 
         public App()
         {
-            this.InitializeComponent();
-            
-
+            this.InitializeComponent();            
             ParseClient.Initialize(APP_ID, APP_KEY);
-            //ParsePush.ParsePushNotificationReceived += ParsePush_OnNotificationReceived;
-            ParsePush.PushNotificationReceived += OnNotificationReceived;
         }
 
         // runs even if restored from state
@@ -49,51 +43,15 @@ namespace BernieApp.UWP
                 Window.Current.Content = new Shell(nav);
             }
 
+            SetStatusBar();
+
+            RegisterBackgroundTasks();
+
             //Push notification registration
             await ParsePush.SubscribeAsync("");
             await ParseInstallation.CurrentInstallation.SaveAsync();
-            await ParseAnalytics.TrackAppOpenedAsync();
-
-            //Handle ToastNotifications (Foreground activation)
-            if (args is ToastNotificationActivatedEventArgs)
-            {
-                var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
-
-                //TODO: Handle future arguments to open a specific action or news article
-
-                if (Window.Current.Content is ActionsPage)
-                {
-                    Debug.WriteLine("Already viewing ActionsPage");
-                }
-                else
-                {
-                    NavigationService.Navigate(typeof(ActionsPage));
-                }
-            }
-
-            //Handle ToastNotifications (Background activation)
-            //BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-            //BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-            //{
-            //    Name = "ToastTask",
-            //    TaskEntryPoint = "BernieApp.UWP.BackgroundTasks.NotificationActionBackgroundTask"
-            //};
-
-            //builder.SetTrigger(new ToastNotificationActionTrigger());
-            //BackgroundTaskRegistration registration = builder.Register();
-
-            //Set statusbar
-            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
-            {
-                var statusBar = StatusBar.GetForCurrentView();
-                if (statusBar != null)
-                {
-                    var background = GetSolidColorBrush("#FF147FD7").Color;
-                    statusBar.BackgroundOpacity = 1;
-                    statusBar.BackgroundColor = background;
-                    statusBar.ForegroundColor = Colors.White;
-                }
-            }
+            await ParseAnalytics.TrackAppOpenedAsync(); //Not functioning since ILaunchActivatedEventArgs are hidden by Template10.
+            ParsePush.PushNotificationReceived += OnNotificationReceived;
 
             //Ensure the current window is active
             Window.Current.Activate();
@@ -103,22 +61,31 @@ namespace BernieApp.UWP
         {
             switch (DetermineStartCause(args))
             {
-                case AdditionalKinds.Primary:
-                    NavigationService.Navigate(typeof(NewsPage));
-                    break;
                 case AdditionalKinds.Toast:
-                    var toastArgs = args as ToastNotificationActivatedEventArgs; //This may be depricated
-                    NavigationService.Navigate(typeof(ActionsPage), toastArgs.Argument);
+                    var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
+                    QueryString query = QueryString.Parse(toastActivationArgs.Argument);
+                    switch (query["action"])
+                    {
+                        case "openActionAlert":
+                            string actionId = query["identifier"];
+                            this.NavigationService.Navigate(typeof(ActionsPage), actionId);
+                            break;
+
+                        case "openNewsArticle":
+                            string newsId = query["identifier"];
+                            this.NavigationService.Navigate(typeof(NewsDetail), newsId);
+                            break;
+
+                        default:
+                            this.NavigationService.Navigate(typeof(NewsPage));
+                            break;
+                    }
                     break;
                 case AdditionalKinds.SecondaryTile:
-                    break;
-                case AdditionalKinds.Other:
-                    NavigationService.Navigate(typeof(NewsPage));
-                    break;
                 case AdditionalKinds.JumpListItem:
-                    break;
-                default:
-                    NavigationService.Navigate(typeof(NewsPage));
+                case AdditionalKinds.Primary:
+                case AdditionalKinds.Other:
+                    this.NavigationService.Navigate(typeof(NewsPage));
                     break;
             }
 
@@ -138,28 +105,28 @@ namespace BernieApp.UWP
         public static void OnNotificationReceived(object sender, PushNotificationReceivedEventArgs args)
         {
             //Pull in json payload
-            var json = args.ToString();
-            Debug.WriteLine("notification received!");
-            Debug.WriteLine(json);
+            String notificationContent = String.Empty;
 
-            string title = "";
-            string content = "";
-            //string logo = "";
-
-            ToastVisual visual = new ToastVisual()
+            switch (args.NotificationType)
             {
-                TitleText = new ToastText() { Text = title },
-                BodyTextLine1 = new ToastText() { Text = content }
-            };
+                case PushNotificationType.Badge:
+                    notificationContent = args.BadgeNotification.Content.GetXml();
+                    break;
 
-            ToastContent toastContent = new ToastContent()
-            {
-                Visual = visual
-            };
+                case PushNotificationType.Tile:
+                    notificationContent = args.TileNotification.Content.GetXml();
+                    break;
 
-            var toast = new ToastNotification(toastContent.GetXml());
-            toast.ExpirationTime = DateTime.Now.AddDays(2);
-            ToastNotificationManager.CreateToastNotifier().Show(toast);
+                case PushNotificationType.Toast:
+                    notificationContent = args.ToastNotification.Content.InnerText;
+                    GenerateToast(notificationContent);
+                    break;
+
+                case PushNotificationType.Raw:
+                    notificationContent = args.RawNotification.Content;
+                    break;
+            }
+            args.Cancel = true;
         }
 
         public SolidColorBrush GetSolidColorBrush(string hex)
@@ -172,6 +139,87 @@ namespace BernieApp.UWP
             SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(a, r, g, b));
             return myBrush;
         }
-    }
 
+        public void SetStatusBar()
+        {
+            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    var background = GetSolidColorBrush("#FF147FD7").Color;
+                    statusBar.BackgroundOpacity = 1;
+                    statusBar.BackgroundColor = background;
+                    statusBar.ForegroundColor = Colors.White;
+                }
+            }
+        }
+
+        public async void RegisterBackgroundTasks()
+        {
+            //Check if background task is already activated or not
+            var taskRegistered = false;
+            var exampleTaskName = "BackgroundToastActivation";
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == exampleTaskName)
+                {
+                    taskRegistered = true;
+                    break;
+                }
+            }
+            if (taskRegistered == false)
+            {
+                //Toast Activation
+                BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+                BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
+                {
+                    Name = "BackgroundToastActivation",
+                    TaskEntryPoint = "BackgroundTasks.NotificationActionBackgroundTask"
+                };
+                builder.SetTrigger(new ToastNotificationActionTrigger());
+                BackgroundTaskRegistration registration = builder.Register();
+            }
+
+        }
+
+        public static void GenerateToast(string notificationContent)
+        {
+            //parse json
+            JObject json = JObject.Parse(notificationContent);
+
+            string title = (string)json["aps"]["alert"];
+            //string content = "";
+            string type = (string)json["action"];
+            string identifier = (string)json["identifier"];
+
+            try
+            {
+                ToastVisual visual = new ToastVisual()
+                {
+                    TitleText = new ToastText() { Text = title }
+                    //BodyTextLine1 = new ToastText() { Text = content }
+                };
+
+                ToastContent toastContent = new ToastContent()
+                {
+                    Visual = visual,
+                    Launch = new QueryString()
+                    {
+                        { "action", type },
+                        { "identifier", identifier }
+                    }.ToString()
+                };
+
+                var toast = new ToastNotification(toastContent.GetXml());
+                toast.ExpirationTime = DateTime.Now.AddDays(2);
+                ToastNotificationManager.CreateToastNotifier().Show(toast);
+            }
+            catch (Exception ex)
+            {
+                //Notification Failed to send
+                Debug.WriteLine(ex.Message);
+            }
+        } 
+    }
 }

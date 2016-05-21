@@ -98,7 +98,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BackgroundTasks\NotificationActionBackgroundTask.cs" />
     <Compile Include="Controls\AlertPresenter.xaml.cs">
       <DependentUpon>AlertPresenter.xaml</DependentUpon>
     </Compile>
@@ -234,6 +233,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackgroundTasks\BackgroundTasks.csproj">
+      <Project>{287b9ad5-d52f-46c5-9d46-1a2c141b84d1}</Project>
+      <Name>BackgroundTasks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BernieApp.Portable\BernieApp.Portable.csproj">
       <Project>{e6df98f9-4a22-43c1-b82f-281fef916c5c}</Project>
       <Name>BernieApp.Portable</Name>

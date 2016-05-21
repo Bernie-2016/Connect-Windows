@@ -32,6 +32,8 @@ namespace BernieApp.UWP.ViewModels
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            //TODO: handle navigated article ID here when activating from a toast, then move to correct flipview.
+
             return base.OnNavigatedToAsync(parameter, mode, state);
         }
 

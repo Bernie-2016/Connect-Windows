@@ -54,6 +54,8 @@ namespace BernieApp.UWP.ViewModels
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            //TODO: handle navigated article ID here when activating from a toast and retrieve from feedclient.
+
             //Register for share
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
             
