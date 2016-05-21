@@ -76,5 +76,7 @@
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </GridView>
+        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ProgressRing" Foreground="#FF147FD7" 
+                      IsActive="True" Width="100" Height="100"/>
     </Grid>
 </UserControl>

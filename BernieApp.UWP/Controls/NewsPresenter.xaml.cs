@@ -51,5 +51,17 @@ namespace BernieApp.UWP.Controls
             MyItemsPanel.ItemWidth = width;
             Messenger.Default.Send(new WidthMessage() { Width = width });     
         }
+
+        private void Newsfeed_Loading(FrameworkElement sender, object args)
+        {
+            Newsfeed.Visibility = Visibility.Collapsed;
+            ProgressRing.Visibility = Visibility.Visible;
+        }
+
+        private void Newsfeed_Loaded(object sender, RoutedEventArgs e)
+        {
+            Newsfeed.Visibility = Visibility.Visible;
+            ProgressRing.Visibility = Visibility.Collapsed;
+        }
     }
 }
