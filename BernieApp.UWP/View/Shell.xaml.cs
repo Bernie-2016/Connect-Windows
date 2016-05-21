@@ -1,9 +1,9 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using BernieApp.UWP.Messages;
+using GalaSoft.MvvmLight.Messaging;
 using Template10.Controls;
 using Template10.Services.NavigationService;
-using Windows.UI.ViewManagement;
-using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace BernieApp.UWP.View
 {
@@ -17,12 +17,6 @@ namespace BernieApp.UWP.View
         {
             Instance = this;
             InitializeComponent();
-            Loaded += Shell_Loaded;
-        }
-
-        private void Shell_Loaded(object sender, RoutedEventArgs e)
-        {
-            
         }
 
         public Shell(INavigationService navigationService)
@@ -30,6 +24,13 @@ namespace BernieApp.UWP.View
             Instance = this;
             InitializeComponent();
             SetNavigationService(navigationService);
+
+            Messenger.Default.Register<WelcomeMessage>(this, OnWelcomeMessageReceived);
+        }
+
+        private void OnWelcomeMessageReceived(WelcomeMessage msg)
+        {
+            this.Menu.HamburgerButtonVisibility = msg.WelcomeMessageType == WelcomeMessageType.Initial ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public void SetNavigationService(INavigationService navigationService)
