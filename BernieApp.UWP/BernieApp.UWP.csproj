@@ -111,6 +111,7 @@
     <Compile Include="Converters\DateToHumanReadableConverter.cs" />
     <Compile Include="Converters\NewsDataTemplateSelector.cs" />
     <Compile Include="Messages\AlertMessage.cs" />
+    <Compile Include="Messages\WelcomeMessage.cs" />
     <Compile Include="Messages\WidthMessage.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="View\ActionsPage.xaml.cs">
       <DependentUpon>ActionsPage.xaml</DependentUpon>
     </Compile>
@@ -145,6 +147,9 @@
     </Compile>
     <Compile Include="View\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

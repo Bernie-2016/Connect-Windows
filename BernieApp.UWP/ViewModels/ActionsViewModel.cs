@@ -1,20 +1,18 @@
-﻿using System;
-using BernieApp.Portable.Client;
+﻿using BernieApp.Portable.Client;
 using BernieApp.Portable.Models;
-using BernieApp.UWP.View;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Template10.Utils;
+using BernieApp.UWP.Messages;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Diagnostics;
-using Windows.UI.Xaml.Navigation;
-using Template10.Services.NavigationService;
-using System.Text.RegularExpressions;
-using BernieApp.UWP.Messages;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Template10.Services.NavigationService;
+using Template10.Utils;
 using Windows.System.Profile;
+using Windows.UI.Xaml.Navigation;
 
 namespace BernieApp.UWP.ViewModels
 {
