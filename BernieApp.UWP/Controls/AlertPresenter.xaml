@@ -9,74 +9,26 @@
     mc:Ignorable="d"
 >
 
-    <!-- UserControl inherits datacontext from its source page, so this is probably unecessary
-    <UserControl.DataContext>
-        <Binding Path="ActionsViewModel" Source="{StaticResource Locator}" />
-    </UserControl.DataContext>-->
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SizeChanged="Grid_SizeChanged">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-    <Grid Background="Transparent">
-        <!--<VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="DeviceStates">
-                <VisualState x:Name="DesktopState">
-                    <VisualState.StateTriggers>
-                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Mobile"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="webView.Width" Value="250"/>
-                        <Setter Target="webView.Height" Value="500"/>
-                        <Setter Target="grid.Width" Value="100%"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Desktop"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="webView.Width" Value="400"/>
-                        <Setter Target="webView.Height" Value="650"/>
-                        <Setter Target="grid.Width" Value="580"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>-->
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding ShortDescription}" Style="{ThemeResource BaseTextBlockStyle}"/>
 
-
-        <!--<ScrollViewer HorizontalAlignment="Stretch" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">-->
-        <!--  <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            
-         <Grid Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height=""/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Row="0" x:Name="titleBox" Text="{Binding Title}"
-                   Margin="10,0,10,20" HorizontalAlignment="Center"
-                   TextWrapping="Wrap" Style="{ThemeResource SubheaderTextBlockStyle}"/>
-                <TextBlock Grid.Row="1" x:Name="descriptionBox" Text="{Binding ShortDescription}"
-                   Margin="10,0,0,20" HorizontalAlignment="Center" TextWrapping="Wrap" />
-
-            </Grid>
-            -->
-            <Grid x:Name="grid" Margin="10" SizeChanged="grid_SizeChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <WebView VerticalAlignment ="Top" HorizontalAlignment="Center" x:Name="webView" Visibility="Collapsed" 
-                             LoadCompleted="webView_LoadCompleted"
-                             />
-                <!-- Eventually set the Webview's DefaultBackgroundColor="#FFE6E6E6", but can't mess with facebook posts-->
-                </ScrollViewer>
-            <ProgressRing x:Name="ProgressRing" Foreground="#FF147FD7" IsActive="True" Width="100" Height="100"/>
-        </Grid>
-        <!--</Grid>-->
-        <!--</ScrollViewer>-->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                            HorizontalAlignment="Center"  VerticalAlignment="Top"
+                            x:Name="scrollViewer">
+            <WebView VerticalAlignment ="Top" HorizontalAlignment="Center" MaxWidth="500" x:Name="webView" DefaultBackgroundColor="Transparent"
+                        NavigationCompleted="webView_NavigationCompleted" PermissionRequested="webView_PermissionRequested" 
+                        UnsafeContentWarningDisplaying="webView_UnsafeContentWarningDisplaying" UnviewableContentIdentified="webView_UnviewableContentIdentified"/>
+        </ScrollViewer>
+        
+        <ProgressRing Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ProgressRing" Foreground="#FF147FD7" 
+                      IsActive="True" Width="100" Height="100"/>
     </Grid>
 
 </UserControl>
