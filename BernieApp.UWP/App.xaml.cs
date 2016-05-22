@@ -45,13 +45,10 @@ namespace BernieApp.UWP
 
             SetStatusBar();
 
-            RegisterBackgroundTasks();
-
             //Push notification registration
             await ParsePush.SubscribeAsync("");
             await ParseInstallation.CurrentInstallation.SaveAsync();
-            await ParseAnalytics.TrackAppOpenedAsync(); //Not functioning since ILaunchActivatedEventArgs are hidden by Template10.
-            ParsePush.PushNotificationReceived += OnNotificationReceived;
+            await ParseAnalytics.TrackAppOpenedAsync(args as LaunchActivatedEventArgs);
 
             //Ensure the current window is active
             Window.Current.Activate();
@@ -59,34 +56,28 @@ namespace BernieApp.UWP
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            switch (DetermineStartCause(args))
+            var e = args as ILaunchActivatedEventArgs;
+
+            //Activation is by Toast
+            if (e.Arguments.Contains("action"))
             {
-                case AdditionalKinds.Toast:
-                    var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
-                    QueryString query = QueryString.Parse(toastActivationArgs.Argument);
-                    switch (query["action"])
-                    {
-                        case "openActionAlert":
-                            string actionId = query["identifier"];
-                            this.NavigationService.Navigate(typeof(ActionsPage), actionId);
-                            break;
+                var json = e.Arguments.ToString();
+                JObject push = JObject.Parse(json);
+                string type = (string)push["action"];
+                string id = (string)push["identifier"];
 
-                        case "openNewsArticle":
-                            string newsId = query["identifier"];
-                            this.NavigationService.Navigate(typeof(NewsDetail), newsId);
-                            break;
-
-                        default:
-                            this.NavigationService.Navigate(typeof(NewsPage));
-                            break;
-                    }
-                    break;
-                case AdditionalKinds.SecondaryTile:
-                case AdditionalKinds.JumpListItem:
-                case AdditionalKinds.Primary:
-                case AdditionalKinds.Other:
-                    this.NavigationService.Navigate(typeof(NewsPage));
-                    break;
+                if (type.Contains("openActionAlert"))
+                {
+                    this.NavigationService.Navigate(typeof(ActionsPage), id);
+                }
+                else if (type.Contains("openNewsArticle"))
+                {
+                    this.NavigationService.Navigate(typeof(NewsDetail), id);
+                }
+            }
+            else
+            {
+                this.NavigationService.Navigate(typeof(NewsPage));
             }
 
             return Task.FromResult<object>(null);
@@ -100,33 +91,6 @@ namespace BernieApp.UWP
         public override Task OnSuspendingAsync(object s, SuspendingEventArgs e, bool prelaunchActivated)
         {
             return base.OnSuspendingAsync(s, e, prelaunchActivated);
-        }
-
-        public static void OnNotificationReceived(object sender, PushNotificationReceivedEventArgs args)
-        {
-            //Pull in json payload
-            String notificationContent = String.Empty;
-
-            switch (args.NotificationType)
-            {
-                case PushNotificationType.Badge:
-                    notificationContent = args.BadgeNotification.Content.GetXml();
-                    break;
-
-                case PushNotificationType.Tile:
-                    notificationContent = args.TileNotification.Content.GetXml();
-                    break;
-
-                case PushNotificationType.Toast:
-                    notificationContent = args.ToastNotification.Content.InnerText;
-                    GenerateToast(notificationContent);
-                    break;
-
-                case PushNotificationType.Raw:
-                    notificationContent = args.RawNotification.Content;
-                    break;
-            }
-            args.Cancel = true;
         }
 
         public SolidColorBrush GetSolidColorBrush(string hex)
@@ -154,72 +118,5 @@ namespace BernieApp.UWP
                 }
             }
         }
-
-        public async void RegisterBackgroundTasks()
-        {
-            //Check if background task is already activated or not
-            var taskRegistered = false;
-            var exampleTaskName = "BackgroundToastActivation";
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
-            {
-                if (task.Value.Name == exampleTaskName)
-                {
-                    taskRegistered = true;
-                    break;
-                }
-            }
-            if (taskRegistered == false)
-            {
-                //Toast Activation
-                BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-                BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-                {
-                    Name = "BackgroundToastActivation",
-                    TaskEntryPoint = "BackgroundTasks.NotificationActionBackgroundTask"
-                };
-                builder.SetTrigger(new ToastNotificationActionTrigger());
-                BackgroundTaskRegistration registration = builder.Register();
-            }
-
-        }
-
-        public static void GenerateToast(string notificationContent)
-        {
-            //parse json
-            JObject json = JObject.Parse(notificationContent);
-
-            string title = (string)json["aps"]["alert"];
-            //string content = "";
-            string type = (string)json["action"];
-            string identifier = (string)json["identifier"];
-
-            try
-            {
-                ToastVisual visual = new ToastVisual()
-                {
-                    TitleText = new ToastText() { Text = title }
-                    //BodyTextLine1 = new ToastText() { Text = content }
-                };
-
-                ToastContent toastContent = new ToastContent()
-                {
-                    Visual = visual,
-                    Launch = new QueryString()
-                    {
-                        { "action", type },
-                        { "identifier", identifier }
-                    }.ToString()
-                };
-
-                var toast = new ToastNotification(toastContent.GetXml());
-                toast.ExpirationTime = DateTime.Now.AddDays(2);
-                ToastNotificationManager.CreateToastNotifier().Show(toast);
-            }
-            catch (Exception ex)
-            {
-                //Notification Failed to send
-                Debug.WriteLine(ex.Message);
-            }
-        } 
     }
 }
