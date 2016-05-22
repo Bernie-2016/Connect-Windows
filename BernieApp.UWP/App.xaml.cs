@@ -80,6 +80,41 @@ namespace BernieApp.UWP
                 this.NavigationService.Navigate(typeof(NewsPage));
             }
 
+            switch (DetermineStartCause(args))
+            {
+                case AdditionalKinds.Primary:
+                    //uncomment to see welcome message again
+                    //localSettings.Values.Remove("lastRunDate");
+                    var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                    object value = localSettings.Values["lastRunDate"];
+
+                    if (value == null)
+                    {
+                        NavigationService.Navigate(typeof(WelcomePage));
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(typeof(NewsPage));
+                    }
+
+                    break;
+                case AdditionalKinds.Toast:
+                    var toastArgs = args as ToastNotificationActivatedEventArgs; //This may be depricated
+                    NavigationService.Navigate(typeof(ActionsPage), toastArgs.Argument);
+                    break;
+                case AdditionalKinds.SecondaryTile:
+                    break;
+                case AdditionalKinds.Other:
+                    NavigationService.Navigate(typeof(NewsPage));
+                    break;
+                case AdditionalKinds.JumpListItem:
+                    break;
+                default:
+                    NavigationService.Navigate(typeof(NewsPage));
+                    break;
+            }
+
+
             return Task.FromResult<object>(null);
         }
 
