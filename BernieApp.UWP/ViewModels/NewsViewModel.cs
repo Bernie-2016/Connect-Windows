@@ -65,12 +65,6 @@ namespace BernieApp.UWP.ViewModels
             set { Set(ref _itemWidth, value); }
         }
 
-        public bool IsModal
-        {
-            get { return _isModal; }
-            set { Set(ref _isModal, value); }
-        }
-
         //Refresh the news feed
         public RelayCommand LoadCommand
         {

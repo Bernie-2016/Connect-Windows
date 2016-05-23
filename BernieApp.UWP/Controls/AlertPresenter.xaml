@@ -16,8 +16,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding ShortDescription}" Style="{ThemeResource BaseTextBlockStyle}"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Title}" Style="{ThemeResource SubtitleTextBlockStyle}" TextAlignment="Center" FontWeight="SemiBold" Margin="10"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding ShortDescription}" Style="{ThemeResource BaseTextBlockStyle}" MaxWidth="600" Margin="10"/>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                             HorizontalAlignment="Center"  VerticalAlignment="Top"

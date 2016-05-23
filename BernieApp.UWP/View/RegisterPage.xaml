@@ -78,7 +78,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}"
+        <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}" Background="White"
                         Text="Register to Vote">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Collapsed" />

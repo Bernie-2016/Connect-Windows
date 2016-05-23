@@ -21,7 +21,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -49,7 +49,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <t10:PageHeader x:Name="Header" Grid.Row="0" Content="Settings" Frame="{x:Bind Frame}">
+        <t10:PageHeader x:Name="Header" Grid.Row="0" Content="Settings" Frame="{x:Bind Frame}" Background="White">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Collapsed" />
             </Interactivity:Interaction.Behaviors>

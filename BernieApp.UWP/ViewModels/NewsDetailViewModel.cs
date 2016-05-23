@@ -16,6 +16,7 @@ namespace BernieApp.UWP.ViewModels
 {
     public class NewsDetailViewModel : MainViewModel
     {
+        private readonly IBernieClient _client;
         private FeedEntry _item = new FeedEntry();
         private RelayCommand _openWebPageCommand;
         private RelayCommand _shareCommand;
@@ -28,6 +29,8 @@ namespace BernieApp.UWP.ViewModels
 
         public NewsDetailViewModel(IBernieClient client)
         {
+            _client = client;
+
             Messenger.Default.Register<NotificationMessage<FeedEntry>>(this, (message) =>
             {
                 var entry = message.Content;
@@ -52,15 +55,43 @@ namespace BernieApp.UWP.ViewModels
             });   
         }
 
-        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            //TODO: handle navigated article ID here when activating from a toast and retrieve from feedclient.
+            if (parameter != null)
+            {
+                try
+                {
+                    var id = parameter.ToString();
+                    var entry = await _client.GetNewsArticleAsync(id);
+
+                    _item.Id = entry.Id;
+                    _item.Title = entry.Title;
+                    _item.ArticleType = entry.ArticleType;
+                    _item.Date = entry.Date;
+                    _item.Body = entry.Body;
+                    _item.Url = entry.Url;
+                    if (entry.ImageUrl == "")
+                    {
+                        _item.ImageUrl = "ms-appx-web:///Assets/bleh.png"; //ImageUrl can't be a non-url, so this allows nothing to display when there isn't an image.
+                    }
+                    else
+                    {
+                        _item.ImageUrl = entry.ImageUrl;
+                    }
+                }
+                catch (Exception)
+                {
+                    //Something is wrong with the id OR there isn't an internet connection.
+                    //If id issue, best to navigate back to NewsPage. If no internet, display some sort of indication with ability to refresh and try to get the article again.
+                    throw;
+                }
+
+            }
+
             //Register for share
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
-            
-            //hide the hamburger button, navigation should only go back to the NewsPage via the hardware back button or back button in page header
-            //var h = Shell.HamburgerMenu;
-            //h.HamburgerButtonVisibility = Windows.UI.Xaml.Visibility.Collapsed;
-            return Task.CompletedTask;        
+                  
         }
 
         public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)

@@ -10,13 +10,17 @@
     mc:Ignorable="d">
 
     <t10:HamburgerMenu x:Name="Menu"
-                           HamburgerForeground="White"
-                           HamburgerBackground="#FF147FD7"
-                           NavAreaBackground="#FF2B2B2B"
-                           NavButtonForeground="White"
-                           NavButtonHoverBackground="#FFEA504E"
-                           VisualStateNarrowMinWidth="0"
-                           VisualStateNormalMinWidth="600">
+                       HamburgerForeground="White"
+                       HamburgerBackground="#FF147FD7"
+                       NavAreaBackground="#FF2B2B2B"
+                       NavButtonForeground="White"
+                       NavButtonHoverForeground="White"
+                       NavButtonHoverBackground="#FFEA504E"
+                       NavButtonCheckedForeground="White"
+                       NavButtonCheckedBackground="#ff0c4c81"
+                       NavButtonPressedForeground="Gray"
+                       VisualStateNarrowMinWidth="0"
+                       VisualStateNormalMinWidth="600">
         <t10:HamburgerMenu.PrimaryButtons>
 
             <t10:HamburgerButtonInfo PageType="view:NewsPage" ClearHistory="True">

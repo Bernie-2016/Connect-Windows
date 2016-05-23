@@ -79,7 +79,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}"
+        <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}" Background="White"
                         Text="News">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
@@ -89,22 +89,9 @@
             </t10:PageHeader.SecondaryCommands>
         </t10:PageHeader>
 
-        <Grid x:Name="grid" Grid.Row="1" HorizontalAlignment="Center">
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
 
-            <controls:NewsPresenter x:Name="newsfeed" HorizontalAlignment="Center"/>
-
-            <t10:ModalDialog x:Name="BusyModal" IsModal="{Binding IsModal, ElementName=BusyModal}"
-                             CanBackButtonDismiss="False" DisableBackButtonWhenModal="False">
-                <t10:ModalDialog.ModalContent>
-                    <Viewbox Height="32" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel Orientation="Horizontal">
-                            <ProgressRing x:Name="BusyRing" Width="24" Height="24" Margin="12,0"
-                                    Foreground="White" IsActive="{Binding IsModal, ElementName=BusyModal}" />
-                            <TextBlock x:Name="BusyText" Text="Loading News" VerticalAlignment="Center" Foreground="White" />
-                        </StackPanel>
-                    </Viewbox>
-                </t10:ModalDialog.ModalContent>
-            </t10:ModalDialog>
+            <controls:NewsPresenter x:Name="newsfeed" Grid.Row="1" HorizontalAlignment="Center"/>
 
         </Grid>
         
