@@ -86,6 +86,7 @@ namespace BernieApp.UWP
                 {
                     NavigationService.Navigate(typeof(WelcomePage));
                 }
+                
                 else
                 {
                     NavigationService.Navigate(typeof(NewsPage));
