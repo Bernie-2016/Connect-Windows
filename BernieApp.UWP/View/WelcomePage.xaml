@@ -7,20 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:t10="using:Template10.Controls"
     mc:Ignorable="d"
-    Background="#ff0c4c81">
+    >
 
     <Page.DataContext>
         <Binding Path="WelcomeViewModel" Source="{StaticResource Locator}" />
     </Page.DataContext>
-    
-    <t10:ModalDialog IsModal="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+    <t10:ModalDialog IsModal="True" CanBackButtonDismiss="False" DisableBackButtonWhenModal="True">
         <t10:ModalDialog.ModalContent>
-            <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="400">
-                <TextBlock x:Name="titleText"
-                    Text="Welcome!" Style="{ThemeResource HeaderTextBlockStyle}" 
-                           Foreground="White" Margin="20,0,0,0"/>
-                <TextBlock Grid.Row="0" HorizontalAlignment="Center" x:Name="welcomeText"
-                           RelativePanel.Below="titleText"
+            <RelativePanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF147FD7">
+                <TextBlock x:Name="titleText" RelativePanel.AlignHorizontalCenterWithPanel="True"
+                           Text="Welcome!" Style="{ThemeResource HeaderTextBlockStyle}" 
+                           Foreground="White" Margin="20,20,0,0"/>
+                <TextBlock Grid.Row="0" x:Name="welcomeText" MaxWidth="500" 
+                           RelativePanel.Below="titleText" RelativePanel.AlignHorizontalCenterWith="titleText"
                            Text="{Binding WelcomeText}" Style="{ThemeResource BodyTextBlockStyle}" 
                            Foreground="White" Margin="20"/>
                 <Button Grid.Row="1"

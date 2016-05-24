@@ -31,6 +31,16 @@ namespace BernieApp.UWP.View
         private void OnWelcomeMessageReceived(WelcomeMessage msg)
         {
             this.Menu.HamburgerButtonVisibility = msg.WelcomeMessageType == WelcomeMessageType.Initial ? Visibility.Collapsed : Visibility.Visible;
+            //Workaround to make Shell buttons stay hidden while the modal is showing when on a desktop and windows width is wide.
+            switch (msg.WelcomeMessageType)
+            {
+                case WelcomeMessageType.Initial:
+                    this.Menu.VisualStateNormalMinWidth = 6000;
+                    break;
+                case WelcomeMessageType.Accept:
+                    this.Menu.VisualStateNormalMinWidth = 600;
+                    break;              
+            }
         }
 
         public void SetNavigationService(INavigationService navigationService)
