@@ -15,7 +15,7 @@
                        NavAreaBackground="#FF2B2B2B"
                        NavButtonForeground="White"
                        NavButtonHoverForeground="White"
-                       NavButtonHoverBackground="#FFEA504E"
+                       NavButtonHoverBackground="#ff0c4c81"
                        NavButtonCheckedForeground="White"
                        NavButtonCheckedBackground="#ff0c4c81"
                        NavButtonPressedForeground="Gray"
@@ -37,7 +37,7 @@
                 </StackPanel>
             </t10:HamburgerButtonInfo>
 
-            <t10:HamburgerButtonInfo PageType="view:EventsPage" ClearHistory="True">
+            <!--<t10:HamburgerButtonInfo PageType="view:EventsPage" ClearHistory="True">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <SymbolIcon Symbol="Calendar" Width="48" Height="48" />
                     <TextBlock Text="Events" Margin="12,0,0,0" VerticalAlignment="Center"/>
@@ -49,7 +49,7 @@
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0A2;" Width="48" Height="48"/>
                     <TextBlock Text="Register to Vote" Margin="12,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
-            </t10:HamburgerButtonInfo>
+            </t10:HamburgerButtonInfo>-->
 
         </t10:HamburgerMenu.PrimaryButtons>
 

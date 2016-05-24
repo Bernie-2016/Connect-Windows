@@ -20,14 +20,11 @@ namespace BernieApp.UWP.ViewModels
         {
             get
             {
-                return 
-@"Welcome!
-
-Connect with Bernie is designed to help you make a difference every day in our race to win the White House.
+                //Removed from message until EVENTS is added: The 'Events' section puts the campaign's full grassroots event list at your fingertips. Attend these events to meet fellow activists and work to canvass and GOTV. We hope you'll make some lifelong friends in the process. :)
+                return
+@"Connect with Bernie is designed to help you make a difference every day in our race to win the White House.
 
 Inside, you'll find urgent social media messages from the campaign. Share them with your friends to help shape the discussion around our movement.
-
-The 'Events' section puts the campaign's full grassroots event list at your fingertips. Attend these events to meet fellow activists and work to canvass and GOTV. We hope you'll make some lifelong friends in the process. :)
 
 Remember - to win this campaign, all of us must be deply involved. Our movement needs people like you to help it succeed.
 

@@ -86,7 +86,6 @@ namespace BernieApp.UWP.ViewModels
                     //If id issue, best to navigate back to NewsPage. If no internet, display some sort of indication with ability to refresh and try to get the article again.
                     throw;
                 }
-
             }
 
             //Register for share

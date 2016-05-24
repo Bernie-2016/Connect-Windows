@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:t10="using:Template10.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="#ff0c4c81">
 
     <Page.DataContext>
         <Binding Path="WelcomeViewModel" Source="{StaticResource Locator}" />
@@ -14,23 +15,23 @@
     
     <t10:ModalDialog IsModal="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <t10:ModalDialog.ModalContent>
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="400">
-                <Grid.Background>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="{ThemeResource SystemBaseMediumColor}" Offset="0"/>
-                        <GradientStop Color="{ThemeResource SystemBaseLowColor}"  Offset="0.05"/>
-                        <GradientStop Color="{ThemeResource SystemBaseLowColor}" Offset="0.95"/>
-                        <GradientStop Color="{ThemeResource SystemBaseMediumColor}" Offset="1"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding WelcomeText}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="White" Margin="5"/>
-                <Button Grid.Row="1" HorizontalAlignment="Center" Command="{Binding GetStartedCommand}" Foreground="Blue" Background="White">GET STARTED</Button>
-            </Grid>
+            <RelativePanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="400">
+                <TextBlock x:Name="titleText"
+                    Text="Welcome!" Style="{ThemeResource HeaderTextBlockStyle}" 
+                           Foreground="White" Margin="20,0,0,0"/>
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" x:Name="welcomeText"
+                           RelativePanel.Below="titleText"
+                           Text="{Binding WelcomeText}" Style="{ThemeResource BodyTextBlockStyle}" 
+                           Foreground="White" Margin="20"/>
+                <Button Grid.Row="1"
+                        RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="welcomeText" 
+                        Command="{Binding GetStartedCommand}" 
+                        Foreground="#FF147FD7" Background="White">
+                    <Button.Content>
+                        <TextBlock Text="GET STARTED" Style="{ThemeResource TitleTextBlockStyle}" FontWeight="SemiBold" Margin="10,0,10,0"/>
+                    </Button.Content>
+                </Button>
+            </RelativePanel>
         </t10:ModalDialog.ModalContent>
     </t10:ModalDialog>
 </Page>
