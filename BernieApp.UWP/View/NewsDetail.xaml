@@ -86,7 +86,7 @@
             <StackPanel Margin="10,10,20,0" x:Name="textArea">
 
                 <TextBlock Text="{x:Bind ViewModel.Item.ArticleType, Converter={StaticResource articleConverter}}" Style="{ThemeResource BaseTextBlockStyle}"
-                           Foreground="Blue" x:Name="articleTypeBox" />
+                           Foreground="#FF147FD7" x:Name="articleTypeBox" />
                 <Image Margin="-10,10,-20,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Image.Source>
                         <BitmapImage UriSource="{x:Bind ViewModel.Item.ImageUrl}" />

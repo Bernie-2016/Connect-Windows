@@ -269,27 +269,6 @@
 
     <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
 
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WidthStates">
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Margin" Value="48,0,0,0"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Margin" Value="0"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

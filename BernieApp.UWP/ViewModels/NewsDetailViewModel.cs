@@ -17,7 +17,7 @@ namespace BernieApp.UWP.ViewModels
     public class NewsDetailViewModel : MainViewModel
     {
         private readonly IBernieClient _client;
-        private FeedEntry _item = new FeedEntry();
+        private FeedEntry _item = new FeedEntry { ArticleType = ""}; //Instantiating an article type to prevent a xaml bug while trying to convert ArticleType before it's set by Messenger/OnNavigatedTo
         private RelayCommand _openWebPageCommand;
         private RelayCommand _shareCommand;
 
@@ -51,8 +51,7 @@ namespace BernieApp.UWP.ViewModels
                         _item.ImageUrl = entry.ImageUrl;
                     }
                 }
-
-            });   
+            });
         }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)

@@ -26,52 +26,6 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="DeviceStates">
-                <VisualState x:Name="MobileState">
-                    <VisualState.StateTriggers>
-                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Mobile"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="DesktopState">
-                    <VisualState.StateTriggers>
-                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Desktop"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-            <VisualStateGroup x:Name="WidthStates">
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Margin" Value="48,0,0,0"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="MediumState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Margin" Value="0"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Margin" Value="0"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -28,27 +28,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WidthStates">
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Margin" Value="48,0,0,0"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Margin" Value="0"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
         <t10:PageHeader x:Name="Header" Grid.Row="0" Content="Settings" Frame="{x:Bind Frame}" Background="White">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Collapsed" />
@@ -59,7 +38,7 @@
         <Pivot x:Name="Pivot" Grid.Row="1">
             
             <!--  General  -->
-            <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="General">
+            <!--<PivotItem DataContext="{Binding SettingsPartViewModel}" Header="General">
                 <ScrollViewer Margin="0,12,-12,0" HorizontalContentAlignment="Left"
                               VerticalScrollBarVisibility="Auto">
                     <RelativePanel HorizontalAlignment="Left">
@@ -81,10 +60,10 @@
                     </RelativePanel>
 
                 </ScrollViewer>
-            </PivotItem>
+            </PivotItem>-->
 
             <!-- Analytics -->
-            <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="Analytics">
+            <!--<PivotItem DataContext="{Binding SettingsPartViewModel}" Header="Analytics">
                 <ScrollViewer Margin="0,12,0,0" HorizontalContentAlignment="Left"
                               VerticalScrollBarVisibility="Auto">
                     <RelativePanel HorizontalAlignment="Left">
@@ -100,7 +79,7 @@
                     </RelativePanel>
 
                 </ScrollViewer>
-            </PivotItem>
+            </PivotItem>-->
 
             <!--  privacy  -->
             <PivotItem 
