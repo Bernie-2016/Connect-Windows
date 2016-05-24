@@ -77,9 +77,9 @@ namespace BernieApp.UWP
             }
             else
             {
-                //uncomment to see welcome message again
-                //localSettings.Values.Remove("lastRunDate");
                 var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                //uncomment to see welcome message again
+                localSettings.Values.Remove("lastRunDate");
                 object value = localSettings.Values["lastRunDate"];
 
                 if (value == null)
