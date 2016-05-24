@@ -69,7 +69,14 @@
                       ItemsSource="{Binding Items}" HorizontalAlignment="Center" Margin="0"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      SizeChanged="Newsfeed_SizeChanged">
+                      SizeChanged="Newsfeed_SizeChanged"
+                      Loading="Newsfeed_Loading" Loaded="Newsfeed_Loaded">
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+            
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="SelectionChanged">
                     <Core:CallMethodAction MethodName="GoToDetailsPage" TargetObject="{Binding}"/>
