@@ -57,7 +57,7 @@
                         <triggers:DeviceFamilyStateTrigger DeviceFamily="Desktop"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Header.(Grid.Row)" Value="0"/>
+                        <Setter Target="Header.Grid.Row" Value="0"/>
                         <Setter Target="Header.BackButtonVisibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -67,13 +67,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}">
-            <Interactivity:Interaction.Behaviors>
-                <Behaviors:EllipsisBehavior Visibility="Collapsed" />
-            </Interactivity:Interaction.Behaviors>
             <t10:PageHeader.PrimaryCommands>
                 <AppBarButton Label="Share" 
                               Command="{Binding Path=ShareCommand}">
@@ -85,7 +81,7 @@
                               Command="{Binding Path=OpenWebPageCommand}"/>
             </t10:PageHeader.PrimaryCommands>
         </t10:PageHeader>
-
+    
         <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="10,10,20,0" x:Name="textArea">
 
