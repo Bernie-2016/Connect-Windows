@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BernieApp.UWP.ViewModels;
+using BernieApp.UWP.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight;
 
@@ -48,7 +49,19 @@ namespace BernieApp.UWP.Controls
             ItemsWrapGrid MyItemsPanel = (ItemsWrapGrid)Newsfeed.ItemsPanelRoot;
             var width = e.NewSize.Width / 2;
             MyItemsPanel.ItemWidth = width;
-            Messenger.Default.Send<double>(width);     
+            Messenger.Default.Send(new WidthMessage() { Width = width });     
+        }
+
+        private void Newsfeed_Loading(FrameworkElement sender, object args)
+        {
+            Newsfeed.Visibility = Visibility.Collapsed;
+            ProgressRing.Visibility = Visibility.Visible;
+        }
+
+        private void Newsfeed_Loaded(object sender, RoutedEventArgs e)
+        {
+            Newsfeed.Visibility = Visibility.Visible;
+            ProgressRing.Visibility = Visibility.Collapsed;
         }
     }
 }

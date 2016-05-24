@@ -17,7 +17,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>BernieApp.UWP_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>6CBD13FBF7DC3DF50E8B90E29BAFC2C868AEDE71</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>5AAF05D287CA74420F3D097B4705A9BC930E6405</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -98,7 +98,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BackgroundTasks\NotificationActionBackgroundTask.cs" />
     <Compile Include="Controls\AlertPresenter.xaml.cs">
       <DependentUpon>AlertPresenter.xaml</DependentUpon>
     </Compile>
@@ -110,20 +109,28 @@
     <Compile Include="Converters\ArticleTypeConverter.cs" />
     <Compile Include="Converters\DateToHumanReadableConverter.cs" />
     <Compile Include="Converters\NewsDataTemplateSelector.cs" />
+    <Compile Include="Messages\AlertMessage.cs" />
+    <Compile Include="Messages\WelcomeMessage.cs" />
+    <Compile Include="Messages\WidthMessage.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="ViewModels\ActionsViewModel.cs" />
-    <Compile Include="ViewModels\NearbyViewModel.cs" />
+    <Compile Include="ViewModels\EventsViewModel.cs" />
     <Compile Include="ViewModels\NewsDetailViewModel.cs" />
     <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="View\ActionsPage.xaml.cs">
       <DependentUpon>ActionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\NearbyPage.xaml.cs">
-      <DependentUpon>NearbyPage.xaml</DependentUpon>
+    <Compile Include="View\EventsDetail.xaml.cs">
+      <DependentUpon>EventsDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EventsPage.xaml.cs">
+      <DependentUpon>EventsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewsDetail.xaml.cs">
       <DependentUpon>NewsDetail.xaml</DependentUpon>
@@ -131,11 +138,17 @@
     <Compile Include="View\NewsPage.xaml.cs">
       <DependentUpon>NewsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -147,19 +160,28 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppIcon.svg" />
+    <Content Include="Assets\AppIconTransparent.svg" />
     <Content Include="Assets\HTMLPage1.html" />
-    <Content Include="Assets\Images\bernie2016logo.png" />
-    <Content Include="Assets\Images\Splash.png" />
+    <Content Include="Assets\Tiles\NewStoreLogo.scale-100.png" />
+    <Content Include="Assets\Tiles\NewStoreLogo.scale-125.png" />
+    <Content Include="Assets\Tiles\NewStoreLogo.scale-150.png" />
+    <Content Include="Assets\Tiles\NewStoreLogo.scale-200.png" />
+    <Content Include="Assets\Tiles\NewStoreLogo.scale-400.png" />
     <Content Include="Assets\OSSText.html" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Splash\Splash.scale-200.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.targetsize-48.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Square44x44Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -186,7 +208,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\NearbyPage.xaml">
+    <Page Include="View\EventsDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EventsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,11 +224,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

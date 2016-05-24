@@ -8,7 +8,7 @@
 
     <Color x:Key="CustomColor">#FF147FD7</Color>
     <Color x:Key="ContrastColor">White</Color>
-    <Color x:Key="SystemAccentColor">#FF147FD7</Color>
+    <Color x:Key="SecondaryColor">#ff0c4c81</Color>
 
     <ResourceDictionary.ThemeDictionaries>
 

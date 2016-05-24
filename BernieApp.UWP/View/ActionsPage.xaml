@@ -264,11 +264,10 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WidthStates">
@@ -296,7 +295,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <t10:PageHeader x:Name="Header" Content="Share Now" Frame="{x:Bind Frame}">
+        <t10:PageHeader x:Name="Header" Content="Share Now" Frame="{x:Bind Frame}" Background="White">
             <t10:PageHeader.SecondaryCommands>
                 <AppBarButton Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </t10:PageHeader.SecondaryCommands>
@@ -318,11 +317,9 @@
             <FlipView x:Name="flipView" Margin="10,20,10,10"
                       RelativePanel.Below="ContextControl"
                       RelativePanel.AlignHorizontalCenterWith="ContextControl"
-                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       ItemsSource="{Binding Alerts}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                      UseTouchAnimationsForAllNavigation="True" Style="{StaticResource FlipViewStyle}"
-                      
-                      >
+                      UseTouchAnimationsForAllNavigation="True" Style="{StaticResource FlipViewStyle}">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="SelectionChanged">
                         <Core:CallMethodAction MethodName="FlipViewSelectionChanged" TargetObject="{Binding}"/>
@@ -330,7 +327,7 @@
                 </Interactivity:Interaction.Behaviors>
                 <FlipView.ItemTemplate>
                     <DataTemplate>
-                        <controls:AlertPresenter HorizontalAlignment="Stretch"/>
+                        <controls:AlertPresenter Alert="{Binding}"/>
                     </DataTemplate>
                 </FlipView.ItemTemplate>
                 <FlipView.Background>
@@ -338,18 +335,6 @@
                 </FlipView.Background>
 
             </FlipView>
-
-            <t10:ModalDialog x:Name="BusyModal" CanBackButtonDismiss="False" DisableBackButtonWhenModal="True">
-                <t10:ModalDialog.ModalContent>
-                    <Viewbox Height="32" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel Orientation="Horizontal">
-                            <ProgressRing x:Name="BusyRing" Width="24" Height="24" Margin="12,0"
-                            Foreground="White" IsActive="{Binding IsModal, ElementName=BusyModal}" />
-                            <TextBlock x:Name="BusyText" VerticalAlignment="Center" Foreground="White" />
-                        </StackPanel>
-                    </Viewbox>
-                </t10:ModalDialog.ModalContent>
-            </t10:ModalDialog>
 
         </RelativePanel>
 

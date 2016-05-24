@@ -1,19 +1,11 @@
-﻿using BernieApp.UWP.ViewModels;
+﻿using BernieApp.Portable.Models;
+using BernieApp.UWP.Messages;
+using BernieApp.UWP.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -21,27 +13,43 @@ namespace BernieApp.UWP.Controls
 {
     public sealed partial class AlertPresenter : UserControl
     {
+        public ActionAlert Alert
+        {
+            get { return (ActionAlert)GetValue(AlertProperty); }
+            set { SetValue(AlertProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Alert.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AlertProperty =
+            DependencyProperty.Register("Alert", typeof(ActionAlert), typeof(AlertPresenter), new PropertyMetadata(0));
+
+
         public AlertPresenter()
         {
 
             this.InitializeComponent();
 
-            Messenger.Default.Register<string>(this, (message) =>
+            Messenger.Default.Register<AlertMessage>(this, (message) =>
             {
-                if (message.Contains("alert"))
+                if (message.Id == Alert.Id && !string.IsNullOrEmpty(message.Path))
                 {
-                    Uri url = webView.BuildLocalStreamUri("Alert", message);
+                    Uri url = webView.BuildLocalStreamUri("Alert", message.Path);
                     StreamUriResolver resolver = new StreamUriResolver();
                     webView.NavigateToLocalStreamUri(url, resolver);
-                    webView.Visibility = Visibility.Visible;
+                    Debug.WriteLine(Windows.Storage.ApplicationData.Current.TemporaryFolder.Path + "\\" + message.Path);
                 }
             });
 
-            Messenger.Default.Register<NotificationMessage>(this, (message) =>
+            Messenger.Default.Register<AlertMessage>(this, (message) =>
             {
-                if(message.Notification == "navigating")
+                if (message.Id == Alert.Id && string.IsNullOrEmpty(message.Path))
                 {
-                    webView.Visibility = Visibility.Collapsed;
+                    scrollViewer.Visibility = Visibility.Collapsed;
+                    ProgressRing.Visibility = Visibility.Visible;
+                }
+                if (message.Id != Alert.Id)
+                {
+                    scrollViewer.Visibility = Visibility.Collapsed;
                 }
             });
 
@@ -52,5 +60,38 @@ namespace BernieApp.UWP.Controls
         }
 
         public ActionsViewModel ViewModel { get; set; }
+
+        private void webView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            if (!args.IsSuccess)
+            {
+                Debug.WriteLine("Failed: {0}", args.WebErrorStatus.ToString());
+                return;
+            }
+            ProgressRing.Visibility = Visibility.Collapsed;
+            scrollViewer.Visibility = Visibility.Visible;
+        }
+
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            webView.Width = e.NewSize.Width;
+            webView.Height = e.NewSize.Height + 100;
+        }
+
+        private void webView_PermissionRequested(WebView sender, WebViewPermissionRequestedEventArgs args)
+        {
+            Debug.WriteLine(args.PermissionRequest.PermissionType.ToString());
+
+        }
+
+        private void webView_UnsafeContentWarningDisplaying(WebView sender, object args)
+        {
+            Debug.WriteLine(args.ToString());
+        }
+
+        private void webView_UnviewableContentIdentified(WebView sender, WebViewUnviewableContentIdentifiedEventArgs args)
+        {
+            Debug.WriteLine(args.Uri.ToString());
+        }
     }
 }

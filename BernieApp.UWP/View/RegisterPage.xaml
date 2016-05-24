@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="BernieApp.UWP.View.NewsPage"
+    x:Class="BernieApp.UWP.View.RegisterPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BernieApp.UWP.View"
@@ -13,13 +13,12 @@
     xmlns:controls="using:BernieApp.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    >
+    mc:Ignorable="d">
 
     <Page.DataContext>
-        <Binding Path="NewsViewModel" Source="{StaticResource Locator}"/>
+        <Binding Path="RegisterViewModel" Source="{StaticResource Locator}"/>
     </Page.DataContext>
-    
+
     <Page.Resources>
         <ResourceDictionary>
 
@@ -73,27 +72,27 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}" Background="White"
-                        Text="News">
+                        Text="Register to Vote">
             <Interactivity:Interaction.Behaviors>
-                <Behaviors:EllipsisBehavior Visibility="Auto" />
+                <Behaviors:EllipsisBehavior Visibility="Collapsed" />
             </Interactivity:Interaction.Behaviors>
-            <t10:PageHeader.SecondaryCommands>
-                <AppBarButton Icon="Refresh"  Label="Refresh" Command="{Binding Path=LoadCommand}"/>
-            </t10:PageHeader.SecondaryCommands>
         </t10:PageHeader>
 
-        <Grid Grid.Row="1" HorizontalAlignment="Center">
-
-            <controls:NewsPresenter x:Name="newsfeed" Grid.Row="1" HorizontalAlignment="Center"/>
-
-        </Grid>
+        
+        <ScrollViewer Grid.Row="1">
+            <RelativePanel>
+                <TextBlock x:Name="textblock" Text="To vote for Bernie, you must be registered first. Choose your State from the list below to register online. Registration takes about 2 minutes. Online registration is currently supported in the States listed below."
+                       TextWrapping="Wrap" TextAlignment="Left" Margin="10,10,5,10"/>
+                <ListView RelativePanel.Below="textblock" VerticalAlignment="Stretch"/>
+            </RelativePanel>
+        </ScrollViewer>
         
     </Grid>
 </Page>

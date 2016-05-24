@@ -1,17 +1,18 @@
-﻿using System;
-using BernieApp.Portable.Client;
+﻿using BernieApp.Portable.Client;
 using BernieApp.Portable.Models;
-using BernieApp.UWP.View;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Template10.Utils;
+using BernieApp.UWP.Messages;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Diagnostics;
-using Windows.UI.Xaml.Navigation;
-using Template10.Services.NavigationService;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Template10.Services.NavigationService;
+using Template10.Utils;
+using Windows.System.Profile;
+using Windows.UI.Xaml.Navigation;
 
 namespace BernieApp.UWP.ViewModels
 {
@@ -31,6 +32,8 @@ namespace BernieApp.UWP.ViewModels
 
         public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            //TODO: handle navigated article ID here when activating from a toast, then move to correct flipview.
+
             return base.OnNavigatedToAsync(parameter, mode, state);
         }
 
@@ -39,9 +42,13 @@ namespace BernieApp.UWP.ViewModels
             return base.OnNavigatingFromAsync(args);
         }
 
-        private async Task GetActionsAsync()
+        private async void GetActionsAsync()
         {
             var alerts = await _client.GetActionsAsync();
+            //workaround - as mobile webview control does not show fb-video posts correctly
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                alerts = alerts.Where(a => !a.BodyHTML.Contains("fb-video")).ToList();
+            _alerts.Clear();
             _alerts.AddRange(alerts);
         }
 
@@ -66,13 +73,7 @@ namespace BernieApp.UWP.ViewModels
             {
                 if (_loadCommand == null)
                 {
-                    _loadCommand = new RelayCommand(async () =>
-                    {
-                        //Clears the list, then adds from the server. TODO: A way to add only new items would probably be better.
-                        var alerts = await _client.GetActionsAsync();
-                        _alerts.Clear();
-                        _alerts.AddRange(alerts);
-                    });
+                    _loadCommand = new RelayCommand(GetActionsAsync);
                 }
                 return _loadCommand;
             }
@@ -82,7 +83,7 @@ namespace BernieApp.UWP.ViewModels
         {
             if (SelectedItem != null)
             {
-                Messenger.Default.Send(new NotificationMessage("navigating"));
+                Messenger.Default.Send(new AlertMessage(){ Id = SelectedItem.Id, Path = string.Empty });
 
                 string _bodyHTML = SelectedItem.BodyHTML;
                 string _id = SelectedItem.Id;
@@ -99,7 +100,7 @@ namespace BernieApp.UWP.ViewModels
             string path = await WriteHTML(result, id);
 
             _webViewSource = path;
-            Messenger.Default.Send<string>(_webViewSource);
+            Messenger.Default.Send<AlertMessage>(new AlertMessage() { Id = id, Path = path });
             
         }
 
@@ -109,38 +110,49 @@ namespace BernieApp.UWP.ViewModels
 
             string htmlDecoded = System.Net.WebUtility.HtmlDecode(bodyHTML);
             string removeNewline = Regex.Replace(htmlDecoded, @"\r\n?|\n", _newlineReplacement);
+
             string htmlPage = String.Format(@"<html><head>
-                    <style type='text/css'>
+                        <meta name=viewport content='width=device-width, height=device-height, initial-scale=1' />
+                        <style type='text/css'>
+
                             html {{
-                                height: 100%;
-                                width: 100%;
+                                width: {0};
+                                height: {1};
                                 border-radius: 4px;
                                 overflow-x: hidden;
                                 overflow-y: hidden;
                             }}
 
                             span {{
-                                width: 400px !important;
-                                height: 600px !important;
+                                width: {0} !important;
+                                height: {1} !important;
+                                max-width: {3} !important;
                             }}
 
                             iframe {{
-                                width: 400px !important;
-                                height: 600px !important;
+                                width: {0} !important;
+                                height: {1} !important;
+                                max-width: {3} !important;
                             }}
 
                             iframe[src^='https://www.youtube.com'] {{
-                                width: 400px !important;
+                                width: {0} !important;
+                                max-width: {3} !important;
                                 border-radius: 4px;
                                 overflow: hidden;
                             }}
 
-                            .instagram-media {{
-                                max-width: 380px !important;
+                            .fb_iframe_widget {{
+                                display: block !important;
                             }}
+                            
+                            .instagram-media {{
+                                max-width: {3} !important;
+                            }}
+
                         </style>
-                    </head><body>{0}</body></html>",
-                removeNewline);
+                    </head><body>{2}</body></html>",
+                "100%", "100%", removeNewline, "100%");
             if (htmlPage.Contains("//platform.twitter.com/widgets.js"))
             {
                 htmlPage = Regex.Replace(htmlPage, "//platform.twitter.com/widgets.js", "https://platform.twitter.com/widgets.js");
@@ -153,6 +165,7 @@ namespace BernieApp.UWP.ViewModels
             {
                 htmlPage = Regex.Replace(htmlPage, "//platform.instagram.com/en_US/embeds.js", "https://platform.instagram.com/en_US/embeds.js");
             }
+
             return htmlPage;
         }
 

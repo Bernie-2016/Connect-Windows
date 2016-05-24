@@ -2,6 +2,7 @@
 using BernieApp.Portable.Client;
 using BernieApp.Portable.Models;
 using BernieApp.UWP.View;
+using BernieApp.UWP.Messages;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -18,7 +19,8 @@ namespace BernieApp.UWP.ViewModels
         private readonly ObservableCollection<FeedEntry> _items = new ObservableCollection<FeedEntry>();
         private readonly IBernieClient _client;
         private FeedEntry _selectedItem;
-        private double _itemWidth = 0;
+        private double _itemWidth;
+        private bool _isModal;
         private RelayCommand _loadCommand;
 
         public NewsViewModel(IBernieClient client)
@@ -31,9 +33,9 @@ namespace BernieApp.UWP.ViewModels
         {
             Messenger.Default.Send(new NotificationMessage<string>("Reset_Listview", "Reset"));
 
-            Messenger.Default.Register<double>(this, (message) =>
+            Messenger.Default.Register<WidthMessage>(this, (message) =>
             {
-                var m = message;
+                var m = message.Width;
                 this.ItemWidth = m;
             });
 
@@ -42,8 +44,10 @@ namespace BernieApp.UWP.ViewModels
 
         private async Task PopulateAsync()
         {
+            _isModal = true;
             var news = await _client.GetNewsAsync();
             _items.AddRange(news);
+            _isModal = false;
             //TODO: Need to check for null values and handle non 200 codes
         }
 
@@ -82,12 +86,10 @@ namespace BernieApp.UWP.ViewModels
                             //Handle if newsfeed doesn't load
                             throw;
                         }
-
                     });
                 }
                 return _loadCommand;
-            }
-            
+            }            
         }
         
         //Navigate to the NewsDetails page to view full article
@@ -99,9 +101,6 @@ namespace BernieApp.UWP.ViewModels
                 Messenger.Default.Send(new NotificationMessage<FeedEntry>(entry, "Selected_Entry"));
                 NavigationService.Navigate(typeof(NewsDetail));
             }
-
-        }
-
-       
+        } 
     }
 }

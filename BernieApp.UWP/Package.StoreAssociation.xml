@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
-  <Publisher>CN=D17119BE-1F11-4EA1-9881-3642AC856D83</Publisher>
-  <PublisherDisplayName>riley taylor</PublisherDisplayName>
+  <Publisher>CN=E6177D14-D222-4078-8675-515077C57F21</Publisher>
+  <PublisherDisplayName>Bernie 2016</PublisherDisplayName>
   <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
   <SupportedLocales>
     <Language Code="af" InMinimumRequirementSet="true" />
@@ -358,17 +358,11 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>23177rileytaylor.BernieAppBeta</MainPackageIdentityName>
+    <MainPackageIdentityName>Bernie2016.ConnectwithBernie</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>BernieAppBeta</ReservedName>
+      <ReservedName>Connect with Bernie</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames>
-    <MainPackageIdentityName>23177rileytaylor.Aerium</MainPackageIdentityName>
-    <MainPackageIdentityName>23177rileytaylor.Konquer</MainPackageIdentityName>
-    <MainPackageIdentityName>23177rileytaylor.Mercury</MainPackageIdentityName>
-    <MainPackageIdentityName>23177rileytaylor.Seize</MainPackageIdentityName>
-    <MainPackageIdentityName>23177rileytaylor.SiezetheDay</MainPackageIdentityName>
-  </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4V4J7" />
+  <AccountPackageIdentityNames />
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4V3ZR" />
 </StoreAssociation>

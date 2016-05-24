@@ -1,21 +1,21 @@
-﻿using System;
-using Windows.UI.Xaml;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Activation;
-using Template10.Common;
-using BernieApp.UWP.View;
-using System.Linq;
-using Parse;
-using System.Diagnostics;
-using Windows.UI.Notifications;
-using NotificationsExtensions.Toasts;
+﻿using BernieApp.UWP.View;
 using Microsoft.QueryStringDotNET;
-using Windows.Data.Xml.Dom;
+using Newtonsoft.Json.Linq;
+using NotificationsExtensions.Toasts;
+using Parse;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Template10.Common;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
-using Windows.UI.ViewManagement;
-using Windows.Foundation;
 using Windows.Foundation.Metadata;
+using Windows.Networking.PushNotifications;
 using Windows.UI;
+using Windows.UI.Notifications;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
 namespace BernieApp.UWP
@@ -28,24 +28,8 @@ namespace BernieApp.UWP
 
         public App()
         {
-            this.InitializeComponent();
-            
-
+            this.InitializeComponent();            
             ParseClient.Initialize(APP_ID, APP_KEY);
-            ParseInstallation.CurrentInstallation.SaveAsync();
-            ParsePush.ParsePushNotificationReceived += ParsePush_OnNotificationReceived;
-
-            //Set statusbar
-            //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-            //{                
-            //    var statusBar = StatusBar.GetForCurrentView();
-            //    if (statusBar != null)
-            //    {
-            //        statusBar.BackgroundOpacity = 1;
-            //        statusBar.BackgroundColor = Colors.Black;
-            //        statusBar.ForegroundColor = Colors.White;
-            //    }
-            //}
         }
 
         // runs even if restored from state
@@ -59,36 +43,12 @@ namespace BernieApp.UWP
                 Window.Current.Content = new Shell(nav);
             }
 
+            SetStatusBar();
+
             //Push notification registration
             await ParsePush.SubscribeAsync("");
-
-            //Handle ToastNotifications (Foreground activation)
-            if (args is ToastNotificationActivatedEventArgs)
-            {
-                var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
-
-                //TODO: Handle future arguments to open a specific action or news article
-
-                if (Window.Current.Content is ActionsPage)
-                {
-                    Debug.WriteLine("Already viewing ActionsPage");
-                }
-                else
-                {
-                    NavigationService.Navigate(typeof(ActionsPage));
-                }
-            }
-
-            //Handle ToastNotifications (Background activation)
-            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder()
-            {
-                Name = "ToastTask",
-                TaskEntryPoint = "BernieApp.UWP.BackgroundTasks.NotificationActionBackgroundTask"
-            };
-
-            builder.SetTrigger(new ToastNotificationActionTrigger());
-            //BackgroundTaskRegistration registration = builder.Register();
+            await ParseInstallation.CurrentInstallation.SaveAsync();
+            await ParseAnalytics.TrackAppOpenedAsync(args as LaunchActivatedEventArgs);
 
             //Ensure the current window is active
             Window.Current.Activate();
@@ -96,57 +56,78 @@ namespace BernieApp.UWP
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            switch (DetermineStartCause(args))
-            {
-                case AdditionalKinds.Primary:
-                    NavigationService.Navigate(typeof(NewsPage));
-                    break;
-                case AdditionalKinds.Toast:
-                    var toastArgs = args as ToastNotificationActivatedEventArgs; //This may be depricated
-                    NavigationService.Navigate(typeof(ActionsPage), toastArgs.Argument);
-                    break;
-                case AdditionalKinds.SecondaryTile:
-                    break;
-                case AdditionalKinds.Other:
-                    NavigationService.Navigate(typeof(NewsPage));
-                    break;
-                case AdditionalKinds.JumpListItem:
-                    break;
-                default:
-                    NavigationService.Navigate(typeof(NewsPage));
-                    break;
-            }
+            var e = args as ILaunchActivatedEventArgs;
 
+            //Activation is by Toast
+            if (e.Arguments.Contains("action"))
+            {
+                var json = e.Arguments.ToString();
+                JObject push = JObject.Parse(json);
+                string type = (string)push["action"];
+                string id = (string)push["identifier"];
+
+                if (type.Contains("openActionAlert"))
+                {
+                    this.NavigationService.Navigate(typeof(ActionsPage), id);
+                }
+                else if (type.Contains("openNewsArticle"))
+                {
+                    this.NavigationService.Navigate(typeof(NewsDetail), id);
+                }
+            }
+            else
+            {
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                object value = localSettings.Values["lastRunDate"];
+
+                if (value == null)
+                {
+                    NavigationService.Navigate(typeof(WelcomePage));
+                }
+                
+                else
+                {
+                    NavigationService.Navigate(typeof(NewsPage));
+                }
+            }
+            
             return Task.FromResult<object>(null);
         }
 
-        public static void ParsePush_OnNotificationReceived(object sender, ParsePushNotificationEventArgs args)
+        public override void OnResuming(object s, object e, AppExecutionState previousExecutionState)
         {
-            //Pull in json payload
-            var payload = args.Payload;
+            base.OnResuming(s, e, previousExecutionState);
+        }
 
-            Debug.WriteLine("notification received!");
-            Debug.WriteLine(payload);
+        public override Task OnSuspendingAsync(object s, SuspendingEventArgs e, bool prelaunchActivated)
+        {
+            return base.OnSuspendingAsync(s, e, prelaunchActivated);
+        }
 
-            string title = "";
-            string content = "";
-            //string logo = "";
+        public SolidColorBrush GetSolidColorBrush(string hex)
+        {
+            hex = hex.Replace("#", string.Empty);
+            byte a = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));
+            byte r = (byte)(Convert.ToUInt32(hex.Substring(2, 2), 16));
+            byte g = (byte)(Convert.ToUInt32(hex.Substring(4, 2), 16));
+            byte b = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
+            SolidColorBrush myBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(a, r, g, b));
+            return myBrush;
+        }
 
-            ToastVisual visual = new ToastVisual()
+        public void SetStatusBar()
+        {
+            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
             {
-                TitleText = new ToastText() { Text = title },
-                BodyTextLine1 = new ToastText() { Text = content }
-            };
-
-            ToastContent toastContent = new ToastContent()
-            {
-                Visual = visual
-            };
-
-            var toast = new ToastNotification(toastContent.GetXml());
-            toast.ExpirationTime = DateTime.Now.AddDays(2);
-            ToastNotificationManager.CreateToastNotifier().Show(toast);
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    var background = GetSolidColorBrush("#FF147FD7").Color;
+                    statusBar.BackgroundOpacity = 1;
+                    statusBar.BackgroundColor = background;
+                    statusBar.ForegroundColor = Colors.White;
+                }
+            }
         }
     }
-
 }

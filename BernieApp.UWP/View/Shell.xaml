@@ -10,13 +10,17 @@
     mc:Ignorable="d">
 
     <t10:HamburgerMenu x:Name="Menu"
-                           HamburgerForeground="White"
-                           HamburgerBackground="#FF147FD7"
-                           NavAreaBackground="#FF2B2B2B"
-                           NavButtonForeground="White"
-                           NavButtonHoverBackground="#FFEA504E"
-                           VisualStateNarrowMinWidth="0"
-                           VisualStateNormalMinWidth="600">
+                       HamburgerForeground="White"
+                       HamburgerBackground="#FF147FD7"
+                       NavAreaBackground="#FF2B2B2B"
+                       NavButtonForeground="White"
+                       NavButtonHoverForeground="White"
+                       NavButtonHoverBackground="#ff0c4c81"
+                       NavButtonCheckedForeground="White"
+                       NavButtonCheckedBackground="#ff0c4c81"
+                       NavButtonPressedForeground="Gray"
+                       VisualStateNarrowMinWidth="0"
+                       VisualStateNormalMinWidth="600">
         <t10:HamburgerMenu.PrimaryButtons>
 
             <t10:HamburgerButtonInfo PageType="view:NewsPage" ClearHistory="True">
@@ -26,19 +30,26 @@
                 </StackPanel>
             </t10:HamburgerButtonInfo>
 
-            <!--<t10:HamburgerButtonInfo PageType="view:NearbyPage" ClearHistory="True">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <SymbolIcon Symbol="Map" Width="48" Height="48" />
-                    <TextBlock Text="Nearby" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                </StackPanel>
-            </t10:HamburgerButtonInfo>-->
-
             <t10:HamburgerButtonInfo PageType="view:ActionsPage" ClearHistory="True">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" Height="48" Width="48"/>
                     <TextBlock Text="Share This" Margin="12,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
             </t10:HamburgerButtonInfo>
+
+            <!--<t10:HamburgerButtonInfo PageType="view:EventsPage" ClearHistory="True">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <SymbolIcon Symbol="Calendar" Width="48" Height="48" />
+                    <TextBlock Text="Events" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </t10:HamburgerButtonInfo>
+
+            <t10:HamburgerButtonInfo PageType="view:RegisterPage" ClearHistory="True">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE0A2;" Width="48" Height="48"/>
+                    <TextBlock Text="Register to Vote" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+            </t10:HamburgerButtonInfo>-->
 
         </t10:HamburgerMenu.PrimaryButtons>
 

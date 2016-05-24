@@ -15,18 +15,25 @@
     mc:Ignorable="d"
     >
 
+    <UserControl.DataContext>
+        <Binding Path="NewsViewModel" Source="{StaticResource Locator}"/>
+    </UserControl.DataContext>
+
     <UserControl.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="NewsItemTemplate">
-                <RelativePanel x:Name="nt" Background="White" Margin="2.5" Height="250" Width="{Binding ItemWidth, Mode=TwoWay}" HorizontalAlignment="Stretch">
-                    <TextBlock x:Name="title" Margin="5,5,5,0" Text="{Binding Title}" RelativePanel.AlignTopWithPanel="True"
+                <Grid Margin="2.5" Height="250" HorizontalAlignment="Stretch"  Background="White" >
+                    <RelativePanel x:Name="nt">
+                        <TextBlock x:Name="title" Margin="5,5,5,0" Text="{Binding Title}" RelativePanel.AlignTopWithPanel="True"
                                 Style="{ThemeResource SubtitleTextBlockStyle}" FontWeight="SemiBold" TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="3"/>
-                    <TextBlock Margin="5" Text="{Binding Excerpt}" RelativePanel.Below="title"
+                        <TextBlock Margin="5" Text="{Binding Excerpt}" RelativePanel.Below="title"
                             Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Light" x:Name="excerpt"
                             TextWrapping="WrapWholeWords" TextTrimming="WordEllipsis" MaxLines="4"/>
-                    <TextBlock  Margin="5" Text="{Binding Date, Converter={StaticResource dateConverter}}" RelativePanel.AlignBottomWithPanel="True"
+                        <TextBlock  Margin="5" Text="{Binding Date, Converter={StaticResource dateConverter}}" RelativePanel.AlignBottomWithPanel="True"
                                 Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Bottom"/>
-                </RelativePanel>
+                    </RelativePanel>
+                </Grid>
+
             </DataTemplate>
 
             <DataTemplate x:Key="NewsItemWithImageTemplate">
@@ -62,12 +69,21 @@
                       ItemsSource="{Binding Items}" HorizontalAlignment="Center" Margin="0"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                      SizeChanged="Newsfeed_SizeChanged">
+                      SizeChanged="Newsfeed_SizeChanged"
+                      Loading="Newsfeed_Loading" Loaded="Newsfeed_Loaded">
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+            
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="SelectionChanged">
                     <Core:CallMethodAction MethodName="GoToDetailsPage" TargetObject="{Binding}"/>
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </GridView>
+        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ProgressRing" Foreground="#FF147FD7" 
+                      IsActive="True" Width="100" Height="100"/>
     </Grid>
 </UserControl>

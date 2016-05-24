@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BernieApp.Portable.Client;
+﻿using BernieApp.Portable.Client;
 using BernieApp.Portable.Client.ES4BS;
 using BernieApp.Portable.Models;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
@@ -38,14 +32,18 @@ namespace BernieApp.UWP.ViewModels
             SimpleIoc.Default.Register<NewsViewModel>();
             SimpleIoc.Default.Register<NewsDetailViewModel>(true);
             SimpleIoc.Default.Register<ActionsViewModel>();
-            SimpleIoc.Default.Register<NearbyViewModel>();
+            SimpleIoc.Default.Register<EventsViewModel>();
             SimpleIoc.Default.Register<SettingsViewModel>();
+            SimpleIoc.Default.Register<RegisterViewModel>();
+            SimpleIoc.Default.Register<WelcomeViewModel>();
         }
 
         public NewsViewModel NewsViewModel => SimpleIoc.Default.GetInstance<NewsViewModel>();
         public NewsDetailViewModel NewsDetailViewModel => SimpleIoc.Default.GetInstance<NewsDetailViewModel>();
         public ActionsViewModel ActionsViewModel => SimpleIoc.Default.GetInstance<ActionsViewModel>();
-        public NearbyViewModel NearbyViewModel => SimpleIoc.Default.GetInstance<NearbyViewModel>();
+        public EventsViewModel NearbyViewModel => SimpleIoc.Default.GetInstance<EventsViewModel>();
         public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        public RegisterViewModel RegisterViewModel => SimpleIoc.Default.GetInstance<RegisterViewModel>();
+        public WelcomeViewModel WelcomeViewModel => SimpleIoc.Default.GetInstance<WelcomeViewModel>();
     }
 }
