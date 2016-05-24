@@ -102,7 +102,20 @@ namespace BernieApp.UWP
             switch (DetermineStartCause(args))
             {
                 case AdditionalKinds.Primary:
-                    NavigationService.Navigate(typeof(NewsPage));
+                    //uncomment to see welcome message again
+                    //localSettings.Values.Remove("lastRunDate");
+                    var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                    object value = localSettings.Values["lastRunDate"];
+
+                    if (value == null)
+                    {
+                        NavigationService.Navigate(typeof(WelcomePage));
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(typeof(NewsPage));
+                    }
+                    
                     break;
                 case AdditionalKinds.Toast:
                     var toastArgs = args as ToastNotificationActivatedEventArgs; //This may be depricated

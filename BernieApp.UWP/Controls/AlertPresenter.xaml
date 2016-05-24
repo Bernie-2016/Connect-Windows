@@ -11,8 +11,8 @@
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SizeChanged="Grid_SizeChanged">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 

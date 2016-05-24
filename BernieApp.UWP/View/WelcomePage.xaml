@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="BernieApp.UWP.View.WelcomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BernieApp.UWP.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:t10="using:Template10.Controls"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <Binding Path="WelcomeViewModel" Source="{StaticResource Locator}" />
+    </Page.DataContext>
+    
+    <t10:ModalDialog IsModal="True"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <t10:ModalDialog.ModalContent>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="400">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="{ThemeResource SystemBaseMediumColor}" Offset="0"/>
+                        <GradientStop Color="{ThemeResource SystemBaseLowColor}"  Offset="0.05"/>
+                        <GradientStop Color="{ThemeResource SystemBaseLowColor}" Offset="0.95"/>
+                        <GradientStop Color="{ThemeResource SystemBaseMediumColor}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding WelcomeText}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="White" Margin="5"/>
+                <Button Grid.Row="1" HorizontalAlignment="Center" Command="{Binding GetStartedCommand}" Foreground="Blue" Background="White">GET STARTED</Button>
+            </Grid>
+        </t10:ModalDialog.ModalContent>
+    </t10:ModalDialog>
+</Page>
