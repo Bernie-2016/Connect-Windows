@@ -17,7 +17,7 @@ namespace BernieApp.UWP.ViewModels
     public class NewsDetailViewModel : MainViewModel
     {
         private readonly IBernieClient _client;
-        private FeedEntry _item = new FeedEntry { ArticleType = ""}; //Instantiating an article type to prevent a xaml bug while trying to convert ArticleType before it's set by Messenger/OnNavigatedTo
+        private FeedEntry _item = new FeedEntry { ArticleType = "", ImageUrl = "ms-appx-web:///Assets/bleh.png" }; //Instantiating an article type to prevent a xaml bug while trying to convert ArticleType before it's set by Messenger/OnNavigatedTo
         private RelayCommand _openWebPageCommand;
         private RelayCommand _shareCommand;
 
@@ -79,10 +79,12 @@ namespace BernieApp.UWP.ViewModels
                         _item.ImageUrl = entry.ImageUrl;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     //Something is wrong with the id OR there isn't an internet connection.
                     //If id issue, best to navigate back to NewsPage. If no internet, display some sort of indication with ability to refresh and try to get the article again.
+                    Debug.WriteLine(ex.Message);
+                    this.NavigationService.Navigate(typeof(NewsPage));
                     throw;
                 }
             }
