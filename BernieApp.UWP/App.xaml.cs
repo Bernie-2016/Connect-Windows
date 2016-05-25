@@ -131,5 +131,7 @@ namespace BernieApp.UWP
                 }
             }
         }
+
+        public void OnPushReceived() { }
     }
 }
