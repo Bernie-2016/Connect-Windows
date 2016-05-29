@@ -23,6 +23,9 @@
       <uap:ApplicationContentUriRules>
         <uap:Rule Match="https://connect.facebook.net" Type="include" WindowsRuntimeAccess="all" />
         <uap:Rule Match="https://facebook.com" Type="include" WindowsRuntimeAccess="all" />
+        <uap:Rule Match="https://hammerjs.github.io" Type="include" WindowsRuntimeAccess="all" />
+        <uap:Rule Match="https://*.instagram.com" Type="include" WindowsRuntimeAccess="all" />
+        <uap:Rule Match="https://*.twitter.com" Type="include" WindowsRuntimeAccess="all" />
       </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
