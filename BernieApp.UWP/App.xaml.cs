@@ -149,6 +149,5 @@ namespace BernieApp.UWP
             ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size { Width = 600, Height = 800 };
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
-
     }
 }

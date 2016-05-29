@@ -16,6 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="BernieApp.UWP.App">
       <uap:VisualElements DisplayName="Connect with Bernie" Square150x150Logo="Assets\Tiles\Square150x150Logo.png" Square44x44Logo="Assets\Tiles\Square44x44Logo.png" Description="The Connect with Bernie app provides news and social media alerts related to the Bernie Sander's presidential campaign." BackgroundColor="#147FD7">
+        <uap:LockScreen Notification="badge" BadgeLogo="Assets\Tiles\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Tiles\Wide310x150Logo.png" ShortName="Connect with Bernie" Square310x310Logo="Assets\Tiles\Square310x310Logo.png" Square71x71Logo="Assets\Tiles\Square71x71Logo.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\Splash\Splash.png" BackgroundColor="#147FD7" />
