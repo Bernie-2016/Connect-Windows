@@ -46,8 +46,8 @@ namespace BernieApp.UWP.ViewModels
         {
             var alerts = await _client.GetActionsAsync();
             //workaround - as mobile webview control does not show fb-video posts correctly
-            //if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
-            //    alerts = alerts.Where(a => !a.BodyHTML.Contains("fb-video")).ToList();
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+                alerts = alerts.Where(a => !a.BodyHTML.Contains("fb-video")).ToList();
             _alerts.Clear();
             _alerts.AddRange(alerts);
         }
@@ -122,6 +122,7 @@ namespace BernieApp.UWP.ViewModels
                                 border-radius: 4px;
                                 overflow-x: hidden;
                                 overflow-y: hidden;
+                                overflow: hidden;
                             }}
 
                             * {{

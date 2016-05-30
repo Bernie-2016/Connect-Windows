@@ -162,7 +162,6 @@
   <ItemGroup>
     <Content Include="Assets\AppIcon.svg" />
     <Content Include="Assets\AppIconTransparent.svg" />
-    <Content Include="Assets\HTMLPage1.html" />
     <Content Include="Assets\Splash\Splash.scale-100.png" />
     <Content Include="Assets\Splash\Splash.scale-125.png" />
     <Content Include="Assets\Splash\Splash.scale-150.png" />

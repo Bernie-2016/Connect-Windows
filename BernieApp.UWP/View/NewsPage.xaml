@@ -19,12 +19,6 @@
     <Page.DataContext>
         <Binding Path="NewsViewModel" Source="{StaticResource Locator}"/>
     </Page.DataContext>
-    
-    <Page.Resources>
-        <ResourceDictionary>
-
-        </ResourceDictionary>
-    </Page.Resources>
 
     <Grid Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
 
@@ -35,9 +29,6 @@
 
         <t10:PageHeader x:Name="Header" Grid.Row="0" Frame="{x:Bind Frame}" Background="White"
                         Text="News">
-            <Interactivity:Interaction.Behaviors>
-                <Behaviors:EllipsisBehavior Visibility="Auto" />
-            </Interactivity:Interaction.Behaviors>
             <t10:PageHeader.SecondaryCommands>
                 <AppBarButton Icon="Refresh"  Label="Refresh" Command="{Binding Path=LoadCommand}"/>
             </t10:PageHeader.SecondaryCommands>
