@@ -173,6 +173,7 @@
                       ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       Loading="Newsfeed_Loading" Loaded="Newsfeed_Loaded"
                       >
+
             <Interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="SelectionChanged">
                     <Core:CallMethodAction MethodName="GoToDetailsPage" TargetObject="{Binding}"/>

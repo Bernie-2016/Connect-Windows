@@ -162,7 +162,16 @@
   <ItemGroup>
     <Content Include="Assets\AppIcon.svg" />
     <Content Include="Assets\AppIconTransparent.svg" />
-    <Content Include="Assets\HTMLPage1.html" />
+    <Content Include="Assets\Splash\Splash.scale-100.png" />
+    <Content Include="Assets\Splash\Splash.scale-125.png" />
+    <Content Include="Assets\Splash\Splash.scale-150.png" />
+    <Content Include="Assets\Splash\Splash.scale-200.png" />
+    <Content Include="Assets\Splash\Splash.scale-400.png" />
+    <Content Include="Assets\Tiles\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\Tiles\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\Tiles\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\Tiles\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\Tiles\BadgeLogo.scale-400.png" />
     <Content Include="Assets\Tiles\NewStoreLogo.scale-100.png" />
     <Content Include="Assets\Tiles\NewStoreLogo.scale-125.png" />
     <Content Include="Assets\Tiles\NewStoreLogo.scale-150.png" />
@@ -170,7 +179,16 @@
     <Content Include="Assets\Tiles\NewStoreLogo.scale-400.png" />
     <Content Include="Assets\OSSText.html" />
     <None Include="Package.StoreAssociation.xml" />
-    <Content Include="Assets\Splash\Splash.scale-200.png" />
+    <Content Include="Assets\Tiles\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Tiles\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Square310x310Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Square310x310Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Square310x310Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Square310x310Logo.scale-400.png" />
     <Content Include="Assets\Tiles\Square44x44Logo.scale-100.png" />
     <Content Include="Assets\Tiles\Square44x44Logo.scale-125.png" />
     <Content Include="Assets\Tiles\Square44x44Logo.scale-150.png" />
@@ -180,6 +198,16 @@
     <Content Include="Assets\Tiles\Square44x44Logo.targetsize-256.png" />
     <Content Include="Assets\Tiles\Square44x44Logo.targetsize-32.png" />
     <Content Include="Assets\Tiles\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Tiles\Square71x71Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Square71x71Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Square71x71Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Square71x71Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Square71x71Logo.scale-400.png" />
+    <Content Include="Assets\Tiles\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Tiles\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Tiles\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Tiles\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Tiles\Wide310x150Logo.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\Tiles\Square44x44Logo.scale-200.png" />
   </ItemGroup>

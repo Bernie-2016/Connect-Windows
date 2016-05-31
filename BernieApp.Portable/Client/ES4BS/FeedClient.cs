@@ -51,29 +51,37 @@ namespace BernieApp.Portable.Client.ES4BS
             };
             string content = JsonConvert.SerializeObject(queryString, Formatting.Indented);
 
-            var response = await WebRequest(content);
-
-            //Convert to JObject to bypass Response/HitData classes, then convert to List
-            var json = await response.Content.ReadAsStringAsync();
-            JObject httpResponse = JObject.Parse(json);
-            IList<JToken> httpResponseData = httpResponse["hits"]["hits"].Children().ToList();
-            var hits = JsonConvert.SerializeObject(httpResponseData);
-            JArray hitsArray = JArray.Parse(hits);
-            IList<FeedEntry> entries = hitsArray.Select(e => new FeedEntry
+            try
             {
-                Id = (string)e["_id"],
-                Title = (string)e["_source"]["title"],
-                ArticleType = (string)e["_source"]["article_type"],
-                Date = (DateTime)e["_source"]["timestamp_publish"],
-                Body = (string)e["_source"]["body"],
-                Excerpt = (string)e["_source"]["excerpt"],
-                Url = (string)e["_source"]["url"],
-                ImageUrl = (string)e["_source"]["image_url"],
-                Language = (string)e["_source"]["lang"]
+                var response = await WebRequest(content);
 
-            }).ToList();
+                //Convert to JObject to bypass Response/HitData classes, then convert to List
+                var json = await response.Content.ReadAsStringAsync();
+                JObject httpResponse = JObject.Parse(json);
+                IList<JToken> httpResponseData = httpResponse["hits"]["hits"].Children().ToList();
+                var hits = JsonConvert.SerializeObject(httpResponseData);
+                JArray hitsArray = JArray.Parse(hits);
+                IList<FeedEntry> entries = hitsArray.Select(e => new FeedEntry
+                {
+                    Id = (string)e["_id"],
+                    Title = (string)e["_source"]["title"],
+                    ArticleType = (string)e["_source"]["article_type"],
+                    Date = (DateTime)e["_source"]["timestamp_publish"],
+                    Body = (string)e["_source"]["body"],
+                    Excerpt = (string)e["_source"]["excerpt"],
+                    Url = (string)e["_source"]["url"],
+                    ImageUrl = (string)e["_source"]["image_url"],
+                    Language = (string)e["_source"]["lang"]
 
-            return entries as List<FeedEntry>;
+                }).ToList();
+
+                return entries as List<FeedEntry>;
+            }
+            catch (HttpRequestException e)
+            {
+                var error = e.Message;
+                throw;
+            }
         }
 
         public async Task<FeedEntry> GetAsync(string id)
@@ -94,30 +102,39 @@ namespace BernieApp.Portable.Client.ES4BS
             };
             string content = JsonConvert.SerializeObject(queryString, Formatting.Indented);
 
-            var response = await WebRequest(content);
-
-            //Convert to JObject to bypass Response/HitData classes, then convert to List
-            var json = await response.Content.ReadAsStringAsync();
-            JObject httpResponse = JObject.Parse(json);
-            IList<JToken> httpResponseData = httpResponse["hits"]["hits"].Children().ToList();
-            var hits = JsonConvert.SerializeObject(httpResponseData);
-            JArray hitsArray = JArray.Parse(hits); 
-            IList<FeedEntry> entries = hitsArray.Select(e => new FeedEntry
+            try
             {
-                Id = (string)e["_id"],
-                Title = (string)e["_source"]["title"],
-                ArticleType = (string)e["_source"]["article_type"],
-                Date = (DateTime)e["_source"]["timestamp_publish"],
-                Body = (string)e["_source"]["body"],
-                Excerpt = (string)e["_source"]["excerpt"],
-                Url = (string)e["_source"]["url"],
-                ImageUrl = (string)e["_source"]["image_url"],
-                Language = (string)e["_source"]["lang"]
+                var response = await WebRequest(content);
 
-            }).ToList();
-            FeedEntry entry = entries.FirstOrDefault();
+                //Convert to JObject to bypass Response/HitData classes, then convert to List
+                var json = await response.Content.ReadAsStringAsync();
+                JObject httpResponse = JObject.Parse(json);
+                IList<JToken> httpResponseData = httpResponse["hits"]["hits"].Children().ToList();
+                var hits = JsonConvert.SerializeObject(httpResponseData);
+                JArray hitsArray = JArray.Parse(hits);
+                IList<FeedEntry> entries = hitsArray.Select(e => new FeedEntry
+                {
+                    Id = (string)e["_id"],
+                    Title = (string)e["_source"]["title"],
+                    ArticleType = (string)e["_source"]["article_type"],
+                    Date = (DateTime)e["_source"]["timestamp_publish"],
+                    Body = (string)e["_source"]["body"],
+                    Excerpt = (string)e["_source"]["excerpt"],
+                    Url = (string)e["_source"]["url"],
+                    ImageUrl = (string)e["_source"]["image_url"],
+                    Language = (string)e["_source"]["lang"]
 
-            return entry;
+                }).ToList();
+
+                FeedEntry entry = entries.FirstOrDefault();
+
+                return entry;
+            }
+            catch (HttpRequestException e)
+            {
+                var error = e.Message;
+                throw;
+            }
         }
 
         private async Task<HttpResponseMessage> WebRequest(string queryString)
@@ -139,8 +156,7 @@ namespace BernieApp.Portable.Client.ES4BS
                 }
                 else
                 {
-                    //Do something
-                    throw new HttpRequestException();
+                    throw new HttpRequestException(response.StatusCode.ToString());                
                 }
             }
         }

@@ -36,29 +36,7 @@
                         <AdaptiveTrigger MinWindowWidth="552"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="textArea.Width" Value="552"/> <!-- Make this 600 once hamburger is fully removed-->
                         <Setter Target="textArea.HorizontalAlignment" Value="Center"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-            <VisualStateGroup x:Name="DeviceStates">
-                <VisualState x:Name="PhoneState">
-                    <VisualState.StateTriggers>
-                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Mobile"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!--<Setter Target="Header.(Grid.Row)" Value="2"/>-->
-                        <Setter Target="Header.BackButtonVisibility" Value="Visible"/>
-                        <!--<Setter Target="articleTypeBox.Margin" Value="48,0,0,0"/>-->
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="DesktopState">
-                    <VisualState.StateTriggers>
-                        <triggers:DeviceFamilyStateTrigger DeviceFamily="Desktop"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Header.Grid.Row" Value="0"/>
-                        <Setter Target="Header.BackButtonVisibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -81,18 +59,18 @@
                               Command="{Binding Path=OpenWebPageCommand}"/>
             </t10:PageHeader.PrimaryCommands>
         </t10:PageHeader>
-    
+
         <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="10,10,20,0" x:Name="textArea">
+            <StackPanel Margin="10,10,20,0" x:Name="textArea" MaxWidth="550">
 
                 <TextBlock Text="{x:Bind ViewModel.Item.ArticleType, Converter={StaticResource articleConverter}}" Style="{ThemeResource BaseTextBlockStyle}"
-                           Foreground="#FF147FD7" x:Name="articleTypeBox" />
-                <Image Margin="-10,10,-20,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                           Foreground="#FF147FD7" x:Name="articleTypeBox" Margin="0,0,0,5" />
+                <Image Margin="-10,0,-20,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Image.Source>
                         <BitmapImage UriSource="{x:Bind ViewModel.Item.ImageUrl}" />
                     </Image.Source>
                 </Image>
-                
+
                 <TextBlock Text="{x:Bind ViewModel.Item.Title}" Style="{ThemeResource HeaderTextBlockStyle}" 
                                 TextWrapping="WrapWholeWords" Margin="0,0,0,10"/>
                 <TextBlock Text="{x:Bind ViewModel.Item.Date}" Style="{ThemeResource BaseTextBlockStyle}"
@@ -101,6 +79,5 @@
                                 TextWrapping="WrapWholeWords" Margin="0,0,0,20"/>
             </StackPanel>
         </ScrollViewer>
-        
     </Grid>
 </Page>

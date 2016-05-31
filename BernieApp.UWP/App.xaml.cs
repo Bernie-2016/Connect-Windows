@@ -1,19 +1,14 @@
 ﻿using BernieApp.UWP.View;
-using Microsoft.QueryStringDotNET;
 using Newtonsoft.Json.Linq;
-using NotificationsExtensions.Toasts;
 using Parse;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Template10.Common;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Background;
 using Windows.Foundation.Metadata;
-using Windows.Networking.PushNotifications;
+using Windows.System.Profile;
 using Windows.UI;
-using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -43,15 +38,19 @@ namespace BernieApp.UWP
                 Window.Current.Content = new Shell(nav);
             }
 
-            SetStatusBar();
-
             //Push notification registration
-            await ParsePush.SubscribeAsync("");
-            await ParseInstallation.CurrentInstallation.SaveAsync();
-            await ParseAnalytics.TrackAppOpenedAsync(args as LaunchActivatedEventArgs);
+            await RegisterForPush(args);
 
-            //Ensure the current window is active
+            //Set statusbar color for Mobile
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile") { SetStatusBar(); }            
+
+            //Set Default Window Size on Desktop
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Desktop") { SetWindowSize(); }
+
+            //Activate the view
             Window.Current.Activate();
+
+            
         }
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
@@ -79,7 +78,7 @@ namespace BernieApp.UWP
             {
                 var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                 //uncomment to see welcome message again
-                localSettings.Values.Remove("lastRunDate");
+                //localSettings.Values.Remove("lastRunDate");
                 object value = localSettings.Values["lastRunDate"];
 
                 if (value == null)
@@ -132,6 +131,17 @@ namespace BernieApp.UWP
             }
         }
 
-        public void OnPushReceived() { }
+        public async Task RegisterForPush(IActivatedEventArgs args)
+        {
+            await ParsePush.SubscribeAsync("");
+            await ParseInstallation.CurrentInstallation.SaveAsync();
+            await ParseAnalytics.TrackAppOpenedAsync(args as LaunchActivatedEventArgs);
+        }
+
+        public void SetWindowSize()
+        {
+            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size { Width = 600, Height = 800 };
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+        }
     }
 }

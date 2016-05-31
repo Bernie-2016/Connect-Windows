@@ -111,8 +111,9 @@ namespace BernieApp.UWP.ViewModels
             string htmlDecoded = System.Net.WebUtility.HtmlDecode(bodyHTML);
             string removeNewline = Regex.Replace(htmlDecoded, @"\r\n?|\n", _newlineReplacement);
 
-            string htmlPage = String.Format(@"<html><head>
+            string htmlPage = string.Format(@"<html><head>
                         <meta name=viewport content='width=device-width, height=device-height, initial-scale=1' />
+                        <meta name='msapplication-tap-highlight' content='no' />
                         <style type='text/css'>
 
                             html {{
@@ -121,6 +122,11 @@ namespace BernieApp.UWP.ViewModels
                                 border-radius: 4px;
                                 overflow-x: hidden;
                                 overflow-y: hidden;
+                                overflow: hidden;
+                            }}
+
+                            * {{
+                                -ms-user-select: none;
                             }}
 
                             span {{
@@ -135,8 +141,9 @@ namespace BernieApp.UWP.ViewModels
                                 max-width: {3} !important;
                             }}
 
-                            iframe[src^='https://www.youtube.com'] {{
+                            iframe[title=""fb:video Facebook Social Plugin""] {{
                                 width: {0} !important;
+                                height: {1} !important;
                                 max-width: {3} !important;
                                 border-radius: 4px;
                                 overflow: hidden;
@@ -149,10 +156,9 @@ namespace BernieApp.UWP.ViewModels
                             .instagram-media {{
                                 max-width: {3} !important;
                             }}
-
                         </style>
-                    </head><body>{2}</body></html>",
-                "100%", "100%", removeNewline, "100%");
+                    </head><body><div id=""content"" onload=""h()"">{2}</div></body>
+                </html>", "100%", "100%", removeNewline, "100%");
             if (htmlPage.Contains("//platform.twitter.com/widgets.js"))
             {
                 htmlPage = Regex.Replace(htmlPage, "//platform.twitter.com/widgets.js", "https://platform.twitter.com/widgets.js");
