@@ -24,17 +24,6 @@ namespace BernieApp.UWP.View
         public NewsPage()
         {
             this.InitializeComponent();
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size { Width = 560, Height = 300 });
-            //this.NavigationCacheMode = NavigationCacheMode.Required;
-
-            //Messenger.Default.Register<NotificationMessage<string>>(this, (message) => 
-            //{
-            //    var m = message.Notification.ToString();
-            //    if (m == "Reset")
-            //    {
-            //        Newsfeed.SelectedItem = null;                  
-            //    }
-            //});
         }
     }
 }
