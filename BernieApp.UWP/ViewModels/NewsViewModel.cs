@@ -44,10 +44,8 @@ namespace BernieApp.UWP.ViewModels
 
         private async Task PopulateAsync()
         {
-            _isModal = true;
             var news = await _client.GetNewsAsync();
             _items.AddRange(news);
-            _isModal = false;
             //TODO: Need to check for null values and handle non 200 codes
         }
 

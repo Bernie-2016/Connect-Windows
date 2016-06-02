@@ -12,19 +12,17 @@ using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
+using BernieApp.Portable.Client;
 
 namespace BernieApp.UWP
 {
     sealed partial class App : BootStrapper
     {
 
-        private string APP_ID = "r1LFJIyrrqlqGpNtbax93vTeq4NSM1QVd3pwzT6O";
-        private string APP_KEY = "yJV5Mdu3xCNS9Mrvts1CM0MZfzY8TPov0CwZAtXv";
-
         public App()
         {
             this.InitializeComponent();            
-            ParseClient.Initialize(APP_ID, APP_KEY);
+            ParseClient.Initialize(Endpoints.APPID, Endpoints.NETKEY);
         }
 
         // runs even if restored from state
